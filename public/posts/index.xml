@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on spears.network</title>
+    <link>http://localhost:1313/posts/</link>
+    <description>Recent content in Posts on spears.network</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Jun 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Automated Profile Backup Using Windows Batch Scripting</title>
+      <link>http://localhost:1313/posts/automated-profile-backup-using-windows-batch-scripting/</link>
+      <pubDate>Tue, 04 Jun 2019 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/automated-profile-backup-using-windows-batch-scripting/</guid>
+      <description>Introduction In this article I am going to go over the process of creating a script on backing up a user profile in Windows. We will be backing up the users Desktop, Documents, Downloads, Favorites (located in IE, Chrome, and Firefox), Music, Pictures, Videos, and even a list of the software installed on the machine running the script to refer back to when setting up the new machine. Utilities being used: echo off, color, cls, wmic, dir, robocopy, xcopy, and local variables (%backupdrive%, %profile%, etc.</description>
+    </item>
+    <item>
+      <title>Free Open Source Desktop Capture Tool - OBS Studio (How-To)</title>
+      <link>http://localhost:1313/posts/free-open-source-desktop-capture-tool---obs-studio-how-to/</link>
+      <pubDate>Sat, 08 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/free-open-source-desktop-capture-tool---obs-studio-how-to/</guid>
+      <description>OBS Studio is free and open source, meaning there are no watermarks, no trial periods and it&amp;rsquo;ll never ask you for money! It is pretty much the only capture utility you will ever need. https://obsproject.com/</description>
+    </item>
+    <item>
+      <title>Search Engines with Privacy!</title>
+      <link>http://localhost:1313/posts/search-engines-with-privacy/</link>
+      <pubDate>Tue, 04 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/search-engines-with-privacy/</guid>
+      <description>Discovering what someone is searching for on the web can show a lot of information about them&amp;hellip; Whether it be about their medical issues, financial situation, personal issues, or anything that comes to their mind. It will be searched, and in most cases it will be documented by someone. There are company&amp;rsquo;s out there that are making insane amounts of revenue from data packages that were collected on people. For example: Google has stated that they track things that you type into the search bar even if you don&amp;rsquo;t press &amp;ldquo;Enter.</description>
+    </item>
+    <item>
+      <title>Free and open-source software that you should be using!</title>
+      <link>http://localhost:1313/posts/free-and-open-source-software-you-should-be-using/</link>
+      <pubDate>Tue, 28 Aug 2018 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/free-and-open-source-software-you-should-be-using/</guid>
+      <description>Free and open-source software can offer the best solutions for desktop applications we need. They should be promoted more often than they are. However, big companies dominate much of this space by default by either installing software on your computer or using certain methods of directing you to their paid service. Unfortunately many companies are going to paid monthly models that trap you into spending lots over time, and going to free or open-source software can offer better solutions anyway.</description>
+    </item>
+  </channel>
+</rss>
