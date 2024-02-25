@@ -65,13 +65,9 @@
     </div>
 
     <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function() {
-        changeThemeModeClick(1); // Set dark theme as default upon page load
-      });
-    
       var dayToggle = document.querySelector("#day-switch");
       var nightToggle = document.querySelector("#night-switch");
-    
+
       dayToggle.addEventListener("click", () => changeThemeModeClick(0));
       nightToggle.addEventListener("click", () => changeThemeModeClick(1));
     </script>
