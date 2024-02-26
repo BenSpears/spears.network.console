@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "spears.network"
 title = "spears.network"
 theme = "hugo-theme-console-dark"
 languageCode = "en-us"
