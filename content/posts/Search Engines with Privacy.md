@@ -1,6 +1,6 @@
 ---
 author: "Ben Spears"
-date: 2018-09-04
+date: 2018-09-12
 title: Search Engines with Privacy!
 featuredImg: ""
 
