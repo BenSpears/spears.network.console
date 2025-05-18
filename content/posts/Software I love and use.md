@@ -1,7 +1,7 @@
 ---
 author: "Ben Spears"
 date: 2025-05-18
-title: Software I Love and Use!
+title: Software I Love and Use
 ---
 
 
