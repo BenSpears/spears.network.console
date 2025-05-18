@@ -32,6 +32,8 @@ Many companies are shifting towards subscription-based models, forcing users int
 ### Photoshop Replacement:
 - **GIMP:** GIMP provides powerful image editing tools comparable to Photoshop, empowering you to create stunning graphics and manipulate images with ease.
 
+- **DarkTable:** Adobe Lightroom replacement.
+
 ### Torrent Program:
 - **qBittorrent:** It's fast, lightweight, and has many features built-in. 
 

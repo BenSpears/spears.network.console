@@ -16,11 +16,12 @@ Basically, using a VPN is like switching from one internet company to another. Y
 
 But VPNs aren't useless either. They can help you do things like:
 
-- **Get around location blocks:** Access websites that are off-limits in your area.
-- **Hide your real internet address:** So sites can't ban you.
-- **Keep your file-sharing activities private:** Especially if you're worried about copyright laws.
 - **Stay safe on untrusted local networks (public Wi-Fi, ISP):** Prevent anoyone from seeing your network traffic on sketchy networks.
+- **Get around location blocks:** Access websites that are off-limits in your area.
+- **Hide your real internet address:** So sites can't ban or track you.
+- **Keep your file-sharing activities private:** Especially if you're worried about copyright laws.
 
-If you're thinking about using a VPN, I highly suggest checking out Mullvad. It's a solid choice in the VPN world. Just remember, VPNs don't make you totally anonymous. They don't make you invisible online. So, use them wisely and don't fall for flashy ads selling the latest VPN craze. Instead, pick one that fits your needs and remember when it's best to use it.
 
-VPN Honorable mentions: ProtonVPN, Private Internet Access (PIA), iVPN
+If you're thinking about using a VPN, I highly suggest checking out Mullvad. It's a very solid choice. Just remember, VPNs don't make you totally anonymous. They don't make you invisible online. So, use them wisely and don't fall for flashy ads selling the latest VPN craze. Instead, pick one that fits your needs and remember when it's best to use it.
+
+VPN Honorable Mention: ProtonVPN
