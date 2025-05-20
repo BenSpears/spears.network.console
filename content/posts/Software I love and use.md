@@ -16,6 +16,8 @@ title: Software I Love and Use
 # Desktop:
 [LibreWolf](https://librewolf.net)
 
+[Vivaldi](https://vivaldi.com)
+
 [VSCodium](https://vscodium.com)
 
 [LocalSend](https://localsend.org)
