@@ -6,16 +6,16 @@ title: Software I Love and Use
 
 
 ## 🛠 Services
-- [The Proton Suite](https://proton.me)  
-- [Brave Search](https://search.brave.com)  
+[The Proton Suite](https://proton.me)  
+[Brave Search](https://search.brave.com)  
 
 ## 🖥 Desktop
 
 **[Arch Linux](https://archlinux.org/download)**  
-<sub>[KDE Plasma](https://kde.org/plasma-desktop) • [KDE Connect](https://kdeconnect.kde.org) • [Zen Kernel](https://archlinux.org/packages/extra/x86_64/linux-zen/)</sub>
+<span style="font-size:0.85em;">[KDE Plasma](https://kde.org/plasma-desktop) • [KDE Connect](https://kdeconnect.kde.org) • [Zen Kernel](https://archlinux.org/packages/extra/x86_64/linux-zen/)</span>
 
 **[Debian](https://www.debian.org)**  
-<sub>[Xenmod Kernel](https://www.xanmod.org/)</sub>
+<span style="font-size:0.85em;">[Xenmod Kernel](https://www.xanmod.org/)</span>
 
 **[Brave Browser](https://brave.com)**  
 **[LibreWolf](https://librewolf.net)**  
