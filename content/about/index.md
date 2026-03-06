@@ -1,8 +1,14 @@
 +++
 title = "About"
-date = "2023-03-17"
+date = "2025-10-17"
 +++
 
 ![img](https://spears.network/photos/us.jpg)
 
-After the realization that I would not be joining the military, I knew God had another plan in store for me. I had spent years building computers for family/friends, taking computer hardware/software classes in high school, and being the go-to tech guru. I knew the next step was to continue my education in Information Technology. I am a motivated self-starter with experience in Customer Relations and Computer Systems, and I have the proven ability to work well in difficult situations while providing a high level of customer service to clients. I enjoy learning and working with computers, and my overall GPA of 3.9 at Nashville State reflects my enthusiasm and work ethic. I am hardworking, dependable, and honest. 
+I am an Information Technology Manager with experience leading infrastructure, systems administration, and IT operations within healthcare and manufacturing environments. I currently lead the in-house IT team at Dickson Medical Associates, where we manage the core infrastructure that supports business-critical clinical and operational systems.
+
+My background includes systems administration, virtualization, networking, and security across technologies such as Nutanix, enterprise firewall platforms, and modern networking systems. Prior to this role, I served as an IT Systems Administrator at Tennsco, supporting multi-site operations and maintaining critical infrastructure across nine locations.
+
+I began my career in public sector IT with the Tennessee Department of Transportation, providing large-scale technical support and infrastructure deployments across statewide facilities.
+
+I enjoy building reliable systems, improving operational efficiency, and leading teams that deliver technology solutions that directly support business success. 

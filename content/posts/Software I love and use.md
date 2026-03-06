@@ -10,10 +10,16 @@ title: Software I Love and Use
 
 [Bitwarden](https://bitwarden.com)
 
-[DuckDuckGo AI](https://duck.ai)
+[Brave Search](https://search.brave.com)
 
 
 # Desktop:
+[Arch](https://aur.archlinux.org)
+
+[Brave Browser](https://brave.com)
+
+[KDE Connect](https://kdeconnect.kde.org)
+
 [LibreWolf](https://librewolf.net)
 
 [Vivaldi](https://vivaldi.com)
