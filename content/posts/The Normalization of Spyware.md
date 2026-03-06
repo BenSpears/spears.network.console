@@ -7,11 +7,11 @@ title: The Normalization of Spyware
 
 # Protecting Your Privacy in a Digital World
 
-In today’s digital world, our privacy is under threat more than ever. Spyware—often hidden inside popular software—is becoming normalized. Most people don’t read terms and conditions, and even fewer check privacy policies to see how their data is used, analyzed, or stored.  
+In today’s digital world, our privacy is under threat more than ever. Spyware — often hidden inside popular software — is becoming normalized. Most people don’t read terms and conditions, and even fewer check privacy policies to see how their data is used, analyzed, or stored.  
 
-Take Windows, for example. Every update adds new features, which often means more data collection. Microsoft says it’s for system improvement, but it frequently goes further than most realize—collecting everything from basic diagnostics to detailed monitoring of your digital activity. Opting out isn’t really an option, and the system contacts thousands of websites for analytics behind the scenes. Tools like **O&O Shutup** can reduce some of this, but you have to reapply changes after every update because Windows reverses them.
+Take Windows, for example. Every update adds new features, which often means more data collection. Microsoft says it’s for system improvement, but it frequently goes further than most realize — collecting everything from basic diagnostics to detailed monitoring of your digital activity. New features like **Microsoft Recall** take this even further, literally capturing screenshots of your display while tracking usage patterns and device activity across applications. Opting out isn’t straightforward, and these features run quietly in the background.  
 
-It’s not just Windows. Many apps—from email clients to media players—track us quietly, raising serious questions about how much control we really have over our own data.
+It’s not just Windows. Many apps — from email clients to media players — track us quietly, raising serious questions about how much control we really have over our own data.
 
 ---
 
@@ -28,6 +28,6 @@ I’ve been using Linux for over 15 years, and recently it’s become fully viab
 
 ## Taking Control
 
-We need to be aware of what’s happening behind the scenes in our software—on phones, computers, and websites. Supporting alternatives like Linux and advocating for stronger privacy rules are steps we can take to protect ourselves.  
+We need to be aware of what’s happening behind the scenes in our software — on phones, computers, and websites. Supporting alternatives like Linux and advocating for stronger privacy rules are steps we can take to protect ourselves.  
 
-At the end of the day, **it’s up to us to demand transparency and accountability**. If you don’t agree with a company’s privacy policies or how they handle your data—don’t use their software. Protect your privacy, stay informed, and choose tools that respect you.
+At the end of the day, **it’s up to us to demand transparency and accountability**. If you don’t agree with a company’s privacy policies or how they handle your data — don’t use their software. Protect your privacy, stay informed, and choose tools that respect you.
