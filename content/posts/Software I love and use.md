@@ -4,18 +4,18 @@ date: 2025-05-18
 title: Software I Love and Use
 ---
 
-
 ## 🛠 Services
-[The Proton Suite](https://proton.me)  
-[Brave Search](https://search.brave.com)  
+**[The Proton Suite](https://proton.me)**  
+**[Brave Search](https://search.brave.com)**  
 
 ## 🖥 Desktop
-
 **[Arch Linux](https://archlinux.org/download)**  
-<span style="font-size:0.85em;">[KDE Plasma](https://kde.org/plasma-desktop) • [KDE Connect](https://kdeconnect.kde.org) • [Zen Kernel](https://archlinux.org/packages/extra/x86_64/linux-zen/)</span>
+  - [KDE Plasma](https://kde.org/plasma-desktop)  
+  - [KDE Connect](https://kdeconnect.kde.org)  
+  - [Zen Kernel](https://archlinux.org/packages/extra/x86_64/linux-zen/)
 
 **[Debian](https://www.debian.org)**  
-<span style="font-size:0.85em;">[Xenmod Kernel](https://www.xanmod.org/)</span>
+  - [Xenmod Kernel](https://www.xanmod.org/)
 
 **[Brave Browser](https://brave.com)**  
 **[LibreWolf](https://librewolf.net)**  
@@ -23,7 +23,6 @@ title: Software I Love and Use
 **[LocalSend](https://localsend.org)**  
 
 ## 📱 Mobile
-
 **[GrapheneOS](https://grapheneos.org)**  
 **[Signal](https://signal.org)**  
 **[FUTO Keyboard](https://keyboard.futo.org)**  
