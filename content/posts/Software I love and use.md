@@ -8,31 +8,24 @@ title: Software I Love and Use
 # Services:
 [The Proton Suite](https://proton.me)
 
-[Bitwarden](https://bitwarden.com)
-
 [Brave Search](https://search.brave.com)
 
 
 # Desktop:
-[Arch](https://aur.archlinux.org)
+[Arch](https://archlinux.org/download)
+KDE Plasma, KDE Connect, Zen Kernel
 
-[Brave Browser](https://brave.com)
+[Debian](https://www.debian.org)
 
 [KDE Connect](https://kdeconnect.kde.org)
 
-[LibreWolf](https://librewolf.net)
+[Brave Browser](https://brave.com)
 
-[Vivaldi](https://vivaldi.com)
+[LibreWolf](https://librewolf.net)
 
 [VSCodium](https://vscodium.com)
 
 [LocalSend](https://localsend.org)
-
-[Debian](https://www.debian.org)
-
-[Debian Kernel](https://xanmod.org)
-
-[Home Theater PC](https://bazzite.gg)
 
 
 # Mobile:
