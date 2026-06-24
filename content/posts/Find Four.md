@@ -6,46 +6,28 @@ title: Find Four - A quiet little game about finding four-leaf clovers on iOS.
 
 # Find Four Support
 
-Welcome to **Find Four** 🌿
+**Find Four** is a quiet little game about finding four-leaf clovers. Soft music, gentle scenes, and the simple calm of looking closely. Breathe in, breathe out.
 
-*A quiet little game about finding four-leaf clovers.*
+## Contact
 
-Just soft music, gentle scenes, and the simple calm of looking closely.
+**Support Email:** [bspears-dev.handiwork967@passmail.com](mailto:bspears-dev.handiwork967@passmail.com)
 
-Breathe in, breathe out.
+## FAQ
 
-## Need Help?
+**How do I play?**
+Explore each scene and find hidden four-leaf clovers. There are no timers, scores, or penalties.
 
-If you're experiencing issues with Find Four, have questions, or would like to share feedback, please contact:
+**Is my progress saved?**
+Yes, progress is saved automatically on your device.
 
-**Email:** [bspears-dev.handiwork967@passmail.com](mailto:bspears-dev.handiwork967@passmail.com)
+**The game isn't working correctly.**
+Try restarting the app. If the issue persists, email support with your device model and a brief description of the problem.
 
-We do our best to respond as quickly as possible.
-
-## Frequently Asked Questions
-
-### How do I play?
-
-Simply explore each scene and search for hidden four-leaf clovers. There are no timers, no pressure, and no wrong way to play.
-
-### Is my progress saved?
-
-Your progress is automatically saved on your device.
-
-### The game isn't working correctly.
-
-Try closing and reopening the app. If the issue continues, please email support with a description of the problem and your device model.
-
-### Can I suggest new features?
-
-Absolutely. We'd love to hear your ideas and feedback.
+**Can I suggest features or improvements?**
+Absolutely. Feedback and ideas are always welcome.
 
 ## Privacy
 
-Find Four is designed to be a peaceful experience. The app does not collect personal information beyond what is necessary for basic app functionality.
+Find Four is designed to be a simple, relaxing experience. The app does not collect personal information beyond what is necessary for basic functionality.
 
-## Thank You
-
-Thank you for playing Find Four.
-
-May you find a moment of calm, one clover at a time. 🍀
+Thank you for playing **Find Four**. 🍀
