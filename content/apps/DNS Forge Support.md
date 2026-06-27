@@ -8,7 +8,7 @@ DNS Forge helps you set up encrypted, private DNS (DoH / DoT), scope it to
 specific networks, import and export configuration profiles, and verify it all
 with built-in diagnostics.
 
-Need help? Email **bspears-dev.handiwork967@passmail.com** — see [Contact](#contact)
+Need help? Email **bspears-dev.handiwork967@passmail.com**
 below for what to include.
 
 ## Getting started
@@ -69,7 +69,7 @@ on every network.
 ### Where does the IP location/organization info come from?
 The diagnostics enrich IP addresses using **ipwho.is**, and detect your resolver
 using public "whoami" services. These are only contacted when you actively run a
-diagnostic. See the [Privacy Policy]({{< ref "privacy.md" >}}).
+diagnostic.
 
 ## Troubleshooting
 
