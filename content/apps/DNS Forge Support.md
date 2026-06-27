@@ -2,8 +2,6 @@
 title: "DNS Forge — Support"
 description: "Help, FAQ, and contact for the DNS Forge iOS app."
 date: 2026-06-27
-lastmod: 2026-06-27
-draft: false
 ---
 
 DNS Forge helps you set up encrypted, private DNS (DoH / DoT), scope it to
@@ -89,8 +87,7 @@ diagnostic. See the [Privacy Policy]({{< ref "privacy.md" >}}).
 ## Privacy
 
 DNS Forge has no accounts, no analytics, and no tracking; your configuration
-stays on your device. Full details are in the
-**[Privacy Policy]({{< ref "privacy.md" >}})**.
+stays on your device. 
 
 ## Contact
 

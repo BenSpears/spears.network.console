@@ -2,8 +2,6 @@
 title: "DNS Forge — Privacy Policy"
 description: "Privacy policy for the DNS Forge iOS app."
 date: 2026-06-27
-lastmod: 2026-06-27
-draft: false
 ---
 
 _Last updated: June 27, 2026_
