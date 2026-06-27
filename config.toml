@@ -21,8 +21,8 @@ languageCode = "en-us"
   url = "posts/"
 
   [[params.navlinks]]
-  name = "Apps/"
-  url = "Apps/"
+  name = "apps/"
+  url = "apps/"
  
   [[params.navlinks]]
   name = "links/"
