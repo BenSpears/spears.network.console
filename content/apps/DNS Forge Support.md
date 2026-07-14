@@ -1,5 +1,5 @@
 ---
-title: "DNS Forge — Support"
+title: "DNS Forge"
 description: "Help, FAQ, and contact for the DNS Forge iOS app."
 date: 2026-06-27
 ---

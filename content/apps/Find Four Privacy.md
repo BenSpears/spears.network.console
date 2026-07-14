@@ -1,5 +1,5 @@
 ---
-title: "Find Four - Privacy Policy"
+title: "Find Four"
 description: "Privacy policy for the Find Four iOS app."
 date: 2026-06-16
 ---

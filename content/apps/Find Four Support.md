@@ -1,7 +1,7 @@
 ---
-author: "Ben Spears"
+title: "Find Four"
+description: "A quiet little game about finding four-leaf clovers on iOS."
 date: 2026-06-24
-title: Find Four - A quiet little game about finding four-leaf clovers on iOS.
 ---
 
 # Find Four Support

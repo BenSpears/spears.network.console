@@ -1,5 +1,5 @@
 ---
-title: "DNS Forge — Privacy Policy"
+title: "DNS Forge"
 description: "Privacy policy for the DNS Forge iOS app."
 date: 2026-06-27
 ---

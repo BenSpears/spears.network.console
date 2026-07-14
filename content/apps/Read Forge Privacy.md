@@ -1,6 +1,6 @@
 ---
-title: "Read Forge — Privacy Policy"
-description: "Read Forge collects no data. Everything you read stays on your device."
+title: "Read Forge"
+description: "Privacy Policy"
 date: 2026-07-13
 ---
 
