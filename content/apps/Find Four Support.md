@@ -1,10 +1,9 @@
 ---
-title: "Find Four"
+title: "Find Four - Support"
 description: "A quiet little game about finding four-leaf clovers on iOS."
 date: 2026-06-24
 ---
 
-# Find Four Support
 
 **Find Four** is a quiet little game about finding four-leaf clovers. Soft music, gentle scenes, and the simple calm of looking closely. Breathe in, breathe out.
 

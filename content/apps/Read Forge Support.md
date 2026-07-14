@@ -1,9 +1,9 @@
 ---
+title: "Read Forge - Support"
 description: "Support and frequently asked questions for Read Forge, the speed-reading app for iPhone and iPad."
 date: 2026-07-13
 ---
 
-# Read Forge Support
 
 ## Contact
 

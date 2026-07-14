@@ -1,10 +1,8 @@
 ---
-title: "DNS Forge"
+title: "DNS Forge - Privacy"
 description: "Privacy policy for the DNS Forge iOS app."
 date: 2026-06-27
 ---
-
-_Last updated: June 27, 2026_
 
 DNS Forge ("the app") is designed to be private by default. It has no user
 accounts, no analytics, no advertising, and no tracking. The developer operates

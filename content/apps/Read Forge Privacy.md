@@ -1,12 +1,8 @@
 ---
-title: "Read Forge"
+title: "Read Forge - Privacy"
 description: "Privacy Policy"
 date: 2026-07-13
 ---
-
-# Read Forge Privacy Policy
-
-*Effective July 13, 2026*
 
 Read Forge is built to read text, not to collect it. The short version:
 **Read Forge collects no data about you. None leaves your device to me or to

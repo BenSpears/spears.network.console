@@ -1,12 +1,8 @@
 ---
-title: "Find Four"
+title: "Find Four - Privacy"
 description: "Privacy policy for the Find Four iOS app."
 date: 2026-06-16
 ---
-
-# Privacy Policy for Find Four
-
-_Last updated: June 16, 2026_
 
 Thank you for playing **Find Four**. Your privacy matters, and this app is
 built to respect it. This policy explains what information the app does and
