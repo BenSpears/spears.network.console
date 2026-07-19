@@ -12,7 +12,7 @@ NoteCached is a private notes app. This policy explains what data is collected, 
 
 **Nothing.**
 
-NoteCached has no account system, no login, no analytics, and no telemetry. No data is ever transmitted to us or any third party.
+NoteCached has no account system, no login, no analytics, and no telemetry. No data is ever transmitted to us or any third party. NoteCached cannot comply with legal requests for your data because we never have access to it.
 
 ---
 
