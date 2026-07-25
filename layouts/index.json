@@ -1,0 +1,11 @@
+{{- $idx := slice -}}
+{{- range .Site.RegularPages -}}
+  {{- $date := cond (eq .Section "posts") (.Date.Format "Jan. 2, 2006") "" -}}
+  {{- $idx = $idx | append (dict
+      "title" .Title
+      "url" .RelPermalink
+      "section" .Section
+      "date" $date
+      "text" .Plain) -}}
+{{- end -}}
+{{- $idx | jsonify -}}

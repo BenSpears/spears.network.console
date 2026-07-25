@@ -48,7 +48,7 @@
   <a class="backlink" href="/{{ $s }}/">← cd ../{{ $s }}</a>
   <article class="prose" style="margin-top:14px">
     <h1>{{ .Title }}</h1>
-    <div class="meta">{{ if eq $s "posts" }}{{ .Date.Format "Jan. 2, 2006" }}<span class="sep">·</span>{{ end }}~/{{ $s }}/{{ path.Base .RelPermalink }}</div>
+    <div class="meta">{{ if eq $s "posts" }}{{ .Date.Format "Jan. 2, 2006" }}<span class="sep">·</span>{{ .ReadingTime }} min read<span class="sep">·</span>{{ end }}~/{{ $s }}/{{ path.Base .RelPermalink }}</div>
     {{ .Content }}
   </article>
   <div style="margin-top:26px"><a class="backlink" href="/{{ $s }}/">← back to {{ $s }}</a></div>

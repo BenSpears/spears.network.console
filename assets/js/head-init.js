@@ -9,7 +9,7 @@
   if (/mac|iphone|ipad/i.test(p)) d.classList.add("mac");
   try {
     if (localStorage.getItem("sn_full") === "1") d.classList.add("full");
-    if (localStorage.getItem("sn_termhidden") === "1") d.classList.add("term-hidden");
+    if (localStorage.getItem("sn_termhidden") !== "0") d.classList.add("term-hidden");
     if (localStorage.getItem("sn_mode") === "light") d.classList.add("light");
   } catch (e) {}
 })();

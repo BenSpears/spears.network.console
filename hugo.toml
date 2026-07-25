@@ -34,6 +34,16 @@ disableKinds = ["taxonomy", "term"]
 [markup]
   [markup.goldmark.renderer]
     unsafe = true          # allow raw HTML / embeds in content
+  [markup.highlight]
+    noClasses = false      # emit CSS classes so the mono-dark theme in style.css applies
+    codeFences = true
+    guessSyntax = true
+    lineNos = false
+    tabWidth = 2
+
+# home also outputs /index.json — the client-side search index for `grep`
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 [services]
   [services.rss]

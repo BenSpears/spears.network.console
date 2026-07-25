@@ -4,9 +4,56 @@
 <meta name="robots" content="all,follow">
 <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
 <meta name="description" content="{{ .Site.Params.description }}">
+{{ $desc := cond (ne (string .Description) "") (string .Description) .Site.Params.description }}
 <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ .Permalink }}">
+{{/* ---- generated social preview image (page title drawn on the branded card) ---- */}}
+{{ $ogtitle := cond .IsHome "IT Manager — Systems & Infrastructure" .Title }}
+{{ $ogbase := resources.Get "og/base.png" }}
+{{ $ogfont := resources.Get "og/DejaVuSansMono-Bold.ttf" }}
+{{ if and $ogbase $ogfont }}
+  {{ $lines := slice }}
+  {{ $cur := "" }}
+  {{ range (split $ogtitle " ") }}
+    {{ $try := cond (eq $cur "") . (printf "%s %s" $cur .) }}
+    {{ if gt (len $try) 24 }}{{ $lines = $lines | append $cur }}{{ $cur = . }}{{ else }}{{ $cur = $try }}{{ end }}
+  {{ end }}
+  {{ if ne $cur "" }}{{ $lines = $lines | append $cur }}{{ end }}
+  {{ $og := $ogbase.Filter (images.Text (delimit $lines "\n") (dict "x" 76 "y" 206 "size" 56 "linespacing" 14 "color" "#e7eef5" "font" $ogfont)) }}
+  <meta property="og:image" content="{{ $og.Permalink }}">
+  <meta property="og:image:width" content="{{ $og.Width }}">
+  <meta property="og:image:height" content="{{ $og.Height }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="{{ $og.Permalink }}">
+{{ end }}
+<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:description" content="{{ $desc }}">
+{{/* ---- structured data (JSON-LD) ---- */}}
+{{ if .IsHome }}
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "Person"
+  "name" .Site.Params.author
+  "url" .Site.BaseURL
+  "jobTitle" "IT Manager"
+  "description" .Site.Params.description
+  "sameAs" (slice "https://www.linkedin.com/in/benjamin-spears-967927152")
+  }}</script>
+{{ else if eq .Section "posts" }}
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "BlogPosting"
+  "headline" .Title
+  "datePublished" (.Date.Format "2006-01-02")
+  "dateModified" (.Lastmod.Format "2006-01-02")
+  "url" .Permalink
+  "mainEntityOfPage" .Permalink
+  "author" (dict "@type" "Person" "name" .Site.Params.author "url" .Site.BaseURL)
+  "publisher" (dict "@type" "Person" "name" .Site.Params.author)
+  }}</script>
+{{ end }}
 <link rel="icon" href="https://icons.iconarchive.com/icons/alecive/flatwoken/128/Apps-Terminal-icon.png">
 {{ $css := resources.Get "css/style.css" | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">

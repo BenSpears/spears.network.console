@@ -213,6 +213,7 @@ html.term-off .term-off-note::before { content: "○ "; color: var(--red); }
 #console .out a { color: var(--accent-2); }
 #console .out .k { color: var(--accent); }
 #console .out .err { color: var(--red); }
+#console .out .muted { color: var(--fg-faint); }
 
 /* inline neofetch (from the `neofetch` command) */
 #console .nf { display: flex; gap: 20px; flex-wrap: wrap; align-items: center; margin: 2px 0 8px; }
@@ -342,6 +343,30 @@ article, .prose { font-size: 14.5px; }
 .prose code { background: var(--panel-2); border: 1px solid var(--border); padding: 1px 6px; border-radius: 5px; font-size: 12.5px; color: var(--accent-2); }
 .prose pre { background: var(--panel-2); border: 1px solid var(--border); padding: 14px 16px; border-radius: 8px; overflow-x: auto; font-size: 12.5px; }
 .prose pre code { background: none; border: none; padding: 0; color: var(--fg); }
+.prose pre.has-copy { position: relative; }
+.copy-btn {
+  position: absolute; top: 8px; right: 8px; background: var(--panel);
+  border: 1px solid var(--border-2); color: var(--fg-dim); font-family: var(--mono);
+  font-size: 11px; padding: 3px 9px; border-radius: 6px; cursor: pointer; opacity: 0; transition: .15s ease;
+}
+.prose pre.has-copy:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
+.copy-btn:hover { color: var(--accent); border-color: var(--accent); }
+
+/* syntax highlighting (Chroma) — mono-dark */
+.prose .chroma { background: none; color: var(--fg); }
+.prose .chroma .c, .prose .chroma .ch, .prose .chroma .cm, .prose .chroma .c1, .prose .chroma .cs, .prose .chroma .cp, .prose .chroma .cpf { color: var(--fg-faint); font-style: italic; }
+.prose .chroma .k, .prose .chroma .kc, .prose .chroma .kd, .prose .chroma .kn, .prose .chroma .kp, .prose .chroma .kr, .prose .chroma .kt { color: var(--accent-3); }
+.prose .chroma .s, .prose .chroma .sa, .prose .chroma .sb, .prose .chroma .sc, .prose .chroma .dl, .prose .chroma .sd, .prose .chroma .s2, .prose .chroma .se, .prose .chroma .sh, .prose .chroma .si, .prose .chroma .sx, .prose .chroma .sr, .prose .chroma .s1, .prose .chroma .ss { color: var(--accent); }
+.prose .chroma .m, .prose .chroma .mb, .prose .chroma .mf, .prose .chroma .mh, .prose .chroma .mi, .prose .chroma .il, .prose .chroma .mo { color: var(--accent-2); }
+.prose .chroma .na, .prose .chroma .nf, .prose .chroma .nx { color: var(--accent-2); }
+.prose .chroma .nb, .prose .chroma .bp, .prose .chroma .nn { color: var(--accent); }
+.prose .chroma .nt { color: var(--accent-3); }
+.prose .chroma .nc, .prose .chroma .nd, .prose .chroma .ne, .prose .chroma .nl { color: var(--warn); }
+.prose .chroma .o, .prose .chroma .ow, .prose .chroma .p { color: var(--fg-dim); }
+.prose .chroma .nv, .prose .chroma .vc, .prose .chroma .vg, .prose .chroma .vi { color: var(--fg); }
+.prose .chroma .gd { color: var(--red); }
+.prose .chroma .gi { color: var(--accent); }
+.prose .chroma .err { color: var(--red); }
 .prose blockquote { margin: 16px 0; padding: 6px 16px; border-left: 3px solid var(--accent); background: rgba(94,242,160,.04); color: var(--fg-dim); }
 .prose img, .cover { max-width: 100%; border-radius: 10px; border: 1px solid var(--border); margin: 16px 0; display: block; }
 .prose hr { border: none; border-top: 1px solid var(--border); margin: 26px 0; }

@@ -91,6 +91,7 @@
         "  cd &lt;dir&gt;          change section  (about · posts · apps · links · ~)\n" +
         "  cat &lt;post&gt;        open a post by name or number\n" +
         "  open &lt;app&gt;        open an app privacy/support page\n" +
+        "  grep &lt;term&gt;       search posts &amp; pages  ( / )\n" +
         "  about             who is Benjamin Spears\n" +
         "  whoami            current session identity\n" +
         "  neofetch          system + profile card\n" +
@@ -138,6 +139,26 @@
       if (t) go(t); else err("cat: " + a[0] + ": not found");
     },
     open: function (a) { return COMMANDS.cat(a); },
+    grep: function (a) {
+      var q = a.join(" ").trim();
+      if (!q) return err("grep: usage — grep &lt;term&gt;");
+      print('searching for <span class="k">' + esc(q) + "</span>…");
+      loadSearch(function (idx, error) {
+        if (error || !idx) return err("grep: search index unavailable");
+        var ql = q.toLowerCase();
+        var hits = idx.filter(function (it) {
+          return ((it.title || "") + " " + (it.text || "")).toLowerCase().indexOf(ql) > -1;
+        });
+        if (!hits.length) return print('grep: no matches for <span class="k">' + esc(q) + "</span>");
+        print('<span class="k">' + hits.length + " match" + (hits.length > 1 ? "es" : "") +
+          '</span> for "' + esc(q) + '"\n' +
+          hits.slice(0, 12).map(function (it) {
+            return '  <a href="' + it.url + '">' + esc(it.title) + "</a> " +
+              '<span class="muted">' + esc(it.section || "") + (it.date ? " · " + esc(it.date) : "") + "</span>\n" +
+              '    <span class="muted">' + snippet(it.text || "", ql) + "</span>";
+          }).join("\n"));
+      });
+    },
     about: function () { go("/about/"); },
     posts: function () { go("/posts/"); },
     apps: function () { go("/apps/"); },
@@ -188,7 +209,31 @@
   };
   var ALIASES = { ll: "ls", dir: "ls", man: "help", "?": "help", quit: "exit", email: "contact",
     fingerprint: "privacy", whatyouknow: "privacy", cv: "resume", restart: "reboot",
-    poweroff: "shutdown", halt: "shutdown" };
+    poweroff: "shutdown", halt: "shutdown", search: "grep", find: "grep" };
+
+  // ---- client-side search (index generated at /index.json) ----------------
+  var SEARCH_IDX = null, SEARCH_LOADING = false, SEARCH_CBS = [];
+  function loadSearch(cb) {
+    if (SEARCH_IDX) return cb(SEARCH_IDX);
+    SEARCH_CBS.push(cb);
+    if (SEARCH_LOADING) return;
+    SEARCH_LOADING = true;
+    fetch("/index.json", { cache: "no-cache" })
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+      .then(function (d) { SEARCH_IDX = d; SEARCH_CBS.forEach(function (f) { f(d); }); SEARCH_CBS = []; })
+      .catch(function () { SEARCH_LOADING = false; SEARCH_CBS.forEach(function (f) { f(null, true); }); SEARCH_CBS = []; });
+  }
+  function snippet(text, ql) {
+    text = (text || "").replace(/\s+/g, " ");
+    var i = text.toLowerCase().indexOf(ql);
+    if (i < 0) return esc(text.slice(0, 120));
+    var start = Math.max(0, i - 45);
+    var seg = text.slice(start, i + ql.length + 65);
+    var m = seg.toLowerCase().indexOf(ql);
+    return (start > 0 ? "…" : "") + esc(seg.slice(0, m)) +
+      '<span class="k">' + esc(seg.slice(m, m + ql.length)) + "</span>" +
+      esc(seg.slice(m + ql.length)) + "…";
+  }
 
   // ---- privacy readout: everything a site passively sees, computed locally ----
   var pvSeq = 0;
@@ -572,6 +617,17 @@
     if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) {
       e.preventDefault();
       if (palEl && !palEl.hidden) closePalette(); else openPalette();
+    } else if (e.key === "/" && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      var tag = ((e.target && e.target.tagName) || "").toLowerCase();
+      if (tag === "input" || tag === "textarea") return;   // let "/" type normally
+      if (!input) return;
+      e.preventDefault();
+      if (docEl.classList.contains("term-hidden")) {
+        docEl.classList.remove("term-hidden");
+        try { localStorage.setItem("sn_termhidden", "0"); } catch (x) {}
+      }
+      if (!input.value) input.value = "grep ";
+      focusInput(); syncCaret();
     }
   });
 
@@ -601,6 +657,25 @@
   if (btnMode) btnMode.addEventListener("click", function () {
     setMode(docEl.classList.contains("light") ? "dark" : "light");
   });
+
+  // ---- copy-to-clipboard buttons on code blocks --------------------------
+  (function () {
+    var blocks = document.querySelectorAll(".prose pre");
+    if (!blocks.length || !navigator.clipboard) return;
+    Array.prototype.forEach.call(blocks, function (pre) {
+      pre.classList.add("has-copy");
+      var btn = document.createElement("button");
+      btn.className = "copy-btn"; btn.type = "button"; btn.textContent = "copy";
+      btn.setAttribute("aria-label", "copy code");
+      btn.addEventListener("click", function () {
+        var code = pre.querySelector("code") || pre;
+        navigator.clipboard.writeText(code.innerText.replace(/\s+$/, "")).then(function () {
+          btn.textContent = "copied"; setTimeout(function () { btn.textContent = "copy"; }, 1400);
+        }).catch(function () { btn.textContent = "error"; });
+      });
+      pre.appendChild(btn);
+    });
+  })();
 
   var LOGO = D.logo || "spears.network";
 })();
