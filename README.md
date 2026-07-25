@@ -1,51 +1,64 @@
-# Hugo Theme: Console (Dark)
+# spears.network — interactive terminal (Hugo)
 
-A minimal, responsive and light theme for Hugo inspired by Linux console. Modified from [hugo-theme-console](https://github.com/mrmierzejewski/hugo-theme-console.git) to add support for dark mode and sticky footer.
+A modern, minimal, interactive-terminal site built with **Hugo**. Hybrid navigation
+(type real shell commands *or* click), refined mono-dark theme, sticky always-visible
+terminal, and window controls (red = home, yellow = hide terminal, green = full width).
+URLs match the previous site 1:1 so existing public links keep working.
 
-## Update
-+ (2021-03-11) Add support for academic publications, please refer to the example site for details
-
-
-![Console](https://github.com/zx1239856/hugo-theme-console-dark/blob/master/images/preview.png?raw=true)
-
-## Original Live demo
-
-* https://mrmierzejewski.com
-* https://themes.gohugo.io/theme/hugo-theme-console/
-
-## Installation
-
+## Develop
 ```sh
-$ mkdir themes
-$ cd themes
-$ git submodule add https://github.com/zx1239856/hugo-theme-console-dark hugo-theme-console-dark
-```
-    
-See the [Hugo documentation](https://gohugo.io/themes/installing/) for more information.
-
-## Configuration
-
-Set theme parameter in your config file:
-
-```
-theme = "hugo-theme-console-dark"
+hugo server
+# http://localhost:1313
 ```
 
-## Example Site
-
-To run the example site, please type the following command:
-
-```
-makefile hugo-server
+## Build
+```sh
+hugo --gc --minify   # output in ./public
 ```
 
-### Start page
+## Deploy to Netlify
+Push this folder to a Git repo and connect it in Netlify. Settings are already in
+`netlify.toml` (build `hugo --gc --minify`, publish `public`, pinned `HUGO_VERSION`).
+No other configuration needed.
 
-The default start page template is located at ```themes/hugo-theme-console/layouts/index.html```. To change the page content, you to need to copy this file to 
-your website top-level ```layouts``` folder (```layouts/index.html```).
+## Structure
+- `content/` — your markdown (posts, apps, about, links). Home text/params in `_index.md`.
+- `layouts/` — the terminal theme: `_default/baseof|list|single`, `index.html`,
+  `404.html`, `partials/head.html` + `partials/dock.html`, `shortcodes/youtube.html`.
+- `static/assets/` — `style.css` and `app.js` (the terminal engine), served at `/assets/`.
+- `hugo.toml` — title, nav menu, ASCII logo, markup settings.
 
-## License
+## Editing
+- **Menu:** `hugo.toml` → `[[params.navlinks]]`.
+- **Home card / intro:** `content/_index.md` front-matter params + body.
+- **New post:** `hugo new posts/my-title.md`. The filename becomes the URL slug.
+- **Terminal commands / styling:** `static/assets/app.js` and `static/assets/style.css`.
 
-Copyright © 2021 [zx1239856](https://github.com/zx1239856)
+## Apps directory
+`/apps/` is a showcase of your iOS apps, built **additively** — the existing
+`/apps/<app>-privacy/` and `/apps/<app>-support/` URLs (the ones linked from the App
+Store) are never touched. Each app has a hub page at a new slug like `/apps/dns-forge/`.
 
-The theme is released under the MIT License. Check the [original theme license](https://github.com/panr/hugo-theme-terminal/blob/master/LICENSE.md) for additional licensing information.
+Each hub lives in one file, e.g. `content/apps/dns-forge.md`. To finish them:
+
+- **App Store link:** set `appstore = "https://apps.apple.com/…"` in the front matter.
+  While it's empty, the download badge is simply hidden.
+- **Icon:** drop a PNG in `static/apps/img/` and set `icon = "/apps/img/dns-forge.png"`.
+  Until then a clean lettered glyph (`glyph = "DF"`) is used.
+- **Screenshots:** add files to `static/apps/img/` and list them under
+  `screenshots = ["/apps/img/dns-forge-1.png", …]` to get a scrolling gallery.
+- **Copy:** edit `tagline`, `features`, and the body text.
+
+The terminal knows the apps too: `apps`, `ls apps`, and `open dns-forge` all work, and
+`open dns-forge-support` still resolves the legal pages.
+
+## The `privacy` command
+Typing `privacy` in the terminal shows a panel of everything a site passively detects —
+browser, OS, screen, GPU (WebGL), timezone/region, connection, Do Not Track, and more —
+all computed in the browser and sent nowhere.
+
+The one value that can't come from the browser alone is your **public IP**, so it's read
+from your own connection by a first-party Netlify function (`netlify/functions/ip.mjs`) —
+no third-party API, no geolocation lookup, nothing logged. Under `hugo server` the IP line
+shows "unavailable in local preview"; to test it end-to-end locally, run `netlify dev`
+instead (Netlify CLI), or just deploy.

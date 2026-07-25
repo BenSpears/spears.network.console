@@ -1,0 +1,52 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="all,follow">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ .Site.Params.description }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ .Permalink }}">
+<link rel="icon" href="https://icons.iconarchive.com/icons/alecive/flatwoken/128/Apps-Terminal-icon.png">
+{{ $css := resources.Get "css/style.css" | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}">
+<link rel="author" href="/humans.txt">
+{{ with .OutputFormats.Get "rss" }}
+<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }}" href="{{ .Permalink }}">
+{{ end }}
+{{/* runs before paint: flips no-js→js and applies saved view state */}}
+{{ $headInit := resources.Get "js/head-init.js" | fingerprint }}
+<script src="{{ $headInit.RelPermalink }}"></script>
+
+{{/* ---- terminal data + persisted view-state (before paint) ---- */}}
+{{- $posts := slice -}}
+{{- range (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
+  {{- $posts = $posts | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink "date" (.Date.Format "Jan. 2, 2006")) -}}
+{{- end -}}
+{{- $apps := slice -}}
+{{- $appdocs := slice -}}
+{{- range (where .Site.RegularPages "Section" "apps").ByWeight -}}
+  {{- if .Params.hub -}}
+    {{- $apps = $apps | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink) -}}
+  {{- else -}}
+    {{- $appdocs = $appdocs | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink) -}}
+  {{- end -}}
+{{- end -}}
+{{/* CSP-safe data holder: JSON in an HTML attribute (no inline script needed) */}}
+<div id="sn-data" hidden data-sn="{{ (dict
+  "path" .RelPermalink
+  "posts" $posts
+  "apps" $apps
+  "appdocs" $appdocs
+  "logo" .Site.Params.logo
+  "profile" (dict
+    "focus" site.Home.Params.focus
+    "hobbies" site.Home.Params.hobbies
+    "uptime" site.Home.Params.uptime
+  )
+  "build" (dict
+    "time" (now.Format "2006-01-02 15:04 MST")
+    "hugo" hugo.Version
+    "commit" (os.Getenv "COMMIT_REF")
+  )
+) | jsonify }}"></div>

@@ -1,0 +1,29 @@
+{{/* sticky dock: menu + live terminal (always visible). Expects the page as . */}}
+{{- $p := .RelPermalink -}}
+{{- $sp := "~" -}}
+{{- if ne $p "/" -}}{{- $sp = printf "~%s" (strings.TrimSuffix "/" $p) -}}{{- end -}}
+<div class="dock">
+  <nav class="menu">
+    <a class="brand" href="/" title="home">spears<span class="accent">.network</span></a>
+    <span class="spacer"></span>
+    {{- range .Site.Params.navlinks -}}
+      <a href="{{ .url }}"{{ if hasPrefix $p .url }} class="active"{{ end }}>{{ .name }}</a>
+    {{- end -}}
+    <button class="nav-kbd" id="btn-palette" type="button" title="command palette — search" aria-label="open command palette"><span class="kbd"></span></button>
+    <button class="mode-toggle" id="btn-mode" type="button" title="light / dark" aria-label="toggle light or dark mode"></button>
+  </nav>
+  <section class="terminal" aria-label="interactive terminal">
+    <div class="term-head">
+      <button class="term-title" id="btn-hide" type="button" title="hide the terminal">hide console</button>
+      <span class="term-hint">type <b>help</b> · <b>ls</b> · <b>cd posts</b></span>
+    </div>
+    <div id="console"><div class="line out boot-note">interactive shell ready — type <span class="k">help</span> to list commands.</div></div>
+    <div class="prompt">
+      <span class="ps1">guest@spears.network:<span class="path">{{ $sp }}</span>$</span>
+      <span class="wrap"><input id="cmd" autocomplete="off" autocapitalize="off"
+        autocorrect="off" spellcheck="false" aria-label="terminal input"><span class="caret" id="caret"></span></span>
+    </div>
+  </section>
+  <button class="term-reopen" id="btn-reopen" type="button" title="show the terminal">▸ open console</button>
+  <div class="term-off-note" aria-hidden="true">terminal powered off — reload to restart</div>
+</div>

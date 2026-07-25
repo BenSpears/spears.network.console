@@ -1,0 +1,15 @@
+/* TEAM */
+  Owner: Benjamin Spears
+  Role: IT Manager — Systems & Infrastructure
+  Site: https://spears.network
+  Location: Tennessee, USA
+
+/* SITE */
+  Built with: Hugo
+  Hosted on: Netlify
+  Design: refined mono-dark interactive terminal
+  Standards: HTML5, CSS3, progressive enhancement (works without JavaScript)
+  Privacy: no analytics, no trackers, no cookies
+
+/* THANKS */
+  Type the `help` command on the site to explore.

@@ -1,0 +1,45 @@
+baseURL = "https://spears.network/"
+defaultContentLanguage = "en"
+title = "spears.network"
+enableRobotsTXT = true
+
+# taxonomies aren't used; the terminal list layout is section-specific
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  author = "Benjamin Spears"
+  description = "Benjamin Spears — IT Manager. Infrastructure, systems administration, privacy."
+  # ASCII logo used by the neofetch card and the `banner` terminal command.
+  logo = '''
+   ___ _ __   ___  __ _ _ __ ___
+  / __| '_ \ / _ \/ _` | '__/ __|
+  \__ \ |_) |  __/ (_| | |  \__ \
+  |___/ .__/ \___|\__,_|_|  |___/
+      |_|   n e t w o r k'''
+
+  # Top navigation (edit here to change the menu)
+  [[params.navlinks]]
+    name = "about/"
+    url  = "/about/"
+  [[params.navlinks]]
+    name = "posts/"
+    url  = "/posts/"
+  [[params.navlinks]]
+    name = "apps/"
+    url  = "/apps/"
+  [[params.navlinks]]
+    name = "links/"
+    url  = "/links/"
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe = true          # allow raw HTML / embeds in content
+
+[services]
+  [services.rss]
+    limit = 20
+
+# allow reading the Netlify build env vars used by the `status` command
+[security]
+  [security.funcs]
+    getenv = ['^HUGO_', '^CI$', '^COMMIT_REF$', '^BRANCH$', '^CONTEXT$']

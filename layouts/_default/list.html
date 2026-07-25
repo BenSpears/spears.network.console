@@ -1,20 +1,36 @@
 {{ define "main" }}
-<h1>{{ .Page.Title }}</h1>
-<br/>
-{{ .Content }}
-
-<div class="posts-list">
-{{ range sort .Data.Pages "Date" "desc" }}
-    {{ if not .Params.private }}
-        <div class="post">
-            <p>
-                <div class="date">{{ .PublishDate.Format "Jan. 2, 2006" }}</div>    
-                <h1><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
-                {{ .Summary }}
-            </p>
-        </div>
-    {{ end }}
+<a class="backlink" href="/">← cd ~</a>
+<h1 style="margin-top:14px">{{ .Title }}<span class="prompt-tag">/</span></h1>
+{{ if eq .Section "posts" }}
+  <p class="lead">ls ./posts — {{ len .Pages }} entries. cat &lt;name&gt; or click to read.</p>
+  <div class="list">
+  {{ range .Pages.ByDate.Reverse }}
+    <a class="row" href="{{ .RelPermalink }}"><span class="date">{{ .Date.Format "Jan. 2, 2006" }}</span><span class="name">{{ .Title }}<span class="desc">{{ .Summary | plainify | truncate 180 }}</span></span></a>
+  {{ end }}
+  </div>
+{{ else }}
+  {{ $hubs := (where .Pages "Params.hub" true).ByWeight }}
+  <p class="lead">iOS apps I build on the side — private by default. Each links to its
+  privacy policy &amp; support.</p>
+  <div class="appgrid">
+  {{ range $hubs }}
+    {{ $app := . }}
+    <div class="appcard">
+      <a class="appcard-main" href="{{ .RelPermalink }}">
+        {{ with .Params.icon }}<img class="appicon" src="{{ . }}" alt="{{ $app.Title }} icon">{{ else }}<span class="appicon glyph" aria-hidden="true">{{ $app.Params.glyph }}</span>{{ end }}
+        <span class="appmeta">
+          <span class="appname">{{ .Title }}</span>
+          <span class="apptag">{{ .Params.tagline }}</span>
+          <span class="appplat">{{ .Params.platform }}</span>
+        </span>
+      </a>
+      <div class="appactions">
+        {{ with .Params.appstore }}<a class="appbadge" href="{{ . }}" target="_blank" rel="noopener">App&nbsp;Store ↗</a>{{ end }}
+        {{ with .Params.privacy }}<a class="applink" href="{{ . }}">privacy</a>{{ end }}
+        {{ with .Params.support }}<a class="applink" href="{{ . }}">support</a>{{ end }}
+      </div>
+    </div>
+  {{ end }}
+  </div>
 {{ end }}
-</div>
-
 {{ end }}

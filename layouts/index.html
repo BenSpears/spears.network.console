@@ -1,26 +1,29 @@
-{{ define "main" }}
-
-<h1>Information Technology Manager</h1>
-<p>I enjoy building and maintaining reliable IT infrastructure across Windows and Linux environments. My experience spans systems administration, virtualization, networking, security, Microsoft 365, Active Directory, automation, and firewall/VPN management, among other technologies. <a href="about/">[more]</a></p>
-    </body>
-
-</html>
-
-{{ with .Site.GetPage "/posts" }}
-<h1>Latest posts</h1>
-
-<div class="posts-list">
-    {{ range first 3 (sort .Data.Pages "Date" "desc" (where .Pages ".Params.private" "!=" true))}}
-    <div class="post">
-        <p>
-        <div class="date">{{ .PublishDate.Format "Jan. 2, 2006" }}</div>
-        <h1><a href="{{ .Permalink }}" title="{{ .Title }}">{{ .Title }}</a></h1>
-        {{ .Summary }}
-        </p>
-    </div>
-    {{ end }}
-</div>
+{{ define "boot" }}
+<div id="boot"></div>
+{{ $boot := resources.Get "js/boot.js" | fingerprint }}
+<script src="{{ $boot.RelPermalink }}"></script>
 {{ end }}
 
+{{ define "main" }}
+<div class="neofetch">
+  <pre class="logo">{{ .Site.Params.logo }}</pre>
+  <div class="info">
+    <div class="title-line">guest@<span style="color:var(--accent)">spears.network</span></div>
+    <div class="rule">────────────────────────────</div>
+    <div><span class="k">focus</span> {{ .Params.focus }}</div>
+    <div><span class="k">hobbies</span> {{ .Params.hobbies }}</div>
+    <div><span class="k">shell</span> /bin/spears — type <span style="color:var(--accent)">help</span></div>
+    <div><span class="k">uptime</span> {{ .Params.uptime }}</div>
+  </div>
+</div>
 
+<h1>{{ .Params.heading }} <span class="prompt-tag">{{ .Params.tagline }}</span></h1>
+<p class="lead">{{ .Content | plainify }} <a href="/about/" style="color:var(--accent-2);text-decoration:none">[more]</a></p>
+
+<div class="group-label">latest posts</div>
+<div class="list">
+{{ range first 4 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+  <a class="row" href="{{ .RelPermalink }}"><span class="date">{{ .Date.Format "Jan. 2, 2006" }}</span><span class="name">{{ .Title }}<span class="desc">{{ .Summary | plainify | truncate 180 }}</span></span></a>
+{{ end }}
+</div>
 {{ end }}

@@ -1,4 +1,62 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-{{ .Content }}
+{{ $s := .Section }}
+{{ if .Params.hub }}
+  {{/* ---- app hub page ---- */}}
+  {{ $app := . }}
+  <a class="backlink" href="/apps/">← cd ../apps</a>
+  <article class="apphub" style="margin-top:14px">
+    <header class="apphead">
+      {{ with .Params.icon }}<img class="appicon lg" src="{{ . }}" alt="{{ $app.Title }} icon">{{ else }}<span class="appicon glyph lg" aria-hidden="true">{{ $app.Params.glyph }}</span>{{ end }}
+      <div class="apphead-meta">
+        <h1>{{ .Title }}</h1>
+        <div class="apptag">{{ .Params.tagline }}</div>
+        <div class="appplat">{{ .Params.platform }}</div>
+        <div class="apphead-actions">
+          {{ with .Params.appstore }}<a class="appbadge lg" href="{{ . }}" target="_blank" rel="noopener">Download on the App&nbsp;Store ↗</a>{{ end }}
+          {{ with .Params.privacy }}<a class="applink" href="{{ . }}">privacy policy</a>{{ end }}
+          {{ with .Params.support }}<a class="applink" href="{{ . }}">support</a>{{ end }}
+        </div>
+      </div>
+    </header>
+
+    {{ with .Params.screenshots }}
+    <div class="shots">
+      {{ range . }}<img src="{{ . }}" alt="{{ $app.Title }} screenshot" loading="lazy">{{ end }}
+    </div>
+    {{ end }}
+
+    {{ with .Content }}<div class="prose apphub-body">{{ . }}</div>{{ end }}
+
+    {{ with .Params.features }}
+    <div class="group-label">features</div>
+    <ul class="featlist">
+      {{ range . }}<li>{{ . }}</li>{{ end }}
+    </ul>
+    {{ end }}
+
+    {{ if or .Params.privacy .Params.support }}
+    <div class="apphub-foot">
+      {{ with .Params.privacy }}<a class="applink" href="{{ . }}">→ privacy policy</a>{{ end }}
+      {{ with .Params.support }}<a class="applink" href="{{ . }}">→ support &amp; FAQ</a>{{ end }}
+    </div>
+    {{ end }}
+  </article>
+  <div style="margin-top:26px"><a class="backlink" href="/apps/">← back to apps</a></div>
+
+{{ else if or (eq $s "posts") (eq $s "apps") }}
+  {{/* ---- post / app legal page (unchanged) ---- */}}
+  <a class="backlink" href="/{{ $s }}/">← cd ../{{ $s }}</a>
+  <article class="prose" style="margin-top:14px">
+    <h1>{{ .Title }}</h1>
+    <div class="meta">{{ if eq $s "posts" }}{{ .Date.Format "Jan. 2, 2006" }}<span class="sep">·</span>{{ end }}~/{{ $s }}/{{ path.Base .RelPermalink }}</div>
+    {{ .Content }}
+  </article>
+  <div style="margin-top:26px"><a class="backlink" href="/{{ $s }}/">← back to {{ $s }}</a></div>
+
+{{ else }}
+  {{/* ---- standalone page (about / links) ---- */}}
+  <a class="backlink" href="/">← cd ~</a>
+  <h1 style="margin-top:14px">{{ .Title | lower }}<span class="prompt-tag">/</span></h1>
+  <article class="prose">{{ .Content }}</article>
+{{ end }}
 {{ end }}

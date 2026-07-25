@@ -1,4 +1,11 @@
 {{ define "main" }}
-<h1>Page not found</h1>
-<p><a href="{{ .Site.BaseURL }}">Return to the home page</a>.</p>
+<h1>404<span class="prompt-tag"> — segmentation fault</span></h1>
+<p class="lead">bash: that path does not exist. try one of these:</p>
+<div class="list">
+  <a class="row" href="/"><span class="name">~/ (home)</span></a>
+  <a class="row" href="/posts/"><span class="name">~/posts</span></a>
+  <a class="row" href="/apps/"><span class="name">~/apps</span></a>
+  <a class="row" href="/about/"><span class="name">~/about</span></a>
+  <a class="row" href="/links/"><span class="name">~/links</span></a>
+</div>
 {{ end }}
