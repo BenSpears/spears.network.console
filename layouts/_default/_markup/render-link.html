@@ -1,0 +1,3 @@
+{{- $u := .Destination -}}
+{{- $ext := and (or (hasPrefix $u "http://") (hasPrefix $u "https://")) (not (strings.Contains $u "spears.network")) -}}
+<a href="{{ $u }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $ext }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text | safeHTML }}{{ if $ext }}<span class="extlink" aria-hidden="true">↗</span>{{ end }}</a>

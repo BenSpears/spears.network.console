@@ -1,0 +1,4 @@
+<div class="manifest">
+  {{ with .Get "cmd" }}<div class="manifest-cmd"><span class="mc-prompt">guest@spears.network:~$</span> {{ . }}</div>{{ end }}
+  {{ .Inner }}
+</div>
