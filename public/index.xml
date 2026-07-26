@@ -10,7 +10,7 @@
 		
 		
 		
-			<lastBuildDate>Fri, 24 Jul 2026 00:00:00 +0000</lastBuildDate>
+			<lastBuildDate>Sat, 25 Jul 2026 00:00:00 +0000</lastBuildDate>
 		
 			<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
 			<item>
@@ -47,6 +47,13 @@
 				<pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
 				<guid>http://localhost:1313/apps/find-four/</guid>
 				<description>&lt;p&gt;Find Four is a quiet little game about finding four-leaf clovers. Soft music,&#xA;gentle scenes, and the simple calm of looking closely. Breathe in, breathe out.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Your DNS Is Showing</title>
+				<link>http://localhost:1313/posts/your-dns-is-showing/</link>
+				<pubDate>Sat, 25 Jul 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/your-dns-is-showing/</guid>
+				<description>&lt;p&gt;I&amp;rsquo;ve worked in IT for about twelve years, and I was pulling networks apart for&#xA;fun long before anyone paid me to. The thing that still surprises people isn&amp;rsquo;t&#xA;some exotic attack — it&amp;rsquo;s how much their own network can see while they assume&#xA;they&amp;rsquo;re browsing privately.&lt;/p&gt;&#xA;&lt;p&gt;We&amp;rsquo;ve locked the web down pretty well. Almost everything is HTTPS, and most&#xA;people read that little padlock as &amp;ldquo;nobody can see what I&amp;rsquo;m doing&amp;rdquo; — well, nobody&#xA;except you and whoever&amp;rsquo;s running the website you&amp;rsquo;re connected to. Fair enough;&#xA;that&amp;rsquo;s most of the story. But one old, unglamorous protocol has been narrating&#xA;your browsing the whole time, and by default it isn&amp;rsquo;t encrypted at all: DNS.&lt;/p&gt;</description>
 			</item>
 			<item>
 				<title>KeyCached - Privacy</title>
@@ -145,13 +152,6 @@
 				<pubDate>Sat, 24 Feb 2024 00:00:00 +0000</pubDate>
 				<guid>http://localhost:1313/posts/the-normalization-of-spyware/</guid>
 				<description>&lt;h1 id=&#34;protecting-your-privacy-in-a-digital-world&#34;&gt;Protecting Your Privacy in a Digital World&lt;/h1&gt;&#xA;&lt;p&gt;In today’s digital world, our privacy is under threat more than ever. Spyware — often hidden inside popular software — is becoming normalized. Most people don’t read terms and conditions, and even fewer check privacy policies to see how their data is used, analyzed, or stored.&lt;/p&gt;&#xA;&lt;p&gt;Take Windows, for example. Every update adds new features, which often means more data collection. Microsoft says it’s for system improvement, but it frequently goes further than most realize — collecting everything from basic diagnostics to detailed monitoring of your digital activity. New features like &lt;strong&gt;Microsoft Recall&lt;/strong&gt; take this even further, literally capturing screenshots of your display while tracking usage patterns and device activity across applications. Opting out isn’t straightforward, and these features run quietly in the background.&lt;/p&gt;</description>
-			</item>
-			<item>
-				<title>Search Engines with Privacy!</title>
-				<link>http://localhost:1313/posts/search-engines-with-privacy/</link>
-				<pubDate>Tue, 12 Jul 2022 00:00:00 +0000</pubDate>
-				<guid>http://localhost:1313/posts/search-engines-with-privacy/</guid>
-				<description>&lt;p&gt;Discovering what someone is searching for on the web can reveal a lot of information about them&amp;hellip; Whether it be about their medical issues, financial situation, personal issues, or simply anything that comes to their mind, it will be searched, and in most cases, it will be documented by someone. There are companies out there that are making insane amounts of revenue from data collected from unsuspecting people. For example, Google has stated that they track things that you type into the search bar even if you don&amp;rsquo;t press &amp;ldquo;Enter.&amp;rdquo; Your searches are literally mined, tracked, and packaged up for advertisements to be displayed on web pages you visit. Just last year, Google made 95.38 billion dollars from ad revenue. While this can help bring you better search results when you need to find something useful, I believe that it can be dangerous to have that much information on someone and recommend using an alternative search solution that won&amp;rsquo;t trade your inquiries to the highest bidder. DuckDuckGo proxies Bing search results, Startpage proxies Google, and Brave is independent - meaning they index their own results from the web. I believe these are all you really need.&lt;/p&gt;</description>
 			</item>
 	</channel>
 </rss>

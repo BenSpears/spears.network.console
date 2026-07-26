@@ -10,9 +10,16 @@
 		
 		
 		
-			<lastBuildDate>Sun, 18 May 2025 00:00:00 +0000</lastBuildDate>
+			<lastBuildDate>Sat, 25 Jul 2026 00:00:00 +0000</lastBuildDate>
 		
 			<atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Your DNS Is Showing</title>
+				<link>http://localhost:1313/posts/your-dns-is-showing/</link>
+				<pubDate>Sat, 25 Jul 2026 00:00:00 +0000</pubDate>
+				<guid>http://localhost:1313/posts/your-dns-is-showing/</guid>
+				<description>&lt;p&gt;I&amp;rsquo;ve worked in IT for about twelve years, and I was pulling networks apart for&#xA;fun long before anyone paid me to. The thing that still surprises people isn&amp;rsquo;t&#xA;some exotic attack — it&amp;rsquo;s how much their own network can see while they assume&#xA;they&amp;rsquo;re browsing privately.&lt;/p&gt;&#xA;&lt;p&gt;We&amp;rsquo;ve locked the web down pretty well. Almost everything is HTTPS, and most&#xA;people read that little padlock as &amp;ldquo;nobody can see what I&amp;rsquo;m doing&amp;rdquo; — well, nobody&#xA;except you and whoever&amp;rsquo;s running the website you&amp;rsquo;re connected to. Fair enough;&#xA;that&amp;rsquo;s most of the story. But one old, unglamorous protocol has been narrating&#xA;your browsing the whole time, and by default it isn&amp;rsquo;t encrypted at all: DNS.&lt;/p&gt;</description>
+			</item>
 			<item>
 				<title>Software I Love and Use</title>
 				<link>http://localhost:1313/posts/software-i-love-and-use/</link>

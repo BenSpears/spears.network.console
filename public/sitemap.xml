@@ -12,6 +12,15 @@
   </url><url>
     <loc>http://localhost:1313/apps/find-four/</loc>
   </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2026-07-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2026-07-25T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/your-dns-is-showing/</loc>
+    <lastmod>2026-07-25T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/apps/</loc>
     <lastmod>2026-07-24T00:00:00+00:00</lastmod>
   </url><url>
@@ -19,9 +28,6 @@
     <lastmod>2026-07-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/apps/keycached-support/</loc>
-    <lastmod>2026-07-24T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/</loc>
     <lastmod>2026-07-24T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/apps/notecached-privacy/</loc>
@@ -50,9 +56,6 @@
   </url><url>
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-10-17T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
-    <lastmod>2025-05-18T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/software-i-love-and-use/</loc>
     <lastmod>2025-05-18T00:00:00+00:00</lastmod>
