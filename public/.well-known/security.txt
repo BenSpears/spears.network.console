@@ -1,7 +1,0 @@
-Contact: mailto:bspears@proton.me
-Preferred-Languages: en
-Canonical: https://spears.network/.well-known/security.txt
-Expires: 2027-12-31T23:59:59.000Z
-
-# If you've found a security issue with spears.network, please email the
-# address above. Thank you for disclosing responsibly.
