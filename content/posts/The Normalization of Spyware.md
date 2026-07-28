@@ -2,32 +2,59 @@
 author: "Ben Spears"
 date: 2024-02-24
 title: The Normalization of Spyware
+description: "Data collection has quietly become the default in the software we use every day. What's actually being collected, why it matters, and the alternatives worth switching to."
 ---
 
+Privacy keeps losing ground, and most of it happens quietly. Data collection has
+become a default feature of the software we use every day — buried in terms and
+conditions almost nobody reads, and privacy policies even fewer check. Call it
+what it is: spyware, just with a EULA attached.
 
-# Protecting Your Privacy in a Digital World
+Take Windows. Every release leans harder on telemetry — diagnostics, usage
+patterns, activity history — under Microsoft's framing that it's all for
+"improving the product." You can turn some of it down, but fully opting out is
+deliberately fiddly, and most of it runs in the background whether you think about
+it or not.
 
-In today’s digital world, our privacy is under threat more than ever. Spyware — often hidden inside popular software — is becoming normalized. Most people don’t read terms and conditions, and even fewer check privacy policies to see how their data is used, analyzed, or stored.  
+The clearest example was **Microsoft Recall** — a feature that periodically
+screenshots everything on your display and makes it searchable. When Microsoft
+announced it in 2024, it was set to run by default. The backlash was immediate and
+loud, and to their credit they walked it back: Recall now ships only on Copilot+
+PCs, is **opt-in**, stores its snapshots encrypted, and requires Windows Hello to
+unlock them. That's the system working — public pressure turned an always-on
+capture feature into something you have to consciously enable. But notice the
+direction of the default. The starting position was "record everything," and
+that's the pattern worth watching.
 
-Take Windows, for example. Every update adds new features, which often means more data collection. Microsoft says it’s for system improvement, but it frequently goes further than most realize — collecting everything from basic diagnostics to detailed monitoring of your digital activity. New features like **Microsoft Recall** take this even further, literally capturing screenshots of your display while tracking usage patterns and device activity across applications. Opting out isn’t straightforward, and these features run quietly in the background.  
+It's not just Windows, either. Plenty of apps — email clients, media players,
+"free" utilities — phone home quietly, and the cumulative picture they build is
+the real cost.
 
-It’s not just Windows. Many apps — from email clients to media players — track us quietly, raising serious questions about how much control we really have over our own data.
+## Linux: the alternative that respects you
 
----
+You don't have to blow up your workflow to step out of most of this. For operating
+systems specifically, **Linux** is the obvious answer: open-source, transparent,
+and built around user control instead of data collection. I've run it for over 15
+years, and thanks to steady app and hardware improvements it's finally a
+no-compromise daily driver for most people.
 
-## Linux: A Privacy-Focused Alternative
+Where I'd point new users:
 
-There are alternatives that won’t dramatically change your workflow. For this post, let’s focus on operating systems. **Linux** stands out as a privacy-focused alternative to Windows. Unlike proprietary systems, Linux is built on **transparency and user control**.  
+- **Linux Mint** — the softest landing if you're coming from Windows.
+- **Fedora** — polished and current; **Debian** if you'd rather have rock-solid
+  stability you control.
+- **Arch Linux** — my personal pick. It makes you understand every piece of your
+  system, which is the whole point, but it's a deep rabbit hole and not a
+  beginner's first stop.
 
-I’ve been using Linux for over 15 years, and recently it’s become fully viable as a primary OS thanks to improved app support. For new users, I recommend:  
-- **Linux Mint** – Easiest for Windows users to get started.  
-- **Debian/Fedora** – Great for more control or cutting-edge features.  
-- **Arch Linux** – My personal choice, but not beginner-friendly. Arch forces you to understand every part of your OS, giving complete control, but it’s a deep rabbit hole.
+## Taking control
 
----
+The fix isn't paranoia, it's awareness — knowing what your phone, your computer,
+and the sites you use are actually doing in the background, and voting with what
+you install. Support the transparent alternatives. Push for better privacy rules.
+And when a company's answer to "what do you collect?" is evasive, treat that as
+the answer.
 
-## Taking Control
-
-We need to be aware of what’s happening behind the scenes in our software — on phones, computers, and websites. Supporting alternatives like Linux and advocating for stronger privacy rules are steps we can take to protect ourselves.  
-
-At the end of the day, **it’s up to us to demand transparency and accountability**. If you don’t agree with a company’s privacy policies or how they handle your data — don’t use their software. Protect your privacy, stay informed, and choose tools that respect you.
+At the end of the day it's on us to demand transparency and accountability. If you
+don't like how a company handles your data, stop handing it to them. Stay
+informed, and choose tools that respect you.

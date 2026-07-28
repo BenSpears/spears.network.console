@@ -1,52 +1,64 @@
 ---
 author: "Ben Spears"
-date: 2018-08-28
+date: 2018-08-25
 title: Free and open-source software that you should be using!
-
+description: "The free, open-source tools I actually use — browsers, email, office, media, photo editing, password managers, and more. Usually cheaper, often better, always more yours."
 ---
 
 ![img](https://images.unsplash.com/photo-1453814279372-783dc5b638ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80)
 
-Free and open-source software can provide the optimal solutions for the desktop applications we rely on daily. These alternatives should receive more promotion than they currently do. However, prominent corporations often dominate this realm either by pre-installing software on your device or steering you toward their paid services through various methods.
+Free and open-source software often beats the paid, pre-installed defaults — not
+just on price, but on quality and on how much it respects you. The big players
+win by being pre-installed or by nudging you toward a subscription, so these tools
+don't get the attention they deserve. Here's what I actually use, by category.
 
-Many companies are shifting towards subscription-based models, forcing users into recurring expenses over time. Yet, transitioning to free or open-source software not only offers cost savings but often presents superior solutions as well.
+## Web browsers
 
-### Web Browsers:
-- **Firefox:** Protect your privacy and enjoy a customizable browsing experience with Firefox. It's fast, secure, and packed with add-ons to tailor your internet experience.
-- **LibreWolf:** This is a hardened version of Firefox - it's what I prefer to use. 
+- **Firefox** — fast, private, endlessly customizable, and not built by an ad company.
+- **LibreWolf** — a hardened, de-Googled build of Firefox. It's what I run.
 
-### Messaging App:
-- **Signal:** Keep your conversations private and secure with Signal. This encrypted messaging app prioritizes user privacy and security, ensuring that your messages, calls, and files are protected from prying eyes. 
+## Messaging
 
-### Document Editor:
-- **LibreOffice:** Need an office suite without the price tag? LibreOffice has you covered with Writer, Calc, Impress, and more. It's capable of editing and saving just about any MS format (document, excel, powerpoint).
+- **Signal** — the standard for end-to-end encrypted messages, calls, and files.
 
-### Email Client:
-- **Thunderbird:** Thunderbird offers a user-friendly interface, robust features, and strong security—all for free.
-- **K-9 Mail (Android):** This open-source email client for Android provides a sleek interface and powerful features, ensuring you stay organized wherever you are.
-- **Evolution (Linux):** Designed for Linux systems, Evolution offers seamless integration with your desktop environment, along with other features like calendar and task management.
+## Office suite
 
-### Media Player:
-- **VLC Media Player:** I prefer to use VLC over most video players because it's open source and has the codecs onboard to play literally anything you throw at it. It also has the ability to play music among other things.
+- **LibreOffice** — Writer, Calc, Impress, and more; opens and saves the MS formats (docx, xlsx, pptx) without the license.
 
-### Photoshop Replacement:
-- **GIMP:** GIMP provides powerful image editing tools comparable to Photoshop, empowering you to create stunning graphics and manipulate images with ease.
+## Email
 
-- **DarkTable:** Adobe Lightroom replacement.
+- **Thunderbird** — the long-running free desktop mail client; solid and secure.
+- **Thunderbird for Android** (formerly K-9 Mail) — the same project, now on your phone.
+- **Evolution** (Linux) — mail, calendar, and tasks that integrate cleanly with the desktop.
 
-### Torrent Program:
-- **qBittorrent:** It's fast, lightweight, and has many features built-in. 
+## Media player
 
-### Password Manager:
-- **Bitwarden:** This cross-platform password manager stores your credentials in an encrypted vault, accessible across all your devices.
-- **KeePassXC:** Another great option for password management, KeePassXC ensures your data stays secure with its encrypted database and robust features. Offline database that you can control, however, you have to find a way to keep everything synchronized between devices. 
+- **VLC** — open source, with the codecs onboard to play literally anything you throw at it. My default.
 
-### Code Editor:
-- **Notepad++:** This versatile editor supports various programming languages, offers syntax highlighting, and comes packed with features to streamline your coding workflow.
-- **VSCodium:** This is a telemetry-less version of Visual Studio Code that can be found on Flathub (and the AUR). It's simply amazing and is actually what I'm using to type this post. 
+## Photo editing
 
-### File Compression:
-- **7-Zip:** I feel as if this should come standard on all machines and I install it everywhere I possibly can. It can compress and decompress files effortlessly. This tool supports a wide range of formats and provides high compression ratios, making it perfect for managing your archives.
+- **GIMP** — a capable, free stand-in for Photoshop.
+- **darktable** — a Lightroom replacement for RAW editing and photo management.
 
-### Conclusion:
-These are all applications that I use, and highly recommend. 
+## Torrents
+
+- **qBittorrent** — fast, lightweight, no ads, everything built in.
+
+## Password manager
+
+- **Bitwarden** — a cross-platform encrypted vault that syncs everywhere.
+- **KeePassXC** — a fully offline, local vault if you'd rather hold the file yourself (you handle the syncing).
+
+## Code editor
+
+- **Notepad++** — a lightweight Windows editor with syntax highlighting for quick edits.
+- **VSCodium** — VS Code without the Microsoft telemetry (on Flathub and the AUR). It's what I'm typing this in.
+
+## File compression
+
+- **7-Zip** — high compression, huge format support, free. I install it on everything I can.
+
+## Bottom line
+
+Everything here is what I actually use and recommend. Swap what you can — it's
+usually cheaper, often better, and always more yours.
