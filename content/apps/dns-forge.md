@@ -1,5 +1,6 @@
 +++
 title = "DNS Forge"
+description = "Private, encrypted DNS (DoH/DoT) for iPhone and iPad — per-network rules, profile import/export, and built-in diagnostics."
 hub = true
 weight = 1
 tagline = "Private, encrypted DNS for iOS"

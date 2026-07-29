@@ -1,5 +1,6 @@
 +++
 title = "Find Four"
+description = "A quiet little iOS game about finding four-leaf clovers — soft music, gentle scenes, and no data collected."
 hub = true
 weight = 5
 tagline = "A quiet little game about finding four-leaf clovers"

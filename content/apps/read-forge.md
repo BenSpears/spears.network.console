@@ -1,5 +1,6 @@
 +++
 title = "Read Forge"
+description = "A calm speed-reading app for iPhone and iPad. Read faster, entirely on-device, with no accounts or tracking."
 hub = true
 weight = 2
 tagline = "A calm speed-reading app for iPhone & iPad"

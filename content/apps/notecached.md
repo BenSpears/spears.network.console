@@ -1,5 +1,6 @@
 +++
 title = "NoteCached"
+description = "A private notes vault for iPhone and iPad that collects nothing. Your notes stay on your device."
 hub = true
 weight = 4
 tagline = "A private notes vault that collects nothing"

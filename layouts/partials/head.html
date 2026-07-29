@@ -2,13 +2,16 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="all,follow">
-<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+{{ $homeTitle := printf "%s — IT Manager" .Site.Params.author }}
+<title>{{ if .IsHome }}{{ $homeTitle }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
 {{ $desc := cond (ne (string .Description) "") (string .Description) .Site.Params.description }}
 <meta name="description" content="{{ $desc }}">
-<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ $homeTitle }}{{ else }}{{ .Title }}{{ end }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:locale" content="en_US">
 {{/* ---- generated social preview image (page title drawn on the branded card) ---- */}}
 {{ $ogtitle := cond .IsHome "IT Manager — Systems & Infrastructure" .Title }}
 {{ $ogbase := resources.Get "og/base.png" }}
@@ -28,7 +31,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ $og.Permalink }}">
 {{ end }}
-<meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ $homeTitle }}{{ else }}{{ .Title }}{{ end }}">
 <meta name="twitter:description" content="{{ $desc }}">
 {{/* ---- structured data (JSON-LD) ---- */}}
 {{ if .IsHome }}
@@ -54,7 +57,11 @@
   "publisher" (dict "@type" "Person" "name" .Site.Params.author)
   }}</script>
 {{ end }}
-<link rel="icon" href="https://icons.iconarchive.com/icons/alecive/flatwoken/128/Apps-Terminal-icon.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0a0e12">
+<link rel="canonical" href="{{ .Permalink }}">
 {{ $css := resources.Get "css/style.css" | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
 <link rel="author" href="/humans.txt">

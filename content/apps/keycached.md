@@ -1,5 +1,6 @@
 +++
 title = "KeyCached"
+description = "A snippet keyboard for iOS — save the text you paste all the time and drop it into any app. Private by default."
 hub = true
 weight = 3
 tagline = "A snippet keyboard for the text you paste all the time"
