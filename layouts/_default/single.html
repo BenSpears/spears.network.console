@@ -51,6 +51,18 @@
     <div class="meta">{{ if eq $s "posts" }}{{ .Date.Format "Jan. 2, 2006" }}<span class="sep">·</span>{{ .ReadingTime }} min read<span class="sep">·</span>{{ end }}~/{{ $s }}/{{ path.Base .RelPermalink }}</div>
     {{ .Content }}
   </article>
+  {{ if eq $s "posts" }}
+    {{ $all := (where .Site.RegularPages "Section" "posts").ByDate }}
+    {{ $len := len $all }}
+    {{ range $i, $p := $all }}
+      {{ if eq $p.RelPermalink $.RelPermalink }}
+        <nav class="postnav">
+          {{ if gt $i 0 }}{{ $o := index $all (sub $i 1) }}<a class="pn" href="{{ $o.RelPermalink }}"><span class="pn-label">← older</span><span class="pn-title">{{ $o.Title }}</span></a>{{ else }}<span></span>{{ end }}
+          {{ if lt (add $i 1) $len }}{{ $n := index $all (add $i 1) }}<a class="pn pn-r" href="{{ $n.RelPermalink }}"><span class="pn-label">newer →</span><span class="pn-title">{{ $n.Title }}</span></a>{{ end }}
+        </nav>
+      {{ end }}
+    {{ end }}
+  {{ end }}
   <div style="margin-top:26px"><a class="backlink" href="/{{ $s }}/">← back to {{ $s }}</a></div>
 
 {{ else }}
