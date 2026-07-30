@@ -1,0 +1,15 @@
+<div class="tool" data-tool="base64">
+  <div class="tool-row">
+    <label class="tool-label" for="b64-in">text</label>
+    <button class="tool-btn" id="b64-enc" type="button">encode →</button>
+    <button class="tool-btn ghost" id="b64-dec" type="button">← decode</button>
+  </div>
+  <textarea class="tool-area" id="b64-in" rows="4" spellcheck="false" placeholder="Type text to encode, or paste Base64 to decode"></textarea>
+  <textarea class="tool-area" id="b64-out" rows="4" spellcheck="false" placeholder="result" readonly></textarea>
+  <div class="tool-row" style="margin-top:6px">
+    <button class="tool-btn ghost" id="b64-copy" type="button">copy result</button>
+    <button class="tool-btn ghost" id="b64-swap" type="button">use result as input</button>
+  </div>
+  <p class="tool-hint">Encoding and decoding happen locally with UTF-8 handling — nothing is sent across the internet.</p>
+  <div class="tool-error" id="b64-err" hidden></div>
+</div>

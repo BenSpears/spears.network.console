@@ -1,0 +1,23 @@
+<div class="tool" data-tool="dice">
+  <div class="tool-row">
+    <label class="tool-label" for="dc-count">dice</label>
+    <input class="tool-input" id="dc-count" type="number" min="1" max="100" value="2" style="flex:0 1 90px">
+    <label class="tool-label" for="dc-faces">faces</label>
+    <input class="tool-input" id="dc-faces" type="number" min="2" max="1000" value="20" style="flex:0 1 90px">
+    <button class="tool-btn" id="dc-go" type="button">roll</button>
+  </div>
+  <div class="tool-row dc-presets">
+    <button class="tool-btn ghost" data-faces="4" type="button">d4</button>
+    <button class="tool-btn ghost" data-faces="6" type="button">d6</button>
+    <button class="tool-btn ghost" data-faces="8" type="button">d8</button>
+    <button class="tool-btn ghost" data-faces="10" type="button">d10</button>
+    <button class="tool-btn ghost" data-faces="12" type="button">d12</button>
+    <button class="tool-btn ghost" data-faces="20" type="button">d20</button>
+  </div>
+  <p class="tool-hint">Rolls use <code>crypto.getRandomValues</code> with rejection sampling, so every face is equally likely.</p>
+  <div class="tool-error" id="dc-err" hidden></div>
+  <div class="tool-out" id="dc-out" hidden>
+    <div class="dc-dice" id="dc-dice"></div>
+    <div class="tool-meta" id="dc-sum"></div>
+  </div>
+</div>

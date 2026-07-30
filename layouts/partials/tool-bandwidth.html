@@ -1,0 +1,30 @@
+<div class="tool" data-tool="bandwidth">
+  <div class="group-label">transfer time</div>
+  <div class="tool-row">
+    <label class="tool-label" for="bw-size">file size</label>
+    <input class="tool-input" id="bw-size" type="number" min="0" step="any" value="5" style="flex:0 1 120px">
+    <select class="tool-select" id="bw-sizeunit">
+      <option value="1">KB</option>
+      <option value="2" selected>MB</option>
+      <option value="3">GB</option>
+      <option value="4">TB</option>
+    </select>
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="bw-speed">speed</label>
+    <input class="tool-input" id="bw-speed" type="number" min="0" step="any" value="100" style="flex:0 1 120px">
+    <select class="tool-select" id="bw-speedunit">
+      <option value="kbit">Kbps</option>
+      <option value="mbit" selected>Mbps</option>
+      <option value="gbit">Gbps</option>
+      <option value="kibyte">KiB/s</option>
+      <option value="mbyte">MB/s</option>
+    </select>
+    <button class="tool-btn" id="bw-go" type="button">calculate</button>
+  </div>
+  <div class="tool-out" id="bw-out" hidden>
+    <div class="tool-answer" id="bw-time"></div>
+  </div>
+  <p class="tool-hint">Uses binary units (1&nbsp;KB = 1024&nbsp;bytes) and 8 bits per byte. All math is local.
+  Need unit conversions? See the <a href="/tools/convert/">data-size converter</a>.</p>
+</div>

@@ -1,0 +1,21 @@
+<div class="tool" data-tool="convert">
+  <div class="tool-row">
+    <label class="tool-label" for="sc-val">value</label>
+    <input class="tool-input" id="sc-val" type="number" min="0" step="any" value="1" style="flex:0 1 160px">
+    <select class="tool-select" id="sc-unit">
+      <option value="B">Bytes</option>
+      <option value="KB">KB (1000)</option>
+      <option value="KiB" selected>KiB (1024)</option>
+      <option value="MB">MB</option>
+      <option value="MiB">MiB</option>
+      <option value="GB">GB</option>
+      <option value="GiB">GiB</option>
+      <option value="TB">TB</option>
+      <option value="TiB">TiB</option>
+    </select>
+  </div>
+  <p class="tool-hint">Decimal units are powers of 1000 (KB, MB&hellip;); binary IEC units are powers of 1024 (KiB, MiB&hellip;). All math is local.</p>
+  <div class="tool-out" id="sc-out" hidden>
+    <table class="tool-table"><tbody id="sc-body"></tbody></table>
+  </div>
+</div>

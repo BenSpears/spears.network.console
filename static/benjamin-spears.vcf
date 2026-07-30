@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Spears;Benjamin;;;
+FN:Benjamin Spears
+TITLE:IT Manager
+EMAIL;TYPE=INTERNET:benbox.arrive873@passmail.com
+URL:https://spears.network
+X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/benjamin-spears-967927152
+item1.URL:https://www.linkedin.com/in/benjamin-spears-967927152
+item1.X-ABLabel:LinkedIn
+NOTE:IT Manager — infrastructure, systems administration, and operations.
+END:VCARD

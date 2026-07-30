@@ -56,6 +56,44 @@
   "author" (dict "@type" "Person" "name" .Site.Params.author "url" .Site.BaseURL)
   "publisher" (dict "@type" "Person" "name" .Site.Params.author)
   }}</script>
+{{ else if eq .Section "about" }}
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "ProfilePage"
+  "url" .Permalink
+  "mainEntity" (dict
+    "@type" "Person"
+    "name" .Site.Params.author
+    "url" .Site.BaseURL
+    "jobTitle" "IT Manager"
+    "worksFor" (dict "@type" "Organization" "name" "Dickson Medical Associates")
+    "description" $desc
+    "sameAs" (slice "https://www.linkedin.com/in/benjamin-spears-967927152")
+  )
+  }}</script>
+{{ else if and (eq .Section "tools") (eq .Kind "page") }}
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "SoftwareApplication"
+  "name" .Title
+  "description" $desc
+  "url" .Permalink
+  "applicationCategory" "UtilityApplication"
+  "operatingSystem" "Any"
+  "browserRequirements" "Requires JavaScript"
+  "isAccessibleForFree" true
+  "offers" (dict "@type" "Offer" "price" "0" "priceCurrency" "USD")
+  "author" (dict "@type" "Person" "name" .Site.Params.author "url" .Site.BaseURL)
+  }}</script>
+{{ else if and (eq .Section "tools") (eq .Kind "section") }}
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "CollectionPage"
+  "name" "Tools"
+  "description" $desc
+  "url" .Permalink
+  "isPartOf" (dict "@type" "WebSite" "name" .Site.Title "url" .Site.BaseURL)
+  }}</script>
 {{ end }}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">

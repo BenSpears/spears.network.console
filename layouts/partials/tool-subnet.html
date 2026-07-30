@@ -1,0 +1,15 @@
+<div class="tool" data-tool="subnet">
+  <div class="tool-row">
+    <label class="tool-label" for="sn-cidr">CIDR / IP</label>
+    <input class="tool-input" id="sn-cidr" type="text" inputmode="text" spellcheck="false"
+           autocomplete="off" placeholder="192.168.1.10/24" value="192.168.1.10/24">
+    <button class="tool-btn" id="sn-go" type="button">calc</button>
+  </div>
+  <p class="tool-hint">Enter an address with a prefix (<code>10.0.0.0/8</code>) or a bare IP to assume <code>/32</code>.</p>
+  <div class="tool-error" id="sn-err" hidden></div>
+  <div class="tool-out" id="sn-out" hidden>
+    <table class="tool-table">
+      <tbody id="sn-body"></tbody>
+    </table>
+  </div>
+</div>

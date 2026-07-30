@@ -1,0 +1,17 @@
+<div class="tool" data-tool="url">
+  <div class="tool-row">
+    <label class="tool-label" for="url-in">text</label>
+    <button class="tool-btn" id="url-enc" type="button">encode →</button>
+    <button class="tool-btn ghost" id="url-dec" type="button">← decode</button>
+    <label class="tool-check" id="url-compwrap"><input type="checkbox" id="url-component" checked> encode component <code>&amp;=?/</code></label>
+  </div>
+  <textarea class="tool-area" id="url-in" rows="4" spellcheck="false" placeholder="Type text to encode, or paste an encoded string to decode"></textarea>
+  <textarea class="tool-area" id="url-out" rows="4" spellcheck="false" placeholder="result" readonly></textarea>
+  <div class="tool-row" style="margin-top:6px">
+    <button class="tool-btn ghost" id="url-copy" type="button">copy result</button>
+    <button class="tool-btn ghost" id="url-swap" type="button">use result as input</button>
+  </div>
+  <p class="tool-hint"><b>Component</b> encodes reserved characters like <code>&amp; = ? /</code> (for a query value);
+  unchecked keeps them (for a whole URL). Runs locally &mdash; nothing is transmitted.</p>
+  <div class="tool-error" id="url-err" hidden></div>
+</div>

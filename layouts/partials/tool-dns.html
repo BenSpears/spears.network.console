@@ -1,0 +1,34 @@
+<div class="tool" data-tool="dns">
+  <div class="tool-row">
+    <label class="tool-label" for="dns-name">host</label>
+    <input class="tool-input" id="dns-name" type="text" inputmode="url" spellcheck="false"
+           autocomplete="off" placeholder="example.com" value="example.com">
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="dns-type">type</label>
+    <select class="tool-select" id="dns-type">
+      <option value="A">A</option>
+      <option value="AAAA">AAAA</option>
+      <option value="CNAME">CNAME</option>
+      <option value="MX">MX</option>
+      <option value="TXT">TXT</option>
+      <option value="NS">NS</option>
+    </select>
+    <label class="tool-label" for="dns-res">resolver</label>
+    <select class="tool-select" id="dns-res">
+      <option value="cloudflare">Cloudflare</option>
+      <option value="controld">Control D</option>
+      <option value="quad9">Quad9</option>
+    </select>
+    <button class="tool-btn" id="dns-go" type="button">query</button>
+  </div>
+  <p class="tool-hint">Sends an RFC&nbsp;8484 DNS-over-HTTPS query straight from your browser. No query is logged here.</p>
+  <div class="tool-error" id="dns-err" hidden></div>
+  <div class="tool-out" id="dns-out" hidden>
+    <div class="tool-meta" id="dns-summary"></div>
+    <table class="tool-table">
+      <thead><tr><th>name</th><th>type</th><th>TTL</th><th>data</th></tr></thead>
+      <tbody id="dns-body"></tbody>
+    </table>
+  </div>
+</div>

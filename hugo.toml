@@ -28,6 +28,9 @@ disableKinds = ["taxonomy", "term"]
     name = "apps/"
     url  = "/apps/"
   [[params.navlinks]]
+    name = "tools/"
+    url  = "/tools/"
+  [[params.navlinks]]
     name = "links/"
     url  = "/links/"
 

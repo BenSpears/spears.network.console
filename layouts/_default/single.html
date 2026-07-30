@@ -65,6 +65,22 @@
   {{ end }}
   <div style="margin-top:26px"><a class="backlink" href="/{{ $s }}/">← back to {{ $s }}</a></div>
 
+{{ else if eq $s "tools" }}
+  {{/* ---- interactive tool page ---- */}}
+  <a class="backlink" href="/tools/">← cd ../tools</a>
+  <div style="margin-top:14px">
+    <h1>{{ .Title }}</h1>
+    <div class="apptag">{{ .Params.tagline }}</div>
+  </div>
+  {{ with .Content }}<div class="prose" style="margin-top:12px">{{ . }}</div>{{ end }}
+  {{ partial (printf "tool-%s.html" .Params.tool) . }}
+  {{ $tjs := resources.Get "js/tools.js" | fingerprint }}
+  <script src="{{ $tjs.RelPermalink }}"></script>
+  {{ with resources.Get (printf "js/tool-%s.js" .Params.tool) }}
+    <script src="{{ (. | fingerprint).RelPermalink }}"></script>
+  {{ end }}
+  <div style="margin-top:26px"><a class="backlink" href="/tools/">← back to tools</a></div>
+
 {{ else }}
   {{/* ---- standalone page (about / links) ---- */}}
   <a class="backlink" href="/">← cd ~</a>

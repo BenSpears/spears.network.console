@@ -1,0 +1,32 @@
+<div class="tool" data-tool="wifi">
+  <div class="tool-row">
+    <label class="tool-label" for="wf-ssid">SSID</label>
+    <input class="tool-input" id="wf-ssid" type="text" spellcheck="false" autocomplete="off"
+           placeholder="network name">
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="wf-pass">password</label>
+    <input class="tool-input" id="wf-pass" type="text" spellcheck="false" autocomplete="off"
+           placeholder="network password">
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="wf-auth">security</label>
+    <select class="tool-select" id="wf-auth">
+      <option value="WPA">WPA / WPA2 / WPA3</option>
+      <option value="WEP">WEP</option>
+      <option value="nopass">None (open)</option>
+    </select>
+    <label class="tool-check"><input type="checkbox" id="wf-hidden"> hidden network</label>
+    <button class="tool-btn" id="wf-go" type="button">generate</button>
+  </div>
+  <p class="tool-hint">The QR is built with the Web Crypto-free encoder shipped with this page. Your SSID and
+  password are encoded in your browser and never sent to a server.</p>
+  <div class="tool-error" id="wf-err" hidden></div>
+  <div class="tool-out" id="wf-out" hidden>
+    <div class="wf-qr" id="wf-qr"></div>
+    <div class="tool-row" style="margin-top:14px">
+      <button class="tool-btn ghost" id="wf-png" type="button">download PNG</button>
+      <button class="tool-btn ghost" id="wf-svg" type="button">download SVG</button>
+    </div>
+  </div>
+</div>

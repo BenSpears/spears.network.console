@@ -1,0 +1,45 @@
+<div class="tool" data-tool="sleep">
+  <div class="sl-card">
+    <div class="sl-head">I want to <strong>wake up</strong> at</div>
+    <div class="tool-row">
+      <input class="tool-input" id="sl-wake" type="time" value="07:00" style="flex:0 1 150px">
+      <button class="tool-btn" id="sl-bed" type="button">show bedtimes</button>
+    </div>
+    <div class="tool-out" id="sl-bedout" hidden>
+      <div class="tool-meta">Go to bed at one of these times (latest = most sleep):</div>
+      <div class="sl-times" id="sl-bedtimes"></div>
+    </div>
+  </div>
+
+  <div class="sl-card">
+    <div class="sl-head">I'm <strong>going to bed</strong> at</div>
+    <div class="tool-row">
+      <input class="tool-input" id="sl-bedtime" type="time" value="23:00" style="flex:0 1 150px">
+      <button class="tool-btn" id="sl-waketime" type="button">show wake-up times</button>
+    </div>
+    <div class="tool-out" id="sl-wakeout" hidden>
+      <div class="tool-meta">Set an alarm for one of these times:</div>
+      <div class="sl-times" id="sl-waketimes"></div>
+    </div>
+  </div>
+
+  <div class="sl-card">
+    <div class="sl-head">If I fall asleep <strong>right now</strong></div>
+    <div class="tool-row">
+      <button class="tool-btn" id="sl-now" type="button">show wake-up times</button>
+    </div>
+    <div class="tool-out" id="sl-nowout" hidden>
+      <div class="tool-meta">Set an alarm for one of these times:</div>
+      <div class="sl-times" id="sl-nowtimes"></div>
+    </div>
+  </div>
+
+  <div class="group-label" style="margin-top:6px">cycle settings</div>
+  <div class="tool-row sl-settings">
+    <label class="tool-label" for="sl-cycle">cycle length (min)</label>
+    <input class="tool-input" id="sl-cycle" type="number" min="60" max="120" value="90" style="flex:0 1 90px">
+    <label class="tool-label" for="sl-latency">time to fall asleep (min)</label>
+    <input class="tool-input" id="sl-latency" type="number" min="0" max="60" value="15" style="flex:0 1 90px">
+  </div>
+  <p class="tool-hint">A full cycle averages ~90&nbsp;minutes; waking between cycles feels easier than mid-cycle. Guidance, not medical advice.</p>
+</div>

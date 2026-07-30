@@ -1,0 +1,19 @@
+<div class="tool" data-tool="tip">
+  <div class="tool-row">
+    <label class="tool-label" for="tip-bill">bill</label>
+    <input class="tool-input" id="tip-bill" type="number" min="0" step="any" value="50" style="flex:0 1 140px">
+    <label class="tool-label" for="tip-pct">tip %</label>
+    <input class="tool-input" id="tip-pct" type="number" min="0" step="any" value="18" style="flex:0 1 90px">
+    <label class="tool-label" for="tip-split">split</label>
+    <input class="tool-input" id="tip-split" type="number" min="1" step="1" value="1" style="flex:0 1 80px">
+  </div>
+  <p class="tool-hint">In the U.S., 15&ndash;20% of the pre-tax total is typical. Values update as you type.</p>
+  <div class="tool-out" id="tip-out">
+    <table class="tool-table"><tbody id="tip-body"></tbody></table>
+    <div class="group-label" style="margin-top:14px">quick compare</div>
+    <table class="tool-table">
+      <thead><tr><th>tip</th><th>tip amount</th><th>total</th><th>per person</th></tr></thead>
+      <tbody id="tip-compare"></tbody>
+    </table>
+  </div>
+</div>

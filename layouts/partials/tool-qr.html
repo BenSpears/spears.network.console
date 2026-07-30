@@ -1,0 +1,17 @@
+<div class="tool" data-tool="qr">
+  <div class="tool-row">
+    <label class="tool-label" for="qr-in">content</label>
+    <input class="tool-input" id="qr-in" type="text" spellcheck="false" autocomplete="off"
+           placeholder="https://example.com  or any text">
+    <button class="tool-btn" id="qr-go" type="button">generate</button>
+  </div>
+  <p class="tool-hint">Encoded in your browser (byte mode, error-correction level M). Nothing is sent anywhere.</p>
+  <div class="tool-error" id="qr-err" hidden></div>
+  <div class="tool-out" id="qr-out" hidden>
+    <div class="wf-qr" id="qr-img"></div>
+    <div class="tool-row" style="margin-top:14px">
+      <button class="tool-btn ghost" id="qr-png" type="button">download PNG</button>
+      <button class="tool-btn ghost" id="qr-svg" type="button">download SVG</button>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,22 @@
     <a class="row" href="{{ .RelPermalink }}"><span class="date">{{ .Date.Format "Jan. 2, 2006" }}</span><span class="name">{{ .Title }}<span class="desc">{{ .Summary | plainify | truncate 180 }}</span></span></a>
   {{ end }}
   </div>
+{{ else if eq .Section "tools" }}
+  <p class="lead">In-browser IT &amp; privacy utilities. Everything runs client-side —
+  nothing you enter is sent to a server.</p>
+  <div class="appgrid">
+  {{ range .Pages.ByWeight }}
+    <div class="appcard">
+      <a class="appcard-main" href="{{ .RelPermalink }}">
+        <span class="appicon glyph" aria-hidden="true">{{ .Params.glyph }}</span>
+        <span class="appmeta">
+          <span class="appname">{{ .Title }}</span>
+          <span class="apptag">{{ .Params.tagline }}</span>
+        </span>
+      </a>
+    </div>
+  {{ end }}
+  </div>
 {{ else }}
   {{ $hubs := (where .Pages "Params.hub" true).ByWeight }}
   <p class="lead">iOS apps I build on the side — private by default. Each links to its

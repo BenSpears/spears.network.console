@@ -1,0 +1,27 @@
+<div class="tool" data-tool="checksum">
+  <div class="tool-row">
+    <label class="tool-label" for="ck-file">file</label>
+    <input class="tool-file" id="ck-file" type="file">
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="ck-algo">algorithm</label>
+    <select class="tool-select" id="ck-algo">
+      <option value="SHA-256">SHA-256</option>
+      <option value="SHA-1">SHA-1</option>
+      <option value="SHA-384">SHA-384</option>
+      <option value="SHA-512">SHA-512</option>
+    </select>
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="ck-expect">expected</label>
+    <input class="tool-input" id="ck-expect" type="text" spellcheck="false" autocomplete="off"
+           placeholder="paste a hash to compare (optional)">
+  </div>
+  <p class="tool-hint">The file is read and hashed in your browser with the Web Crypto API. It never leaves your device.</p>
+  <div class="tool-error" id="ck-err" hidden></div>
+  <div class="tool-out" id="ck-out" hidden>
+    <div class="tool-meta" id="ck-meta"></div>
+    <div class="tool-hash" id="ck-hash"></div>
+    <div class="tool-verdict" id="ck-verdict" hidden></div>
+  </div>
+</div>

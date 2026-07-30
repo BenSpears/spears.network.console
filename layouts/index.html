@@ -20,10 +20,11 @@
 <h1>{{ .Params.heading }} <span class="prompt-tag">{{ .Params.tagline }}</span></h1>
 <p class="lead">{{ .Content | plainify }} <a href="/about/" style="color:var(--accent-2);text-decoration:none">[more]</a></p>
 
-<div class="group-label">latest posts</div>
+<div class="group-label">posts</div>
 <div class="list">
-{{ range first 4 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ range first 6 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
   <a class="row" href="{{ .RelPermalink }}"><span class="date">{{ .Date.Format "Jan. 2, 2006" }}</span><span class="name">{{ .Title }}<span class="desc">{{ .Summary | plainify | truncate 180 }}</span></span></a>
 {{ end }}
 </div>
+<a class="viewall" href="/posts/">view all posts →</a>
 {{ end }}
