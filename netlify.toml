@@ -9,6 +9,14 @@
   directory = "netlify/functions"
   node_bundler = "esbuild"
 
+# ---- outbound referral redirects (first-party, no tracker in the visible link) ----
+# When your Proton partner account is approved, change `to` to your affiliate URL.
+[[redirects]]
+  from = "/go/proton"
+  to = "https://proton.me/"
+  status = 302
+  force = true
+
 # ---- security headers (apply to every response) ----
 [[headers]]
   for = "/*"

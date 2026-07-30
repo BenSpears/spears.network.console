@@ -52,10 +52,10 @@ that.
 
 ## Choosing one
 
-I use **ProtonVPN**, mostly because it comes with the Proton Suite I already rely
-on — convenient and reliable. If raw privacy and speed are the priority,
-**Mullvad** is my top pick: fast, no email required to sign up, and about as
-privacy-focused as it gets.
+I use **[ProtonVPN](/go/proton)**, mostly because it comes with the Proton Suite I
+already rely on — convenient and reliable. If raw privacy and speed are the
+priority, **[Mullvad](https://mullvad.net/)** is my top pick: fast, no email
+required to sign up, and about as privacy-focused as it gets.
 
 Whatever you land on, the deciding factor is the logging policy and who's behind
 it. A cheap VPN with a vague privacy policy is just moving your data to a new
