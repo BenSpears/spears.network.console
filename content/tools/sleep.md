@@ -1,6 +1,6 @@
 +++
 title = "Sleep Cycle Calculator"
-weight = 11
+weight = 12
 tool = "sleep"
 glyph = "zzz"
 tagline = "Wake between cycles, not mid-cycle"

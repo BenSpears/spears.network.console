@@ -533,6 +533,77 @@
     convert();
   }
 
+  /* ------------------------------------------------------------- timestamp */
+  function initTimestamp() {
+    var now = $("ts-now"), nowsub = $("ts-nowsub"), copy = $("ts-copy"),
+        epoch = $("ts-epoch"), unit = $("ts-unit"), out1 = $("ts-out1"), body1 = $("ts-body1"), err1 = $("ts-err1"),
+        date = $("ts-date"), out2 = $("ts-out2"), body2 = $("ts-body2");
+    if (!now) return;
+
+    function rel(ms) {
+      var d = Date.now() - ms, fut = d < 0; d = Math.abs(d);
+      var u = [["year", 31536e6], ["day", 864e5], ["hour", 36e5], ["minute", 6e4], ["second", 1e3]];
+      for (var i = 0; i < u.length; i++) {
+        var q = Math.floor(d / u[i][1]);
+        if (q >= 1) return (fut ? "in " : "") + q + " " + u[i][0] + (q > 1 ? "s" : "") + (fut ? "" : " ago");
+      }
+      return "just now";
+    }
+    function rows(ms) {
+      var d = new Date(ms);
+      return [
+        ["Local", d.toLocaleString()],
+        ["UTC", d.toUTCString()],
+        ["ISO 8601", d.toISOString()],
+        ["Relative", rel(ms)],
+        ["Epoch (s)", Math.floor(ms / 1000)],
+        ["Epoch (ms)", ms]
+      ];
+    }
+    function fill(tbody, ms) {
+      tbody.innerHTML = rows(ms).map(function (r) {
+        return "<tr><th>" + r[0] + "</th><td class=\"mono\">" + r[1] + "</td></tr>";
+      }).join("");
+    }
+
+    function tick() {
+      var s = Math.floor(Date.now() / 1000);
+      now.textContent = s;
+      nowsub.textContent = Date.now() + " ms · " + new Date().toLocaleString();
+    }
+    tick(); setInterval(tick, 1000);
+    copy.addEventListener("click", function () {
+      navigator.clipboard && navigator.clipboard.writeText(String(Math.floor(Date.now() / 1000))).then(function () {
+        copy.textContent = "copied"; setTimeout(function () { copy.textContent = "copy"; }, 1200);
+      });
+    });
+
+    function fromEpoch() {
+      var v = epoch.value.trim();
+      if (v === "") { hide(out1); hide(err1); return; }
+      var n = Number(v);
+      if (!isFinite(n)) { err1.textContent = "Enter a numeric timestamp."; show(err1); hide(out1); return; }
+      hide(err1);
+      var ms = unit.value === "ms" ? n : n * 1000;
+      fill(body1, ms); show(out1);
+    }
+    function fromDate() {
+      if (!date.value) { hide(out2); return; }
+      var ms = new Date(date.value).getTime();
+      if (!isFinite(ms)) { hide(out2); return; }
+      fill(body2, ms); show(out2);
+    }
+    [epoch, unit].forEach(function (e) { e.addEventListener("input", fromEpoch); });
+    date.addEventListener("input", fromDate);
+
+    // prefill with the current time as a live example
+    epoch.value = Math.floor(Date.now() / 1000); fromEpoch();
+    var d = new Date(), pad = function (x) { return (x < 10 ? "0" : "") + x; };
+    date.value = d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) +
+      "T" + pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds());
+    fromDate();
+  }
+
   /* ----------------------------------------------------------------- sleep */
   function initSleep() {
     var now = $("sl-now"), nowOut = $("sl-nowout"), nowTimes = $("sl-nowtimes"),
@@ -628,6 +699,7 @@
     initUrl();
     initBandwidth();
     initConvert();
+    initTimestamp();
     initSleep();
     initTip();
     initDice();

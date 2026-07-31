@@ -1,0 +1,32 @@
+<div class="tool" data-tool="timestamp">
+  <div class="group-label">current time</div>
+  <div class="tool-row">
+    <div class="tool-answer" style="flex:1 1 auto">
+      <span class="ta-big" id="ts-now">—</span>
+      <span class="ta-sub" id="ts-nowsub"></span>
+    </div>
+    <button class="tool-btn ghost" id="ts-copy" type="button">copy</button>
+  </div>
+
+  <div class="group-label" style="margin-top:18px">timestamp → date</div>
+  <div class="tool-row">
+    <input class="tool-input" id="ts-epoch" type="number" step="1" placeholder="1700000000" style="flex:0 1 220px">
+    <select class="tool-select" id="ts-unit">
+      <option value="s">seconds</option>
+      <option value="ms">milliseconds</option>
+    </select>
+  </div>
+  <div class="tool-error" id="ts-err1" hidden></div>
+  <div class="tool-out" id="ts-out1" hidden>
+    <table class="tool-table"><tbody id="ts-body1"></tbody></table>
+  </div>
+
+  <div class="group-label" style="margin-top:18px">date → timestamp</div>
+  <div class="tool-row">
+    <input class="tool-input" id="ts-date" type="datetime-local" step="1" style="flex:0 1 250px">
+  </div>
+  <div class="tool-out" id="ts-out2" hidden>
+    <table class="tool-table"><tbody id="ts-body2"></tbody></table>
+  </div>
+  <p class="tool-hint">Unix time is seconds since 1970-01-01 UTC. The date field is read in your local time zone. Everything runs locally.</p>
+</div>

@@ -1,6 +1,6 @@
 +++
 title = "Dice Roller"
-weight = 13
+weight = 14
 tool = "dice"
 glyph = "d20"
 tagline = "Roll dice with any number of faces"

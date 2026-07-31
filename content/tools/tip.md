@@ -1,6 +1,6 @@
 +++
 title = "Tip Calculator"
-weight = 12
+weight = 13
 tool = "tip"
 glyph = "%"
 tagline = "Tip amounts, totals, and splits"
