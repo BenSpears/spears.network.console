@@ -70,7 +70,7 @@
   <a class="backlink" href="/tools/">← cd ../tools</a>
   <div style="margin-top:14px">
     <h1>{{ .Title }}</h1>
-    <div class="apptag">{{ .Params.tagline }}</div>
+    {{ with .Params.tagline }}<div class="apptag">{{ . }}</div>{{ end }}
   </div>
   {{ with .Content }}<div class="prose" style="margin-top:12px">{{ . }}</div>{{ end }}
   {{ partial (printf "tool-%s.html" .Params.tool) . }}

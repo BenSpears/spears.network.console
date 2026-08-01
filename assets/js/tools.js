@@ -14,7 +14,7 @@
   /* ---------------------------------------------------------------- subnet */
   function initSubnet() {
     var input = $("sn-cidr"), go = $("sn-go"),
-        out = $("sn-out"), body = $("sn-body"), err = $("sn-err");
+        out = $("sn-out"), body = $("sn-body"), err = $("sn-err"), bits = $("sn-bits");
     if (!input || !go) return;
 
     function fail(msg) { err.textContent = msg; show(err); hide(out); }
@@ -77,6 +77,21 @@
         return "public";
       })();
 
+      var toBin = function (n) {
+        var s = "";
+        for (var i = 31; i >= 0; i--) { s += (n >>> i) & 1; if (i % 8 === 0 && i) s += "."; }
+        return s;
+      };
+      var toHex = function (n) {
+        return "0x" + ("00000000" + (n >>> 0).toString(16).toUpperCase()).slice(-8);
+      };
+      var ipClass = (function () {
+        var a = (ip >>> 24) & 255;
+        if (a < 128) return "A"; if (a < 192) return "B"; if (a < 224) return "C";
+        if (a < 240) return "D (multicast)"; return "E (reserved)";
+      })();
+      var ptr = [(ip & 255), (ip >>> 8) & 255, (ip >>> 16) & 255, (ip >>> 24) & 255].join(".") + ".in-addr.arpa";
+
       var rows = [
         ["Address", toIp(ip) + "/" + prefix],
         ["Netmask", toIp(mask) + "  (/" + prefix + ")"],
@@ -86,11 +101,26 @@
         ["Host range", usable > 0 ? firstHost + "  →  " + lastHost : "—"],
         ["Usable hosts", usable.toLocaleString()],
         ["Total addresses", total.toLocaleString()],
-        ["Scope", priv]
+        ["Scope", priv],
+        ["Class", ipClass],
+        ["Binary", toBin(ip)],
+        ["Hex", toHex(ip)],
+        ["Integer", (ip >>> 0).toLocaleString()],
+        ["Reverse DNS", ptr]
       ];
       body.innerHTML = rows.map(function (r) {
-        return "<tr><th>" + esc(r[0]) + "</th><td>" + esc(r[1]) + "</td></tr>";
+        return "<tr><th>" + esc(r[0]) + "</th><td class=\"mono\">" + esc(r[1]) + "</td></tr>";
       }).join("");
+
+      // 32-bit visual: network bits vs host bits
+      var cells = "";
+      for (var b = 31; b >= 0; b--) {
+        var isNet = (31 - b) < prefix;
+        var bitv = (ip >>> b) & 1;
+        cells += '<i class="snb ' + (isNet ? "net" : "host") + '">' + bitv + '</i>' +
+          (b % 8 === 0 && b ? '<i class="snb-gap"></i>' : "");
+      }
+      bits.innerHTML = cells;
       show(out);
     }
 
@@ -326,6 +356,24 @@
     if (bits < 90) return { label: "strong", color: "var(--accent-2)" };
     return { label: "very strong", color: "var(--accent)" };
   }
+  function pwCrackTime(bits, rate) {
+    // average guesses = 2^(bits-1); rate = guesses/sec for the scenario
+    var s = (bits - 1) * Math.LOG10E * Math.LN2 - Math.log10(rate); // log10 of average seconds
+    if (s < 0.5) return "instantly";
+    if (s < 1.78) return "a few seconds";
+    if (s < 3.56) return "a few minutes";
+    if (s < 4.94) return "a few hours";
+    if (s < 6.42) return "a few days";
+    if (s < 7.5) return "a few months";
+    var y = s - 7.5; // log10 of years
+    if (y < 1) return "a few years";
+    if (y < 2) return "decades";
+    if (y < 3) return "centuries";
+    if (y < 6) return "thousands of years";
+    if (y < 9) return "millions of years";
+    if (y < 10.15) return "billions of years";
+    return "longer than the universe has existed";
+  }
   function initPassword() {
     var len = $("pw-len"), lenval = $("pw-lenval"), go = $("pw-go"),
         out = $("pw-out"), val = $("pw-value"), bar = $("pw-bar"),
@@ -333,8 +381,11 @@
         err = $("pw-err"), copy = $("pw-copy"),
         cl = $("pw-lower"), cu = $("pw-upper"), cd = $("pw-digit"), cs = $("pw-sym"),
         camb = $("pw-ambig"), cbr = $("pw-brackets"), cnr = $("pw-norepeat"),
+        crackFast = $("pw-crack-fast"), crackOnline = $("pw-crack-online"),
         check = $("pw-check"), checkOut = $("pw-checkout"), checkBar = $("pw-checkbar"),
-        checkBits = $("pw-checkbits"), checkRating = $("pw-checkrating"), checkNote = $("pw-checknote");
+        checkBits = $("pw-checkbits"), checkRating = $("pw-checkrating"), checkNote = $("pw-checknote"),
+        checkCrackFast = $("pw-checkcrack-fast"), checkCrackOnline = $("pw-checkcrack-online");
+    var RATE_FAST = 1e11, RATE_ONLINE = 100; // guesses/sec: offline GPU vs rate-limited login
     if (!go) return;
     var SETS = {
       lower: "abcdefghijklmnopqrstuvwxyz",
@@ -378,6 +429,8 @@
       poolEl.textContent = pool.length + (note ? "" : "");
       var s = pwStrength(bits);
       rating.textContent = s.label + note;
+      crackFast.textContent = pwCrackTime(bits, RATE_FAST);
+      crackOnline.textContent = pwCrackTime(bits, RATE_ONLINE);
       bar.style.width = Math.min(100, Math.round(bits / 128 * 100)) + "%";
       bar.style.background = s.color;
       show(out);
@@ -397,6 +450,8 @@
       checkBits.textContent = bits + " bits";
       checkRating.textContent = s.label;
       checkNote.textContent = p.length + " chars, " + uniq + " unique";
+      checkCrackFast.textContent = pwCrackTime(bits, RATE_FAST);
+      checkCrackOnline.textContent = pwCrackTime(bits, RATE_ONLINE);
       checkBar.style.width = Math.min(100, Math.round(bits / 128 * 100)) + "%";
       checkBar.style.background = s.color;
       show(checkOut);
@@ -665,6 +720,82 @@
     calc();
   }
 
+  /* -------------------------------------------------------------- one-rep max */
+  function initOneRepMax() {
+    var weight = $("orm-weight"), unit = $("orm-unit"), reps = $("orm-reps"),
+        out = $("orm-out"), maxEl = $("orm-max"), formulas = $("orm-formulas"),
+        body = $("orm-body"), err = $("orm-err");
+    if (!weight) return;
+    var PCTS = [[100, 1], [95, 2], [90, 4], [85, 6], [80, 8], [75, 10], [70, 12], [65, 16], [60, 20]];
+    function calc() {
+      var w = parseFloat(weight.value) || 0, r = parseInt(reps.value, 10);
+      if (w <= 0 || !(r >= 1 && r <= 15)) {
+        err.textContent = "Enter a weight and 1–15 reps."; show(err); hide(out); return;
+      }
+      hide(err);
+      var u = unit.value, step = u === "kg" ? 2.5 : 5;
+      var rnd = function (x) { return Math.round(x / step) * step; };
+      var epley = r === 1 ? w : w * (1 + r / 30);
+      var brzycki = r === 1 ? w : w * 36 / (37 - r);
+      var orm = (epley + brzycki) / 2;
+      maxEl.textContent = "≈ " + Math.round(orm) + " " + u + " one-rep max";
+      formulas.textContent = "Epley " + Math.round(epley) + " · Brzycki " + Math.round(brzycki) +
+        " · from " + w + " " + u + " × " + r;
+      body.innerHTML = PCTS.map(function (p) {
+        return "<tr><td>" + p[0] + "%</td><td class=\"mono\">" + rnd(orm * p[0] / 100) + " " + u +
+          "</td><td>" + p[1] + "</td></tr>";
+      }).join("");
+      show(out);
+    }
+    [weight, unit, reps].forEach(function (e) { e.addEventListener("input", calc); });
+    calc();
+  }
+
+  /* ------------------------------------------------------ strength standards */
+  function initStrength() {
+    var sex = $("st-sex"), lift = $("st-lift"), bw = $("st-bw"), unit = $("st-unit"),
+        wt = $("st-weight"), out = $("st-out"), levelEl = $("st-level"), ratioEl = $("st-ratio"),
+        bar = $("st-bar"), body = $("st-body"), err = $("st-err");
+    if (!sex) return;
+    var NAMES = ["Beginner", "Novice", "Intermediate", "Advanced", "Elite"];
+    var LIFTNAME = { bench: "Bench Press", squat: "Squat", deadlift: "Deadlift", ohp: "Overhead Press" };
+    var STD = {
+      male: {
+        bench: [0.5, 0.75, 1.0, 1.5, 2.0], squat: [0.75, 1.25, 1.5, 2.25, 2.75],
+        deadlift: [1.0, 1.5, 2.0, 2.5, 3.0], ohp: [0.35, 0.5, 0.7, 0.9, 1.1]
+      },
+      female: {
+        bench: [0.35, 0.5, 0.75, 1.0, 1.5], squat: [0.5, 0.75, 1.25, 1.75, 2.25],
+        deadlift: [0.5, 1.0, 1.25, 1.75, 2.5], ohp: [0.2, 0.35, 0.5, 0.75, 1.0]
+      }
+    };
+    function calc() {
+      var b = parseFloat(bw.value) || 0, w = parseFloat(wt.value) || 0;
+      if (b <= 0 || w <= 0) { err.textContent = "Enter your bodyweight and lift."; show(err); hide(out); return; }
+      hide(err);
+      var std = STD[sex.value][lift.value], u = unit.value, step = u === "kg" ? 2.5 : 5;
+      var rnd = function (x) { return Math.round(x / step) * step; };
+      var ratio = w / b, tier = -1;
+      for (var k = 0; k < 5; k++) if (ratio >= std[k]) tier = k;
+      var level = tier < 0 ? "Untrained" : NAMES[tier];
+      levelEl.textContent = level;
+      ratioEl.textContent = LIFTNAME[lift.value] + " · " + ratio.toFixed(2) + "× bodyweight (" +
+        w + " " + u + " @ " + b + " " + u + ")";
+      bar.innerHTML = NAMES.map(function (n, i) {
+        var cls = "st-seg" + (tier >= i ? " on" : "") + (tier === i ? " cur" : "");
+        return '<div class="' + cls + '"><div class="st-fill"></div>' + n + '</div>';
+      }).join("");
+      body.innerHTML = NAMES.map(function (n, i) {
+        var cur = tier === i ? ' class="cur"' : "";
+        return "<tr" + cur + "><th>" + n + "</th><td class=\"mono\">" + rnd(std[i] * b) + " " + u +
+          "</td><td>" + std[i].toFixed(2) + "×</td></tr>";
+      }).join("");
+      show(out);
+    }
+    [sex, lift, bw, unit, wt].forEach(function (e) { e.addEventListener("input", calc); });
+    calc();
+  }
+
   /* ------------------------------------------------------------------ dice */
   function initDice() {
     var count = $("dc-count"), faces = $("dc-faces"), go = $("dc-go"),
@@ -702,6 +833,8 @@
     initTimestamp();
     initSleep();
     initTip();
+    initOneRepMax();
+    initStrength();
     initDice();
   });
 })();

@@ -1,0 +1,25 @@
+<div class="tool" data-tool="onerepmax">
+  <div class="tool-row">
+    <label class="tool-label" for="orm-weight">weight</label>
+    <input class="tool-input" id="orm-weight" type="number" min="0" step="any" value="185" style="flex:0 1 130px">
+    <select class="tool-select" id="orm-unit">
+      <option value="lb">lb</option>
+      <option value="kg">kg</option>
+    </select>
+    <label class="tool-label" for="orm-reps">reps</label>
+    <input class="tool-input" id="orm-reps" type="number" min="1" max="15" step="1" value="5" style="flex:0 1 90px">
+  </div>
+  <p class="tool-hint">Estimated from a submaximal set (average of the Epley and Brzycki formulas). Most accurate at 10 reps or fewer. Estimates only — lift safely.</p>
+  <div class="tool-error" id="orm-err" hidden></div>
+  <div class="tool-out" id="orm-out" hidden>
+    <div class="tool-answer">
+      <span class="ta-big" id="orm-max"></span>
+      <span class="ta-sub" id="orm-formulas"></span>
+    </div>
+    <div class="group-label" style="margin-top:14px">training percentages</div>
+    <table class="tool-table">
+      <thead><tr><th>%1RM</th><th>weight</th><th>~reps</th></tr></thead>
+      <tbody id="orm-body"></tbody>
+    </table>
+  </div>
+</div>

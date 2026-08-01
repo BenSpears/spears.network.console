@@ -18,7 +18,7 @@
         <span class="appicon glyph" aria-hidden="true">{{ .Params.glyph }}</span>
         <span class="appmeta">
           <span class="appname">{{ .Title }}</span>
-          <span class="apptag">{{ .Params.tagline }}</span>
+          {{ with .Params.tagline }}<span class="apptag">{{ . }}</span>{{ end }}
         </span>
       </a>
     </div>

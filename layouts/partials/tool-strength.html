@@ -1,0 +1,39 @@
+<div class="tool" data-tool="strength">
+  <div class="tool-row">
+    <label class="tool-label" for="st-sex">sex</label>
+    <select class="tool-select" id="st-sex">
+      <option value="male">male</option>
+      <option value="female">female</option>
+    </select>
+    <label class="tool-label" for="st-lift">lift</label>
+    <select class="tool-select" id="st-lift">
+      <option value="bench">Bench Press</option>
+      <option value="squat">Squat</option>
+      <option value="deadlift">Deadlift</option>
+      <option value="ohp">Overhead Press</option>
+    </select>
+  </div>
+  <div class="tool-row">
+    <label class="tool-label" for="st-bw">bodyweight</label>
+    <input class="tool-input" id="st-bw" type="number" min="0" step="any" value="180" style="flex:0 1 110px">
+    <select class="tool-select" id="st-unit">
+      <option value="lb">lb</option>
+      <option value="kg">kg</option>
+    </select>
+    <label class="tool-label" for="st-weight">lift (1RM)</label>
+    <input class="tool-input" id="st-weight" type="number" min="0" step="any" value="225" style="flex:0 1 110px">
+  </div>
+  <p class="tool-hint">Standards are your one-rep max as a multiple of bodyweight. A rough, popular guide — not a scientific ranking. Use the <a href="/tools/onerepmax/">1RM calculator</a> if you only know a rep max.</p>
+  <div class="tool-error" id="st-err" hidden></div>
+  <div class="tool-out" id="st-out" hidden>
+    <div class="tool-answer">
+      <span class="ta-big" id="st-level"></span>
+      <span class="ta-sub" id="st-ratio"></span>
+    </div>
+    <div class="st-bar" id="st-bar"></div>
+    <table class="tool-table">
+      <thead><tr><th>level</th><th>needs</th><th>× BW</th></tr></thead>
+      <tbody id="st-body"></tbody>
+    </table>
+  </div>
+</div>

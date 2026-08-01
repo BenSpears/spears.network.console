@@ -771,6 +771,33 @@ html.light ::selection { background: rgba(15,143,91,.18); color: #14181d; }
 }
 .viewall:hover { color: var(--accent); }
 
+/* strength standards — tier bar */
+.st-bar { display: flex; gap: 5px; margin: 6px 0 16px; }
+.st-seg { flex: 1; text-align: center; font-size: .68rem; color: var(--fg-faint); }
+.st-seg .st-fill {
+  height: 12px; border-radius: 4px; margin-bottom: 6px;
+  background: var(--panel); border: 1px solid var(--fg-faint);
+}
+.st-seg.on .st-fill { background: var(--accent); border-color: var(--accent); }
+.st-seg.cur { color: var(--accent); font-weight: 600; }
+.st-seg.cur .st-fill { box-shadow: 0 0 10px rgba(94,242,160,.55); }
+.tool-table tr.cur th, .tool-table tr.cur td { color: var(--accent); }
+.tool-table tr.cur { background: rgba(94,242,160,.06); }
+
+/* subnet — 32-bit visual */
+.sn-bits { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 8px; }
+.sn-bits .snb {
+  width: 20px; height: 24px; display: inline-flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-style: normal; border-radius: 4px;
+}
+.sn-bits .snb.net { background: rgba(94,242,160,.16); color: var(--accent); border: 1px solid rgba(94,242,160,.4); }
+.sn-bits .snb.host { background: var(--bg); color: var(--fg-faint); border: 1px solid var(--fg-faint); }
+.sn-bits .snb-gap { width: 6px; }
+.sn-bitlegend { display: flex; gap: 16px; margin-bottom: 12px; color: var(--fg-dim); font-size: .74rem; }
+.sn-bitlegend .sw { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: middle; }
+.sn-bitlegend .sw.net { background: rgba(94,242,160,.5); }
+.sn-bitlegend .sw.host { background: var(--fg-faint); }
+
 /* prominent result block */
 .tool-answer {
   display: flex; flex-direction: column; gap: 4px;
@@ -803,6 +830,10 @@ html.light ::selection { background: rgba(15,143,91,.18); color: #14181d; }
 }
 .pw-meter { height: 6px; background: var(--panel); border-radius: 4px; overflow: hidden; margin-bottom: 8px; }
 .pw-meter span { display: block; height: 100%; width: 0; transition: width .25s ease, background .25s ease; }
+.pw-crackrow { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 8px; font-size: .8rem; color: var(--fg-dim); }
+.pw-crackrow b { color: var(--accent); font-weight: 600; }
+#pw-bits, #pw-checkbits { color: var(--accent-2); font-weight: 600; }
+.tool-divider { border: none; border-top: 1px solid var(--fg-faint); margin: 24px 0; }
 
 /* sleep */
 .sl-card {
