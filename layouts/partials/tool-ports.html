@@ -1,0 +1,14 @@
+<div class="tool" data-tool="ports">
+  <div class="tool-row">
+    <label class="tool-label" for="ports-q">search</label>
+    <input class="tool-input" id="ports-q" type="text" spellcheck="false" autocomplete="off"
+           placeholder="e.g. 443, ssh, rdp, database" style="flex:1 1 220px">
+  </div>
+  <p class="tool-hint"><span id="ports-count"></span> Search by port number or service name.</p>
+  <div class="tool-out" id="ports-out">
+    <table class="tool-table">
+      <thead><tr><th>Port</th><th>Proto</th><th>Service</th></tr></thead>
+      <tbody id="ports-body"></tbody>
+    </table>
+  </div>
+</div>

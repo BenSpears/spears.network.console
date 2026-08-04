@@ -1,0 +1,18 @@
+<div class="tool" data-tool="units">
+  <div class="tool-row">
+    <label class="tool-label" for="un-cat">category</label>
+    <select class="tool-select" id="un-cat">
+      <option value="length">length</option>
+      <option value="mass">mass</option>
+      <option value="temperature">temperature</option>
+      <option value="volume">volume</option>
+      <option value="speed">speed</option>
+    </select>
+    <input class="tool-input" id="un-val" type="number" step="any" value="1" style="flex:0 1 130px">
+    <select class="tool-select" id="un-from"></select>
+  </div>
+  <p class="tool-hint">Enter a value and its unit — every other unit in the category updates instantly. All local.</p>
+  <div class="tool-out" id="un-out">
+    <table class="tool-table"><tbody id="un-body"></tbody></table>
+  </div>
+</div>

@@ -5,5 +5,5 @@ tool = "password"
 group = "Security"
 glyph = "***"
 tagline = "Generate or check a password"
-description = "Generate cryptographically random passwords in your browser. Pick character sets and length, and see the resulting entropy in bits with a strength rating. Nothing is transmitted."
+description = "Generate strong random passwords or rate your own, with a live entropy readout and time-to-crack estimate. Runs entirely in your browser."
 +++

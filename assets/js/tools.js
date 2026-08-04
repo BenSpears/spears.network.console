@@ -1045,8 +1045,73 @@
     run();
   }
 
+  /* ------------------------------------------------------------------ cidr */
+  function initCidr() {
+    var q = $("cidr-q"), body = $("cidr-body");
+    if (!body) return;
+    function toIp(n) { return [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join("."); }
+    var rows = [];
+    for (var p = 0; p <= 32; p++) {
+      var mask = p === 0 ? 0 : (0xFFFFFFFF << (32 - p)) >>> 0;
+      var total = Math.pow(2, 32 - p);
+      var usable = p >= 31 ? (p === 32 ? 1 : 2) : total - 2;
+      rows.push({ p: p, cidr: "/" + p, mask: toIp(mask), wild: toIp(~mask >>> 0), total: total, usable: usable });
+    }
+    function render() {
+      var f = q.value.trim().toLowerCase(), term = f.replace("/", "");
+      body.innerHTML = rows.filter(function (r) {
+        return !f || String(r.p) === term || r.cidr.indexOf(f) >= 0 || r.mask.indexOf(f) >= 0 || r.wild.indexOf(f) >= 0;
+      }).map(function (r) {
+        return "<tr><th>" + r.cidr + "</th><td class=\"mono\">" + r.mask + "</td><td class=\"mono\">" + r.wild +
+          "</td><td>" + r.total.toLocaleString() + "</td><td>" + r.usable.toLocaleString() + "</td></tr>";
+      }).join("");
+    }
+    q.addEventListener("input", render);
+    render();
+  }
+
+  /* ----------------------------------------------------------------- units */
+  function initUnits() {
+    var cat = $("un-cat"), val = $("un-val"), from = $("un-from"), body = $("un-body");
+    if (!cat) return;
+    var CATS = {
+      length: { m: 1, km: 1000, cm: 0.01, mm: 0.001, mi: 1609.344, yd: 0.9144, ft: 0.3048, "in": 0.0254, nmi: 1852 },
+      mass: { kg: 1, g: 0.001, mg: 1e-6, "t (metric)": 1000, lb: 0.45359237, oz: 0.028349523125, "st (stone)": 6.35029318 },
+      volume: { L: 1, mL: 0.001, "m³": 1000, "gal (US)": 3.785411784, qt: 0.946352946, pt: 0.473176473, cup: 0.2365882365, "fl oz": 0.0295735295625 },
+      speed: { "m/s": 1, "km/h": 1 / 3.6, mph: 0.44704, knot: 0.514444, "ft/s": 0.3048 }
+    };
+    var TEMP = ["°C", "°F", "K"];
+    function units() { return cat.value === "temperature" ? TEMP : Object.keys(CATS[cat.value]); }
+    function fillFrom() { from.innerHTML = units().map(function (u) { return "<option>" + u + "</option>"; }).join(""); }
+    function toC(v, u) { return u === "°C" ? v : u === "°F" ? (v - 32) * 5 / 9 : v - 273.15; }
+    function fromC(c, u) { return u === "°C" ? c : u === "°F" ? c * 9 / 5 + 32 : c + 273.15; }
+    function render() {
+      var v = parseFloat(val.value); if (isNaN(v)) v = 0;
+      var u = from.value, rows;
+      if (cat.value === "temperature") {
+        var c = toC(v, u);
+        rows = TEMP.map(function (t) {
+          return "<tr><th>" + t + "</th><td class=\"mono\">" + (Math.round(fromC(c, t) * 1e4) / 1e4) + "</td></tr>";
+        }).join("");
+      } else {
+        var fac = CATS[cat.value], base = v * fac[u];
+        rows = Object.keys(fac).map(function (t) {
+          var x = base / fac[t];
+          return "<tr><th>" + t + "</th><td class=\"mono\">" + x.toLocaleString(undefined, { maximumFractionDigits: 6 }) + "</td></tr>";
+        }).join("");
+      }
+      body.innerHTML = rows;
+    }
+    cat.addEventListener("change", function () { fillFrom(); render(); });
+    val.addEventListener("input", render);
+    from.addEventListener("change", render);
+    fillFrom(); render();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initSubnet();
+    initCidr();
+    initUnits();
     initIpv6();
     initNumbase();
     initUuid();

@@ -773,6 +773,15 @@ html.light ::selection { background: rgba(15,143,91,.18); color: #14181d; }
 }
 .viewall:hover { color: var(--accent); }
 
+/* http status codes */
+.http-code { font-weight: 600; white-space: nowrap; }
+.http-code.c1 { color: var(--fg-dim); }
+.http-code.c2 { color: var(--accent); }
+.http-code.c3 { color: var(--accent-2); }
+.http-code.c4 { color: #f2c14e; }
+.http-code.c5 { color: #ff8a8a; }
+.http-desc { color: var(--fg-dim); }
+
 /* barbell plate visual */
 .bb {
   position: relative; display: flex; align-items: center; justify-content: space-between;
