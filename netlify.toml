@@ -56,6 +56,11 @@
   [headers.values]
     Content-Type = "application/manifest+json"
 
+[[headers]]
+  for = "/pwa/*.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
 [context.production.environment]
   HUGO_ENV = "production"
 

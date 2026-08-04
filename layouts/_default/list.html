@@ -11,8 +11,9 @@
 {{ else if eq .Section "tools" }}
   <p class="lead">In-browser IT &amp; privacy utilities. Everything runs client-side —
   nothing you enter is sent to a server.</p>
-  <p class="tool-hint" style="margin-top:-6px">Tip: install this as an app — on your phone, use your browser's
-  <em>Add to Home Screen</em>, or click <em>Install</em> in a desktop browser. It works offline once installed.</p>
+  <p class="tool-hint" style="margin-top:-6px">Tip: each tool installs as its own app — open a tool and use
+  <em>Add to Home Screen</em> (phone) or <em>Install</em> (desktop) to launch straight into it, offline.
+  Installing from this page adds the whole toolbox instead.</p>
   {{ $pages := .Pages.ByWeight }}
   {{ range $g := slice "Networking" "Encoding & Data" "Security" "Fitness" "Everyday" }}
     {{ $inGroup := where $pages "Params.group" $g }}

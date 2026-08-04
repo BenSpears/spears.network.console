@@ -99,11 +99,18 @@
 <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0a0e12">
+{{ if and (eq .Section "tools") (eq .Kind "page") }}
+{{ $slug := path.Base .RelPermalink }}
+<link rel="manifest" href="/pwa/{{ $slug }}.webmanifest">
+<link rel="apple-touch-icon" href="/pwa/{{ $slug }}-192.png">
+<meta name="apple-mobile-web-app-title" content="{{ .Title }}">
+{{ else }}
 <link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="sn tools">
+{{ end }}
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="sn tools">
 <link rel="canonical" href="{{ .Permalink }}">
 {{ $css := resources.Get "css/style.css" | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">

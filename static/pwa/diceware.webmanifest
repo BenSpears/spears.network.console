@@ -1,0 +1,30 @@
+{
+  "id": "/tools/diceware/",
+  "name": "Passphrase Generator",
+  "short_name": "Passphrase",
+  "start_url": "/tools/diceware/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e12",
+  "theme_color": "#0a0e12",
+  "icons": [
+    {
+      "src": "/pwa/diceware-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/diceware-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/diceware-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

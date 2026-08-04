@@ -1,0 +1,30 @@
+{
+  "id": "/tools/url/",
+  "name": "URL Encode / Decode",
+  "short_name": "URL",
+  "start_url": "/tools/url/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e12",
+  "theme_color": "#0a0e12",
+  "icons": [
+    {
+      "src": "/pwa/url-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/url-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/url-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

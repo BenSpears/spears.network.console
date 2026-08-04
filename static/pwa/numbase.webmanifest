@@ -1,0 +1,30 @@
+{
+  "id": "/tools/numbase/",
+  "name": "Number Base Converter",
+  "short_name": "Number",
+  "start_url": "/tools/numbase/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e12",
+  "theme_color": "#0a0e12",
+  "icons": [
+    {
+      "src": "/pwa/numbase-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/numbase-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/pwa/numbase-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
