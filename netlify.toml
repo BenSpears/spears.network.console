@@ -17,6 +17,12 @@
   status = 302
   force = true
 
+# renamed: Bandwidth Calculator -> Download Time Calculator
+[[redirects]]
+  from = "/tools/bandwidth/*"
+  to = "/tools/download-time/"
+  status = 301
+
 # ---- security headers (apply to every response) ----
 [[headers]]
   for = "/*"
