@@ -99,6 +99,11 @@
 <link rel="icon" href="/favicon.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="theme-color" content="#0a0e12">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="sn tools">
 <link rel="canonical" href="{{ .Permalink }}">
 {{ $css := resources.Get "css/style.css" | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
@@ -109,6 +114,8 @@
 {{/* runs before paint: flips no-js→js and applies saved view state */}}
 {{ $headInit := resources.Get "js/head-init.js" | fingerprint }}
 <script src="{{ $headInit.RelPermalink }}"></script>
+{{ $regSw := resources.Get "js/register-sw.js" | fingerprint }}
+<script defer src="{{ $regSw.RelPermalink }}"></script>
 
 {{/* ---- terminal data + persisted view-state (before paint) ---- */}}
 {{- $posts := slice -}}

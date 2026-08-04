@@ -1,0 +1,12 @@
+<div class="tool" data-tool="uuid">
+  <div class="tool-row">
+    <label class="tool-label" for="uu-count">how many</label>
+    <input class="tool-input" id="uu-count" type="number" min="1" max="1000" value="5" style="flex:0 1 100px">
+    <button class="tool-btn" id="uu-go" type="button">generate</button>
+    <button class="tool-btn ghost" id="uu-copy" type="button">copy all</button>
+  </div>
+  <p class="tool-hint">Version-4 UUIDs from <code>crypto.getRandomValues</code>. Generated locally — never sent anywhere.</p>
+  <div class="tool-out" id="uu-out" hidden>
+    <textarea class="tool-area" id="uu-list" rows="6" spellcheck="false" readonly></textarea>
+  </div>
+</div>

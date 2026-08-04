@@ -1,0 +1,18 @@
+<div class="tool" data-tool="numbase">
+  <div class="tool-row">
+    <label class="tool-label" for="nb-in">value</label>
+    <input class="tool-input" id="nb-in" type="text" spellcheck="false" autocomplete="off"
+           placeholder="255" value="255">
+    <select class="tool-select" id="nb-base">
+      <option value="10">decimal</option>
+      <option value="16">hex</option>
+      <option value="2">binary</option>
+      <option value="8">octal</option>
+    </select>
+  </div>
+  <p class="tool-hint">Arbitrary-precision — big numbers are fine. Don't include a prefix (no <code>0x</code>). All local.</p>
+  <div class="tool-error" id="nb-err" hidden></div>
+  <div class="tool-out" id="nb-out" hidden>
+    <table class="tool-table"><tbody id="nb-body"></tbody></table>
+  </div>
+</div>

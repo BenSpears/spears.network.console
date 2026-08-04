@@ -1,0 +1,15 @@
+{
+  "name": "spears.network — tools",
+  "short_name": "sn tools",
+  "description": "Fast, private, in-browser IT and privacy utilities — subnetting, DNS, hashing, QR codes, and more. Works offline.",
+  "start_url": "/tools/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0a0e12",
+  "theme_color": "#0a0e12",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

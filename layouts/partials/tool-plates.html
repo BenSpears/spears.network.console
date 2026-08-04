@@ -1,0 +1,23 @@
+<div class="tool" data-tool="plates">
+  <div class="tool-row">
+    <label class="tool-label" for="pl-target">target</label>
+    <input class="tool-input" id="pl-target" type="number" min="0" step="any" value="225" style="flex:0 1 120px">
+    <select class="tool-select" id="pl-unit">
+      <option value="lb">lb</option>
+      <option value="kg">kg</option>
+    </select>
+    <label class="tool-label" for="pl-bar">bar</label>
+    <input class="tool-input" id="pl-bar" type="number" min="0" step="any" value="45" style="flex:0 1 90px">
+    <button class="tool-btn" id="pl-go" type="button">calc</button>
+  </div>
+  <p class="tool-hint">Assumes standard gym plates and an even load on both sides. Runs entirely in your browser.</p>
+  <div class="tool-error" id="pl-err" hidden></div>
+  <div class="tool-out" id="pl-out" hidden>
+    <div class="tool-meta" id="pl-summary"></div>
+    <div class="bb" id="pl-bb">
+      <div class="bb-plates bb-l" id="pl-left"></div>
+      <div class="bb-plates bb-r" id="pl-right"></div>
+    </div>
+    <table class="tool-table"><tbody id="pl-body"></tbody></table>
+  </div>
+</div>

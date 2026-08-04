@@ -11,19 +11,28 @@
 {{ else if eq .Section "tools" }}
   <p class="lead">In-browser IT &amp; privacy utilities. Everything runs client-side —
   nothing you enter is sent to a server.</p>
-  <div class="appgrid">
-  {{ range .Pages.ByWeight }}
-    <div class="appcard">
-      <a class="appcard-main" href="{{ .RelPermalink }}">
-        <span class="appicon glyph" aria-hidden="true">{{ .Params.glyph }}</span>
-        <span class="appmeta">
-          <span class="appname">{{ .Title }}</span>
-          {{ with .Params.tagline }}<span class="apptag">{{ . }}</span>{{ end }}
-        </span>
-      </a>
-    </div>
+  <p class="tool-hint" style="margin-top:-6px">Tip: install this as an app — on your phone, use your browser's
+  <em>Add to Home Screen</em>, or click <em>Install</em> in a desktop browser. It works offline once installed.</p>
+  {{ $pages := .Pages.ByWeight }}
+  {{ range $g := slice "Networking" "Encoding & Data" "Security" "Fitness" "Everyday" }}
+    {{ $inGroup := where $pages "Params.group" $g }}
+    {{ with $inGroup }}
+      <div class="group-label" style="margin-top:22px">{{ $g }}</div>
+      <div class="appgrid">
+      {{ range . }}
+        <div class="appcard">
+          <a class="appcard-main" href="{{ .RelPermalink }}">
+            <span class="appicon glyph" aria-hidden="true">{{ .Params.glyph }}</span>
+            <span class="appmeta">
+              <span class="appname">{{ .Title }}</span>
+              {{ with .Params.tagline }}<span class="apptag">{{ . }}</span>{{ end }}
+            </span>
+          </a>
+        </div>
+      {{ end }}
+      </div>
+    {{ end }}
   {{ end }}
-  </div>
 {{ else }}
   {{ $hubs := (where .Pages "Params.hub" true).ByWeight }}
   <p class="lead">iOS apps I build on the side — private by default. Each links to its

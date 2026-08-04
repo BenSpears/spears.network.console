@@ -821,8 +821,237 @@
     roll();
   }
 
+  /* ------------------------------------------------------------------ uuid */
+  function uuidV4() {
+    var b = new Uint8Array(16);
+    crypto.getRandomValues(b);
+    b[6] = (b[6] & 0x0f) | 0x40;
+    b[8] = (b[8] & 0x3f) | 0x80;
+    var h = [];
+    for (var i = 0; i < 16; i++) h.push(("0" + b[i].toString(16)).slice(-2));
+    return h.slice(0, 4).join("") + "-" + h.slice(4, 6).join("") + "-" +
+      h.slice(6, 8).join("") + "-" + h.slice(8, 10).join("") + "-" + h.slice(10, 16).join("");
+  }
+  function initUuid() {
+    var count = $("uu-count"), go = $("uu-go"), copy = $("uu-copy"),
+        out = $("uu-out"), list = $("uu-list");
+    if (!go) return;
+    function gen() {
+      var n = Math.min(1000, Math.max(1, parseInt(count.value, 10) || 1)), a = [];
+      for (var i = 0; i < n; i++) a.push(uuidV4());
+      list.value = a.join("\n"); show(out);
+    }
+    go.addEventListener("click", gen);
+    copy.addEventListener("click", function () { navigator.clipboard && navigator.clipboard.writeText(list.value); });
+    gen();
+  }
+
+  /* ------------------------------------------------------------------- jwt */
+  function initJwt() {
+    var inp = $("jwt-in"), go = $("jwt-go"), out = $("jwt-out"), err = $("jwt-err"),
+        headerEl = $("jwt-header"), payloadEl = $("jwt-payload"), claims = $("jwt-claims");
+    if (!go) return;
+    function b64url(s) {
+      s = s.replace(/-/g, "+").replace(/_/g, "/");
+      while (s.length % 4) s += "=";
+      return decodeURIComponent(escape(atob(s)));
+    }
+    function pretty(s) { try { return JSON.stringify(JSON.parse(s), null, 2); } catch (e) { return s; } }
+    function fmtTs(t) { return new Date(t * 1000).toLocaleString() + " UTC" + (new Date(t * 1000).toISOString ? "" : ""); }
+    function decode() {
+      hide(err);
+      var parts = inp.value.trim().split(".");
+      if (parts.length < 2) { err.textContent = "That doesn't look like a JWT (needs header.payload.signature)."; show(err); hide(out); return; }
+      var h, p;
+      try { h = b64url(parts[0]); p = b64url(parts[1]); }
+      catch (e) { err.textContent = "Couldn't decode the token — it isn't valid base64url."; show(err); hide(out); return; }
+      headerEl.value = pretty(h);
+      payloadEl.value = pretty(p);
+      var info = [];
+      try {
+        var o = JSON.parse(p), now = Date.now() / 1000;
+        if (o.iat) info.push("issued " + new Date(o.iat * 1000).toLocaleString());
+        if (o.nbf) info.push("not before " + new Date(o.nbf * 1000).toLocaleString());
+        if (o.exp) info.push(o.exp < now ? "EXPIRED " + new Date(o.exp * 1000).toLocaleString()
+                                          : "expires " + new Date(o.exp * 1000).toLocaleString());
+      } catch (e) {}
+      claims.textContent = info.join("  ·  ");
+      show(out);
+    }
+    go.addEventListener("click", decode);
+  }
+
+  /* ---------------------------------------------------------------- plates */
+  function initPlates() {
+    var target = $("pl-target"), unit = $("pl-unit"), bar = $("pl-bar"), go = $("pl-go"),
+        out = $("pl-out"), summary = $("pl-summary"), platesEl = $("pl-plates"), body = $("pl-body"), err = $("pl-err");
+    if (!go) return;
+    var PLATES = { lb: [45, 35, 25, 10, 5, 2.5], kg: [25, 20, 15, 10, 5, 2.5, 1.25, 0.5] };
+    var COLORS = {
+      lb: { 45: "#2b6cb0", 35: "#d69e2e", 25: "#2f855a", 10: "#4a5568", 5: "#c53030", 2.5: "#718096" },
+      kg: { 25: "#c53030", 20: "#2b6cb0", 15: "#d69e2e", 10: "#2f855a", 5: "#cbd5e0", 2.5: "#c53030", 1.25: "#a0aec0", 0.5: "#718096" }
+    };
+    var left = $("pl-left"), right = $("pl-right");
+    function plateEl(w, u, maxW) {
+      var h = Math.round(46 + (w / maxW) * 66);
+      var c = (COLORS[u] && COLORS[u][w]) || "#5a6675";
+      var dark = w >= (u === "kg" ? 5 : 5);
+      return '<span class="bb-plate" style="height:' + h + 'px;background:' + c + '" title="' + w + ' ' + u + '">' + w + '</span>';
+    }
+    function calc() {
+      var t = parseFloat(target.value) || 0, b = parseFloat(bar.value);
+      if (isNaN(b)) b = 0;
+      if (t <= 0) { err.textContent = "Enter a target weight."; show(err); hide(out); return; }
+      if (t < b) { err.textContent = "Target is lighter than the bar."; show(err); hide(out); return; }
+      hide(err);
+      var u = unit.value, perSide = (t - b) / 2, rem = perSide, counts = [], set = PLATES[u];
+      set.forEach(function (p) {
+        var c = Math.floor(rem / p + 1e-9);
+        if (c > 0) { counts.push([p, c]); rem -= c * p; }
+      });
+      // flat list of per-side plate weights, heaviest first
+      var flat = [];
+      counts.forEach(function (c) { for (var i = 0; i < c[1]; i++) flat.push(c[0]); });
+      var maxW = set[0];
+      var rightHtml = flat.map(function (w) { return plateEl(w, u, maxW); }).join("");
+      var leftHtml = flat.slice().reverse().map(function (w) { return plateEl(w, u, maxW); }).join("");
+      left.innerHTML = leftHtml;
+      right.innerHTML = rightHtml;
+      body.innerHTML = counts.map(function (c) {
+        return "<tr><th>" + c[0] + " " + u + "</th><td>× " + c[1] + " per side</td></tr>";
+      }).join("");
+      var exact = rem < 0.01;
+      summary.innerHTML = "<b style=\"color:var(--accent)\">" + perSide.toLocaleString() + " " + u +
+        "</b> per side (bar " + b + " " + u + ", total " + t + " " + u + ")" +
+        (exact ? "" : " · <span style=\"color:#f2c14e\">" + rem.toFixed(2) + " " + u + " per side can't be made with standard plates</span>");
+      show(out);
+    }
+    [target, unit, bar].forEach(function (e) { e.addEventListener("input", calc); });
+    go.addEventListener("click", calc);
+    calc();
+  }
+
+  /* ------------------------------------------------------------------ ipv6 */
+  function initIpv6() {
+    var inp = $("v6-in"), go = $("v6-go"), out = $("v6-out"), body = $("v6-body"), err = $("v6-err");
+    if (!go) return;
+    function fail(m) { err.textContent = m; show(err); hide(out); }
+    function parse(str) {
+      str = str.trim().toLowerCase();
+      if (!str) return null;
+      if ((str.match(/::/g) || []).length > 1) return null;
+      // IPv4-mapped tail -> two hex groups
+      var m = str.match(/(.*:)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})$/);
+      if (m) {
+        var q = m[2].split(".").map(Number);
+        if (q.some(function (n) { return n > 255; })) return null;
+        var g1 = ((q[0] << 8) | q[1]).toString(16), g2 = ((q[2] << 8) | q[3]).toString(16);
+        str = m[1] + g1 + ":" + g2;
+      }
+      var groups;
+      if (str.indexOf("::") !== -1) {
+        var parts = str.split("::");
+        var head = parts[0] ? parts[0].split(":") : [];
+        var tail = parts[1] ? parts[1].split(":") : [];
+        var miss = 8 - head.length - tail.length;
+        if (miss < 1) return null;
+        groups = head.concat(new Array(miss).fill("0")).concat(tail);
+      } else {
+        groups = str.split(":");
+      }
+      if (groups.length !== 8) return null;
+      for (var i = 0; i < 8; i++) {
+        if (!/^[0-9a-f]{1,4}$/.test(groups[i])) return null;
+        groups[i] = ("0000" + groups[i]).slice(-4);
+      }
+      return groups;
+    }
+    function compress(g) {
+      var s = g.map(function (x) { return parseInt(x, 16).toString(16); });
+      var best = -1, bestLen = 0, cur = -1, curLen = 0;
+      for (var i = 0; i < 8; i++) {
+        if (s[i] === "0") { if (cur < 0) cur = i; curLen++; if (curLen > bestLen) { bestLen = curLen; best = cur; } }
+        else { cur = -1; curLen = 0; }
+      }
+      if (bestLen < 2) return s.join(":");
+      var left = s.slice(0, best).join(":"), right = s.slice(best + bestLen).join(":");
+      return left + "::" + right;
+    }
+    function kind(g) {
+      var b0 = parseInt(g[0], 16);
+      if (g.join("") === "00000000000000000000000000000001") return "loopback (::1)";
+      if (g.every(function (x) { return x === "0000"; })) return "unspecified (::)";
+      if (b0 >= 0xfe80 && b0 <= 0xfebf) return "link-local (fe80::/10)";
+      if (b0 >= 0xfc00 && b0 <= 0xfdff) return "unique local (fc00::/7)";
+      if (b0 >= 0xff00) return "multicast (ff00::/8)";
+      return "global unicast";
+    }
+    function run() {
+      var g = parse(inp.value);
+      if (!g) return fail("That doesn't look like a valid IPv6 address.");
+      hide(err);
+      var full = g.join(":");
+      var nibbles = g.join("").split("").reverse().join(".") + ".ip6.arpa";
+      var rows = [
+        ["Expanded", full],
+        ["Compressed", compress(g)],
+        ["Type", kind(g)],
+        ["Reverse DNS", nibbles]
+      ];
+      body.innerHTML = rows.map(function (r) {
+        return "<tr><th>" + r[0] + "</th><td class=\"mono\">" + esc(r[1]) + "</td></tr>";
+      }).join("");
+      show(out);
+    }
+    go.addEventListener("click", run);
+    inp.addEventListener("keydown", function (e) { if (e.key === "Enter") run(); });
+    run();
+  }
+
+  /* --------------------------------------------------------------- numbase */
+  function initNumbase() {
+    var inp = $("nb-in"), base = $("nb-base"), out = $("nb-out"), body = $("nb-body"), err = $("nb-err");
+    if (!inp) return;
+    var RE = { 2: /^[01]+$/, 8: /^[0-7]+$/, 10: /^[0-9]+$/, 16: /^[0-9a-fA-F]+$/ };
+    function run() {
+      var s = inp.value.trim().replace(/^0x/i, "").replace(/^0b/i, "").replace(/\s+/g, "");
+      var b = parseInt(base.value, 10);
+      if (!s) { hide(out); hide(err); return; }
+      if (!RE[b].test(s)) { err.textContent = "That isn't a valid base-" + b + " number."; show(err); hide(out); return; }
+      hide(err);
+      var v;
+      try { v = b === 16 ? BigInt("0x" + s) : b === 8 ? BigInt("0o" + s) : b === 2 ? BigInt("0b" + s) : BigInt(s); }
+      catch (e) { err.textContent = "Couldn't parse that number."; show(err); hide(out); return; }
+      var bin = v.toString(2);
+      var rows = [
+        ["Decimal", v.toString(10)],
+        ["Hex", "0x" + v.toString(16).toUpperCase()],
+        ["Octal", "0o" + v.toString(8)],
+        ["Binary", bin],
+        ["Bits", String(bin.length)]
+      ];
+      if (v >= 0n && v <= 0x10ffffn) {
+        try {
+          var cp = Number(v), ch = String.fromCodePoint(cp);
+          if (cp >= 32 && cp !== 127) rows.push(["Character", ch]);
+        } catch (e) {}
+      }
+      body.innerHTML = rows.map(function (r) {
+        return "<tr><th>" + r[0] + "</th><td class=\"mono\" style=\"word-break:break-all\">" + esc(r[1]) + "</td></tr>";
+      }).join("");
+      show(out);
+    }
+    [inp, base].forEach(function (e) { e.addEventListener("input", run); });
+    run();
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     initSubnet();
+    initIpv6();
+    initNumbase();
+    initUuid();
+    initJwt();
+    initPlates();
     initDns();
     initChecksum();
     initPassword();

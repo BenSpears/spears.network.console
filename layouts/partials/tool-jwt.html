@@ -1,0 +1,16 @@
+<div class="tool" data-tool="jwt">
+  <div class="tool-row">
+    <label class="tool-label" for="jwt-in">token</label>
+    <button class="tool-btn" id="jwt-go" type="button">decode</button>
+  </div>
+  <textarea class="tool-area" id="jwt-in" rows="4" spellcheck="false" placeholder="paste a JWT (header.payload.signature)"></textarea>
+  <p class="tool-hint">Decoded in your browser. The token is never transmitted, and the signature is <b>not</b> verified — this only reads the contents.</p>
+  <div class="tool-error" id="jwt-err" hidden></div>
+  <div class="tool-out" id="jwt-out" hidden>
+    <div class="group-label">header</div>
+    <textarea class="tool-area" id="jwt-header" rows="4" spellcheck="false" readonly></textarea>
+    <div class="group-label">payload</div>
+    <textarea class="tool-area" id="jwt-payload" rows="7" spellcheck="false" readonly></textarea>
+    <div class="tool-meta" id="jwt-claims"></div>
+  </div>
+</div>

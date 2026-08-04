@@ -2,6 +2,7 @@
 title: "KeyCached - Privacy"
 description: "Privacy policy for the KeyCached iOS snippet keyboard."
 date: 2026-07-24
+draft: true
 ---
 
 KeyCached ("the app") is designed to be private by default. It has no user

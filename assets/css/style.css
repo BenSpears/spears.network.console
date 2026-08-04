@@ -31,6 +31,7 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
+    radial-gradient(var(--dot, rgba(255,255,255,.06)) 1px, transparent 1.5px) 0 0 / 22px 22px fixed,
     radial-gradient(1200px 600px at 78% -10%, rgba(94,242,160,.05), transparent 60%),
     radial-gradient(900px 500px at 10% 110%, rgba(86,212,221,.045), transparent 55%),
     var(--bg);
@@ -594,6 +595,7 @@ html.light {
   --accent-2: #0a7ea4;
   --accent-3: #6b4fbb;
   --shadow: 0 24px 60px -26px rgba(60,55,45,.4), 0 2px 8px rgba(0,0,0,.08);
+  --dot: rgba(0,0,0,.08);
 }
 html.light body::after { opacity: .18; }
 html.light .titlebar { background: linear-gradient(180deg,#f1eee7,#e8e4db); }
@@ -770,6 +772,28 @@ html.light ::selection { background: rgba(15,143,91,.18); color: #14181d; }
   color: var(--accent-2); text-decoration: none; font-size: .9rem;
 }
 .viewall:hover { color: var(--accent); }
+
+/* barbell plate visual */
+.bb {
+  position: relative; display: flex; align-items: center; justify-content: space-between;
+  max-width: 420px; margin: 8px auto 18px; min-height: 140px; padding: 6px 12px;
+}
+.bb::before {
+  content: ""; position: absolute; left: 12px; right: 12px; top: 50%; height: 9px;
+  transform: translateY(-50%); border-radius: 5px; z-index: 0;
+  background: linear-gradient(180deg, #cbd5e1, #64748b);
+  box-shadow: 0 1px 3px rgba(0,0,0,.45);
+}
+.bb-plates { display: flex; align-items: center; z-index: 1; }
+.bb-l { justify-content: flex-start; }
+.bb-r { justify-content: flex-end; }
+.bb-plate {
+  width: 15px; margin: 0 1.5px; border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  writing-mode: vertical-rl; text-orientation: mixed;
+  color: #fff; font-size: .58rem; font-weight: 600; letter-spacing: .02em;
+  box-shadow: 0 2px 5px rgba(0,0,0,.35); text-shadow: 0 1px 1px rgba(0,0,0,.4);
+}
 
 /* strength standards — tier bar */
 .st-bar { display: flex; gap: 5px; margin: 6px 0 16px; }

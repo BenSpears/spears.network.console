@@ -1,0 +1,20 @@
+<div class="tool" data-tool="diceware">
+  <div class="tool-row">
+    <label class="tool-label" for="dw-words">words</label>
+    <input class="tool-range" id="dw-words" type="range" min="4" max="10" value="6">
+    <span class="tool-num" id="dw-wordsval">6</span>
+    <label class="tool-label" for="dw-sep">separator</label>
+    <select class="tool-select" id="dw-sep">
+      <option value="-">hyphen</option>
+      <option value=".">period</option>
+      <option value=" ">space</option>
+    </select>
+    <button class="tool-btn" id="dw-go" type="button">generate</button>
+  </div>
+  <p class="tool-hint">Words chosen with <code>crypto.getRandomValues</code> from the EFF short word list. Never sent anywhere.</p>
+  <div class="tool-out" id="dw-out" hidden>
+    <div class="pw-result"><code id="dw-value"></code><button class="tool-btn ghost" id="dw-copy" type="button">copy</button></div>
+    <div class="pw-meter"><span id="dw-bar"></span></div>
+    <div class="tool-meta"><span id="dw-bits"></span> &middot; <span id="dw-rating"></span></div>
+  </div>
+</div>

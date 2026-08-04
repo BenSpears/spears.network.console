@@ -2,6 +2,7 @@
 title: "KeyCached - Support"
 description: "Help, FAQ, and contact for the KeyCached iOS snippet keyboard."
 date: 2026-07-24
+draft: true
 ---
 
 KeyCached keeps your frequently used snippets a tap away — save the text you

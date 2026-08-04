@@ -1,0 +1,13 @@
+<div class="tool" data-tool="ipv6">
+  <div class="tool-row">
+    <label class="tool-label" for="v6-in">IPv6</label>
+    <input class="tool-input" id="v6-in" type="text" spellcheck="false" autocomplete="off"
+           placeholder="2001:db8::1" value="2001:db8::1">
+    <button class="tool-btn" id="v6-go" type="button">convert</button>
+  </div>
+  <p class="tool-hint">Accepts any valid form, including <code>::</code> and IPv4-mapped addresses. All local.</p>
+  <div class="tool-error" id="v6-err" hidden></div>
+  <div class="tool-out" id="v6-out" hidden>
+    <table class="tool-table"><tbody id="v6-body"></tbody></table>
+  </div>
+</div>
