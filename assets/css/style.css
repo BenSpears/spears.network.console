@@ -773,7 +773,7 @@ html.light ::selection { background: rgba(15,143,91,.18); color: #14181d; }
 }
 .viewall:hover { color: var(--accent); }
 
-.footer .ver { color: var(--fg-faint); letter-spacing: .02em; }
+.footer .ver { color: var(--fg-faint); letter-spacing: .02em; margin-left: auto; }
 
 /* click-to-copy result cells */
 .tool-out td.mono, .tool-out code.mono { cursor: pointer; }

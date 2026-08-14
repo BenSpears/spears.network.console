@@ -401,11 +401,23 @@
   var THEMES = ["mint", "cyan", "violet", "amber"];
   var THEME_VAL = { mint: "#5ef2a0", cyan: "#56d4dd", violet: "#b98cff", amber: "#ffcf6b" };
   var themeIdx = load("theme", 0);
+  function updateFavicon() {
+    try {
+      var c = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#5ef2a0";
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' +
+        '<rect width="100" height="100" rx="22" fill="#0a0e12"/>' +
+        '<path d="M28 30 L52 50 L28 70" fill="none" stroke="' + c + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<rect x="56" y="61" width="20" height="10" rx="3" fill="' + c + '"/></svg>';
+      var link = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+      if (link) link.href = "data:image/svg+xml," + encodeURIComponent(svg);
+    } catch (e) {}
+  }
   function applyTheme() {
     var d = document.documentElement;
     // in light mode use the light palette's readable accent (don't force a bright one)
-    if (d.classList.contains("light")) { d.style.removeProperty("--accent"); return; }
-    d.style.setProperty("--accent", THEME_VAL[THEMES[themeIdx]]);
+    if (d.classList.contains("light")) d.style.removeProperty("--accent");
+    else d.style.setProperty("--accent", THEME_VAL[THEMES[themeIdx]]);
+    updateFavicon();
   }
   function cycleTheme() { themeIdx = (themeIdx + 1) % THEMES.length; save("theme", themeIdx); applyTheme(); }
   function setMode(m) {
