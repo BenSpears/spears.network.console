@@ -400,12 +400,16 @@
   // ---- theme -------------------------------------------------------------
   var THEMES = ["mint", "cyan", "violet", "amber"];
   var THEME_VAL = { mint: "#5ef2a0", cyan: "#56d4dd", violet: "#b98cff", amber: "#ffcf6b" };
+  // darker, readable variants for light mode so theme cycling works in both modes
+  var THEME_VAL_LIGHT = { mint: "#0f8f5b", cyan: "#0a7ea4", violet: "#6b4fbb", amber: "#b7791f" };
   var themeIdx = load("theme", 0);
   function updateFavicon() {
     try {
-      var c = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#5ef2a0";
+      var cs = getComputedStyle(document.documentElement);
+      var c = cs.getPropertyValue("--accent").trim() || "#5ef2a0";
+      var bg = cs.getPropertyValue("--bg").trim() || "#0a0e12";
       var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' +
-        '<rect width="100" height="100" rx="22" fill="#0a0e12"/>' +
+        '<rect width="100" height="100" rx="22" fill="' + bg + '"/>' +
         '<path d="M28 30 L52 50 L28 70" fill="none" stroke="' + c + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
         '<rect x="56" y="61" width="20" height="10" rx="3" fill="' + c + '"/></svg>';
       var link = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
@@ -414,9 +418,8 @@
   }
   function applyTheme() {
     var d = document.documentElement;
-    // in light mode use the light palette's readable accent (don't force a bright one)
-    if (d.classList.contains("light")) d.style.removeProperty("--accent");
-    else d.style.setProperty("--accent", THEME_VAL[THEMES[themeIdx]]);
+    var table = d.classList.contains("light") ? THEME_VAL_LIGHT : THEME_VAL;
+    d.style.setProperty("--accent", table[THEMES[themeIdx]]);
     updateFavicon();
   }
   function cycleTheme() { themeIdx = (themeIdx + 1) % THEMES.length; save("theme", themeIdx); applyTheme(); }
