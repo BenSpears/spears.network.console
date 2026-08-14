@@ -138,12 +138,17 @@
     {{- $appdocs = $appdocs | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink) -}}
   {{- end -}}
 {{- end -}}
+{{- $tools := slice -}}
+{{- range (where .Site.RegularPages "Section" "tools").ByWeight -}}
+  {{- $tools = $tools | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink "group" .Params.group) -}}
+{{- end -}}
 {{/* CSP-safe data holder: JSON in an HTML attribute (no inline script needed) */}}
 <div id="sn-data" hidden data-sn="{{ (dict
   "path" .RelPermalink
   "posts" $posts
   "apps" $apps
   "appdocs" $appdocs
+  "tools" $tools
   "logo" .Site.Params.logo
   "profile" (dict
     "focus" site.Home.Params.focus

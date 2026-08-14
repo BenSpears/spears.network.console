@@ -65,14 +65,7 @@
         }).join("");
       });
     }
-    body.addEventListener("click", function (e) {
-      var td = e.target.closest && e.target.closest(".th-hash");
-      if (td && navigator.clipboard) {
-        navigator.clipboard.writeText(td.textContent);
-        var old = td.style.color; td.style.color = "var(--accent)";
-        setTimeout(function () { td.style.color = old; }, 500);
-      }
-    });
+    // (click-to-copy on the hash cells is handled globally by tools.js)
     inp.addEventListener("input", render);
     render();
   });

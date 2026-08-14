@@ -14,6 +14,8 @@
   <p class="tool-hint" style="margin-top:-6px">Tip: each tool installs as its own app — open a tool and use
   <em>Add to Home Screen</em> (phone) or <em>Install</em> (desktop) to launch straight into it, offline.
   Installing from this page adds the whole toolbox instead.</p>
+  <input class="tool-input" id="tools-filter" type="text" spellcheck="false" autocomplete="off"
+         placeholder="filter tools…" aria-label="filter tools" style="width:100%;max-width:340px;margin:6px 0 2px">
   {{ $pages := .Pages.ByWeight }}
   {{ range $g := slice "Networking" "Encoding & Data" "Security" "Fitness" "Everyday" }}
     {{ $inGroup := where $pages "Params.group" $g }}
@@ -34,6 +36,9 @@
       </div>
     {{ end }}
   {{ end }}
+  <p class="tool-hint" id="tools-empty" hidden>No tools match “<span id="tools-empty-q"></span>”. Try a different word, or clear the filter.</p>
+  {{ $tf := resources.Get "js/tools-filter.js" | fingerprint }}
+  <script src="{{ $tf.RelPermalink }}"></script>
 {{ else }}
   {{ $hubs := (where .Pages "Params.hub" true).ByWeight }}
   <p class="lead">iOS apps I build on the side — private by default. Each links to its

@@ -342,5 +342,17 @@
     inp.addEventListener("keydown", function (e) { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) render(); });
     pngBtn.addEventListener("click", downloadPng);
     svgBtn.addEventListener("click", downloadSvg);
+    // shareable state: /tools/qr/?q=... prefills and renders
+    try {
+      var p = new URLSearchParams(location.search);
+      if (p.has("q")) inp.value = p.get("q");
+      inp.addEventListener("input", function () {
+        var q = new URLSearchParams(location.search);
+        if (inp.value) q.set("q", inp.value); else q.delete("q");
+        var s = q.toString();
+        history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+      });
+      if (inp.value) render();
+    } catch (e) {}
   });
 })();

@@ -23,10 +23,16 @@
 
   <div class="group-label" style="margin-top:18px">date → timestamp</div>
   <div class="tool-row">
-    <input class="tool-input" id="ts-date" type="datetime-local" step="1" style="flex:0 1 250px">
+    <input class="tool-input" id="ts-datestr" type="text" spellcheck="false" autocomplete="off"
+           placeholder="paste a date — ISO, 2026/08/13, Aug 13 2026, or an epoch number" style="flex:1 1 260px">
   </div>
+  <div class="tool-row">
+    <label class="tool-label" for="ts-date">or pick</label>
+    <input class="tool-input" id="ts-date" type="datetime-local" step="1" style="flex:0 1 240px">
+  </div>
+  <div class="tool-error" id="ts-err2" hidden></div>
   <div class="tool-out" id="ts-out2" hidden>
     <table class="tool-table"><tbody id="ts-body2"></tbody></table>
   </div>
-  <p class="tool-hint">Unix time is seconds since 1970-01-01 UTC. The date field is read in your local time zone. Everything runs locally.</p>
+  <p class="tool-hint">Unix time is seconds since 1970-01-01 UTC. Pasted dates without a time zone are read as local time; sub-millisecond digits are shown but not part of the epoch. Everything runs locally.</p>
 </div>

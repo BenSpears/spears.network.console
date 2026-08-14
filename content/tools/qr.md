@@ -2,6 +2,7 @@
 title = "QR Code Generator"
 weight = 5
 tool = "qr"
+sharelink = true
 group = "Encoding & Data"
 glyph = "QR"
 tagline = "Turn any URL or text into a QR code"

@@ -12,7 +12,7 @@
     if (_dataEl) D = JSON.parse(_dataEl.getAttribute("data-sn"));
   } catch (e) { D = {}; }
 
-  var SITE = { posts: D.posts || [], apps: D.apps || [], appdocs: D.appdocs || [] };
+  var SITE = { posts: D.posts || [], apps: D.apps || [], appdocs: D.appdocs || [], tools: D.tools || [] };
   var CUR = D.path || "/";
   var BUILD = D.build || {};
 
@@ -55,6 +55,7 @@
     "about": "/about/", "about/": "/about/",
     "posts": "/posts/", "posts/": "/posts/", "blog": "/posts/",
     "apps": "/apps/", "apps/": "/apps/",
+    "tools": "/tools/", "tools/": "/tools/",
     "links": "/links/", "links/": "/links/"
   };
   function parentPath(p) {
@@ -75,7 +76,7 @@
     var byNum = parseInt(n, 10);
     if (!isNaN(byNum) && CUR.indexOf("/posts") === 0 && SITE.posts[byNum - 1])
       return SITE.posts[byNum - 1].url;
-    var hit = SITE.posts.concat(SITE.apps, SITE.appdocs).filter(function (i) {
+    var hit = SITE.posts.concat(SITE.apps, SITE.appdocs, SITE.tools).filter(function (i) {
       return i.slug === n || i.slug.indexOf(n) === 0;
     })[0];
     return hit ? hit.url : null;
@@ -88,9 +89,10 @@
         '<span class="k">available commands</span>\n' +
         "  help              this menu\n" +
         "  ls [dir]          list sections or entries\n" +
-        "  cd &lt;dir&gt;          change section  (about · posts · apps · links · ~)\n" +
+        "  cd &lt;dir&gt;          change section  (about · posts · apps · tools · links · ~)\n" +
         "  cat &lt;post&gt;        open a post by name or number\n" +
         "  open &lt;app&gt;        open an app privacy/support page\n" +
+        "  &lt;tool&gt;            type a tool name to open it  (e.g. subnet)\n" +
         "  grep &lt;term&gt;       search posts &amp; pages  ( / )\n" +
         "  about             who is Benjamin Spears\n" +
         "  whoami            current session identity\n" +
@@ -113,8 +115,13 @@
       if (dir === "" || dir === "~" || dir === "/" || dir === "home") {
         print(
           '<a href="/about/">about/</a>   <a href="/posts/">posts/</a>   ' +
-          '<a href="/apps/">apps/</a>   <a href="/links/">links/</a>'
+          '<a href="/apps/">apps/</a>   <a href="/tools/">tools/</a>   <a href="/links/">links/</a>'
         );
+      } else if (dir === "tools") {
+        print(SITE.tools.map(function (t) {
+          return "  <a href='" + t.url + "'>" + esc(t.slug) + "</a>" +
+            '  <span class="muted">' + esc(t.title) + "</span>";
+        }).join("\n") + "\n  <span class=\"k\">type a tool name</span> (e.g. <b>subnet</b>) to open it");
       } else if (dir === "posts" || dir === "blog") {
         print(SITE.posts.map(function (p, i) {
           return "  " + String(i + 1).padStart(2, "0") + "  " +
@@ -346,7 +353,15 @@
     pushHist(raw);
     if (ALIASES[cmd]) cmd = ALIASES[cmd];
     if (COMMANDS[cmd]) COMMANDS[cmd](parts);
-    else err(cmd + ": command not found — type 'help'");
+    else {
+      // a bare page/tool name navigates — require an EXACT match so "s" doesn't jump anywhere
+      var t = SECTIONS[cmd];
+      if (!t) {
+        var hit = SITE.posts.concat(SITE.apps, SITE.appdocs, SITE.tools).filter(function (i) { return i.slug === cmd; })[0];
+        t = hit ? hit.url : null;
+      }
+      if (t) go(t); else err(cmd + ": command not found — type 'help'");
+    }
     scrollConsole();
   }
 
@@ -364,10 +379,11 @@
       return m.length === 1 ? m[0] + " " : common(m, parts[0]);
     }
     var last = parts[parts.length - 1].toLowerCase();
-    pool = ["about", "posts", "apps", "links", "~", "home"]
+    pool = ["about", "posts", "apps", "tools", "links", "~", "home"]
       .concat(SITE.posts.map(function (p) { return p.slug; }))
       .concat(SITE.apps.map(function (p) { return p.slug; }))
-      .concat(SITE.appdocs.map(function (p) { return p.slug; }));
+      .concat(SITE.appdocs.map(function (p) { return p.slug; }))
+      .concat(SITE.tools.map(function (p) { return p.slug; }));
     var mm = pool.filter(function (c) { return c.indexOf(last) === 0; });
     if (!mm.length) return val;
     parts[parts.length - 1] = mm.length === 1 ? mm[0] : lcp(mm) || last;
@@ -527,10 +543,12 @@
       { label: "About", sub: "~/about", url: "/about/" },
       { label: "Posts", sub: "~/posts", url: "/posts/" },
       { label: "Apps", sub: "~/apps", url: "/apps/" },
+      { label: "Tools", sub: "~/tools", url: "/tools/" },
       { label: "Links", sub: "~/links", url: "/links/" }
     ];
     SITE.posts.forEach(function (p) { items.push({ label: p.title, sub: "post · " + p.date, url: p.url }); });
     SITE.apps.forEach(function (a) { items.push({ label: a.title, sub: "app", url: a.url }); });
+    SITE.tools.forEach(function (t) { items.push({ label: t.title, sub: "tool · " + (t.group || ""), url: t.url }); });
     [["help", "list commands"], ["privacy", "what sites see about you"], ["resume", "professional summary"],
      ["status", "build & systems status"], ["neofetch", "profile card"], ["contact", "reach me"],
      ["theme", "cycle accent"], ["banner", "print logo"], ["reboot", "reload from root"], ["shutdown", "power off · reload to restore"], ["clear", "clear console"]]
