@@ -1,0 +1,25 @@
+<div class="tool" data-tool="timezone">
+  <div class="group-label">current time</div>
+  <div class="tool-out" id="tz-nowout">
+    <table class="tool-table"><tbody id="tz-nowbody"></tbody></table>
+  </div>
+
+  <div class="group-label" style="margin-top:18px">convert a time</div>
+  <div class="tool-row">
+    <input class="tool-input" id="tz-date" type="datetime-local" step="1" style="flex:0 1 250px">
+    <select class="tool-select" id="tz-from">
+      <option value="America/New_York">Eastern (ET)</option>
+      <option value="America/Chicago">Central (CT)</option>
+      <option value="America/Denver">Mountain (MT)</option>
+      <option value="America/Los_Angeles">Pacific (PT)</option>
+      <option value="UTC">UTC</option>
+      <option value="Europe/London">London</option>
+    </select>
+  </div>
+  <div class="tool-out" id="tz-out">
+    <table class="tool-table"><tbody id="tz-body"></tbody></table>
+  </div>
+  <p class="tool-hint">The date field is read as local wall-clock time in whichever zone you pick
+  above, then converted to the rest. Daylight saving is handled automatically using each zone's
+  real current offset, not a fixed one. Everything runs locally.</p>
+</div>

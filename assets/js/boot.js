@@ -6,6 +6,10 @@
   function clear() { b.classList.add("done"); }
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) { clear(); return; }
+  try {
+    if (sessionStorage.getItem("sn-booted")) { clear(); return; }
+    sessionStorage.setItem("sn-booted", "1");
+  } catch (e) { /* storage unavailable — fall through and play it */ }
   var lines = [
     "[  ok  ] mounting spears.network filesystem",
     "[  ok  ] starting privacy daemon",

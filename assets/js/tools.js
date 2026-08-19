@@ -659,6 +659,182 @@
     fromDate();
   }
 
+  /* -------------------------------------------------------------- timezone */
+  function initTimezone() {
+    var nowBody = $("tz-nowbody"), date = $("tz-date"), from = $("tz-from"), body = $("tz-body");
+    if (!nowBody) return;
+
+    var ZONES = [
+      ["America/New_York", "Eastern (ET)"],
+      ["America/Chicago", "Central (CT)"],
+      ["America/Denver", "Mountain (MT)"],
+      ["America/Los_Angeles", "Pacific (PT)"],
+      ["UTC", "UTC"],
+      ["Europe/London", "London"]
+    ];
+
+    function fmt(d, tz) {
+      return new Intl.DateTimeFormat("en-US", {
+        timeZone: tz, weekday: "short", month: "short", day: "numeric",
+        hour: "numeric", minute: "2-digit", second: "2-digit", hour12: true
+      }).format(d);
+    }
+
+    // offset (ms) of `tz` at the instant `d`, computed from real IANA rules via Intl
+    function offsetMs(d, tz) {
+      var parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+      }).formatToParts(d).reduce(function (acc, p) { acc[p.type] = p.value; return acc; }, {});
+      var h = +parts.hour === 24 ? 0 : +parts.hour;
+      var asUTC = Date.UTC(+parts.year, +parts.month - 1, +parts.day, h, +parts.minute, +parts.second);
+      return asUTC - d.getTime();
+    }
+
+    function fillNow() {
+      var d = new Date();
+      nowBody.innerHTML = ZONES.map(function (z) {
+        return "<tr><th>" + z[1] + "</th><td class=\"mono\">" + fmt(d, z[0]) + "</td></tr>";
+      }).join("");
+    }
+    fillNow(); setInterval(fillNow, 1000);
+
+    function convert() {
+      if (!date.value) return;
+      // treat the naive input as wall-clock time in the "from" zone, resolve it to a real instant
+      var guess = new Date(date.value + "Z");
+      var actual = new Date(guess.getTime() - offsetMs(guess, from.value));
+      body.innerHTML = ZONES.map(function (z) {
+        return "<tr><th>" + z[1] + "</th><td class=\"mono\">" + fmt(actual, z[0]) + "</td></tr>";
+      }).join("");
+    }
+    [date, from].forEach(function (e) { e.addEventListener("input", convert); });
+
+    var d0 = new Date(), pad = function (x) { return (x < 10 ? "0" : "") + x; };
+    date.value = d0.getFullYear() + "-" + pad(d0.getMonth() + 1) + "-" + pad(d0.getDate()) +
+      "T" + pad(d0.getHours()) + ":" + pad(d0.getMinutes()) + ":" + pad(d0.getSeconds());
+    // default "from" to the visitor's own zone when it's one of the listed ones,
+    // so the prefilled example is a correct, self-consistent "current time" — falls
+    // back to Central otherwise
+    var local = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    from.value = ZONES.some(function (z) { return z[0] === local; }) ? local : "America/Chicago";
+    convert();
+  }
+
+  /* ------------------------------------------------------------- inputtest */
+  function initInputTest() {
+    var kbdEl = $("kbd"), held = $("kb-held"), resetBtn = $("kb-reset"), grid = $("mt-grid"),
+        scrollbox = $("mt-scrollbox"), scrollCount = $("mt-scrollcount"), scrollBody = $("mt-scrollbody");
+    if (!kbdEl) return;
+
+    // ---- build the ANSI keyboard diagram ----
+    function k(label, code, w) { return { label: label, code: code, w: w || 1 }; }
+    var MAIN_ROWS = [
+      [k("esc", "Escape"), k("F1", "F1"), k("F2", "F2"), k("F3", "F3"), k("F4", "F4"), k("F5", "F5"), k("F6", "F6"), k("F7", "F7"), k("F8", "F8"), k("F9", "F9"), k("F10", "F10"), k("F11", "F11"), k("F12", "F12")],
+      [k("`", "Backquote"), k("1", "Digit1"), k("2", "Digit2"), k("3", "Digit3"), k("4", "Digit4"), k("5", "Digit5"), k("6", "Digit6"), k("7", "Digit7"), k("8", "Digit8"), k("9", "Digit9"), k("0", "Digit0"), k("-", "Minus"), k("=", "Equal"), k("⌫", "Backspace", 2)],
+      [k("Tab", "Tab", 1.5), k("Q", "KeyQ"), k("W", "KeyW"), k("E", "KeyE"), k("R", "KeyR"), k("T", "KeyT"), k("Y", "KeyY"), k("U", "KeyU"), k("I", "KeyI"), k("O", "KeyO"), k("P", "KeyP"), k("[", "BracketLeft"), k("]", "BracketRight"), k("\\", "Backslash", 1.5)],
+      [k("Caps", "CapsLock", 1.75), k("A", "KeyA"), k("S", "KeyS"), k("D", "KeyD"), k("F", "KeyF"), k("G", "KeyG"), k("H", "KeyH"), k("J", "KeyJ"), k("K", "KeyK"), k("L", "KeyL"), k(";", "Semicolon"), k("'", "Quote"), k("Enter", "Enter", 2.25)],
+      [k("Shift", "ShiftLeft", 2.25), k("Z", "KeyZ"), k("X", "KeyX"), k("C", "KeyC"), k("V", "KeyV"), k("B", "KeyB"), k("N", "KeyN"), k("M", "KeyM"), k(",", "Comma"), k(".", "Period"), k("/", "Slash"), k("Shift", "ShiftRight", 2.75)],
+      [k("Ctrl", "ControlLeft", 1.25), k("Win", "MetaLeft", 1.25), k("Alt", "AltLeft", 1.25), k("", "Space", 6.25), k("Alt", "AltRight", 1.25), k("Win", "MetaRight", 1.25), k("Menu", "ContextMenu", 1.25), k("Ctrl", "ControlRight", 1.25)]
+    ];
+    var NAV_ROWS = [
+      [k("Ins", "Insert"), k("Home", "Home"), k("PgUp", "PageUp")],
+      [k("Del", "Delete"), k("End", "End"), k("PgDn", "PageDown")]
+    ];
+    var ARROW_ROWS = [
+      [k("", "_"), k("↑", "ArrowUp"), k("", "_")],
+      [k("←", "ArrowLeft"), k("↓", "ArrowDown"), k("→", "ArrowRight")]
+    ];
+
+    var keyEls = {};
+    function buildRow(row) {
+      var el = document.createElement("div"); el.className = "kbd-row";
+      row.forEach(function (key) {
+        var d = document.createElement("div");
+        d.className = "kbd-key"; d.style.flexGrow = key.w; d.textContent = key.label;
+        if (key.code === "_") { d.style.visibility = "hidden"; }
+        else { (keyEls[key.code] = keyEls[key.code] || []).push(d); }
+        el.appendChild(d);
+      });
+      return el;
+    }
+    var main = document.createElement("div"); main.className = "kbd-main";
+    MAIN_ROWS.forEach(function (r) { main.appendChild(buildRow(r)); });
+    var side = document.createElement("div"); side.className = "kbd-side";
+    var nav = document.createElement("div"); nav.className = "kbd-nav";
+    NAV_ROWS.forEach(function (r) { nav.appendChild(buildRow(r)); });
+    var arrows = document.createElement("div"); arrows.className = "kbd-arrows";
+    ARROW_ROWS.forEach(function (r) { arrows.appendChild(buildRow(r)); });
+    side.appendChild(nav); side.appendChild(arrows);
+    kbdEl.appendChild(main); kbdEl.appendChild(side);
+
+    function mark(code, cls, on) {
+      (keyEls[code] || []).forEach(function (el) { el.classList.toggle(cls, on); });
+    }
+
+    // ---- key events ----
+    var activeKeys = {};
+    function renderHeld() {
+      var codes = Object.keys(activeKeys);
+      held.innerHTML = codes.length
+        ? codes.map(function (c) { return '<span class="kb-chip active">' + activeKeys[c] + "</span>"; }).join("")
+        : '<span class="kb-chip">no keys held</span>';
+    }
+    window.addEventListener("keydown", function (e) {
+      activeKeys[e.code] = e.key === " " ? "Space" : e.key;
+      mark(e.code, "pressed", true); mark(e.code, "held", true);
+      renderHeld();
+    });
+    window.addEventListener("keyup", function (e) {
+      delete activeKeys[e.code];
+      mark(e.code, "held", false);
+      renderHeld();
+    });
+    window.addEventListener("blur", function () {
+      Object.keys(activeKeys).forEach(function (c) { mark(c, "held", false); });
+      activeKeys = {}; renderHeld();
+    });
+    renderHeld();
+    resetBtn.addEventListener("click", function () {
+      Object.keys(keyEls).forEach(function (c) { mark(c, "pressed", false); mark(c, "held", false); });
+      activeKeys = {}; renderHeld();
+    });
+
+    // ---- mouse buttons ----
+    var counts = [0, 0, 0, 0, 0];
+    grid.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    grid.addEventListener("mousedown", function (e) {
+      // buttons 3/4 (back/forward) trigger browser navigation by default — stop that
+      if (e.button === 3 || e.button === 4) e.preventDefault();
+      var btn = grid.querySelector('[data-btn="' + e.button + '"]');
+      if (!btn) return;
+      counts[e.button]++;
+      var c = $("mt-count-" + e.button); if (c) c.textContent = counts[e.button];
+      btn.classList.add("active");
+    });
+    grid.addEventListener("mouseup", function (e) {
+      if (e.button === 3 || e.button === 4) e.preventDefault();
+      var btn = grid.querySelector('[data-btn="' + e.button + '"]');
+      if (btn) btn.classList.remove("active");
+    });
+
+    // ---- scroll wheel ----
+    var scrolls = 0, sLog = [];
+    scrollbox.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      scrolls++;
+      scrollCount.textContent = scrolls;
+      var dir = Math.abs(e.deltaY) >= Math.abs(e.deltaX)
+        ? (e.deltaY > 0 ? "down" : "up")
+        : (e.deltaX > 0 ? "right" : "left");
+      sLog.unshift([dir, e.deltaX.toFixed(1), e.deltaY.toFixed(1)]);
+      if (sLog.length > 8) sLog.length = 8;
+      scrollBody.innerHTML = sLog.map(function (r) {
+        return "<tr><th>" + r[0] + "</th><td class=\"mono\">Δx " + r[1] + "</td><td class=\"mono\">Δy " + r[2] + "</td></tr>";
+      }).join("");
+    }, { passive: false });
+  }
+
   /* ----------------------------------------------------------------- sleep */
   function initSleep() {
     var now = $("sl-now"), nowOut = $("sl-nowout"), nowTimes = $("sl-nowtimes"),
@@ -1125,6 +1301,8 @@
     initBandwidth();
     initConvert();
     initTimestamp();
+    initTimezone();
+    initInputTest();
     initSleep();
     initTip();
     initOneRepMax();

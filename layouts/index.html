@@ -13,16 +13,28 @@
     <div><span class="k">focus</span> {{ .Params.focus }}</div>
     <div><span class="k">hobbies</span> {{ .Params.hobbies }}</div>
     <div><span class="k">shell</span> /bin/spears — type <span style="color:var(--accent)">help</span></div>
-    <div><span class="k">uptime</span> {{ .Params.uptime }}</div>
+    <div><span class="k">uptime</span> {{ sub now.Year site.Params.itSinceYear }}+ years in IT</div>
   </div>
 </div>
 
 <h1>{{ .Params.heading }} <span class="prompt-tag">{{ .Params.tagline }}</span></h1>
 <p class="lead">{{ .Content | plainify }} <a href="/about/" style="color:var(--accent-2);text-decoration:none">[more]</a></p>
 
-<div class="group-label">posts</div>
+{{ $allPosts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ with index $allPosts 0 }}
+<div class="featured">
+  <div class="fcmd"><span class="p">$</span> cat posts/latest</div>
+  <a class="frow" href="{{ .RelPermalink }}">
+    <div class="ftitle">{{ .Title }}</div>
+    <div class="fmeta">{{ .Date.Format "Jan. 2, 2006" }} · {{ .ReadingTime }} min read</div>
+    <div class="fdesc">{{ .Summary | plainify | truncate 220 }}</div>
+    <div class="fcta">read →</div>
+  </a>
+</div>
+{{ end }}
+
 <div class="list">
-{{ range first 6 (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ range first 5 (after 1 $allPosts) }}
   <a class="row" href="{{ .RelPermalink }}"><span class="date">{{ .Date.Format "Jan. 2, 2006" }}</span><span class="name">{{ .Title }}<span class="desc">{{ .Summary | plainify | truncate 180 }}</span></span></a>
 {{ end }}
 </div>

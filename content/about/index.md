@@ -26,17 +26,24 @@ I enjoy building reliable systems, improving operational efficiency, and leading
 <div class="timeline">
   <div class="tl-item">
     <div class="tl-role">IT Manager <span class="tl-now">present</span></div>
-    <div class="tl-org">Dickson Medical Associates</div>
+    <div class="tl-org">Dickson Medical Associates · Sep 2025 – present</div>
     <div class="tl-desc">Lead the in-house IT team and the core infrastructure supporting business-critical clinical and operational systems.</div>
   </div>
   <div class="tl-item">
+    <div class="tl-role">IT Team Lead, Systems Administrator</div>
+    <div class="tl-org">Dickson Medical Associates · Jan 2025 – Sep 2025</div>
+    <div class="tl-desc">Joined as systems administrator and team lead; promoted to IT Manager within the year.</div>
+  </div>
+  <div class="tl-item">
     <div class="tl-role">IT Systems Administrator</div>
-    <div class="tl-org">Tennsco</div>
+    <div class="tl-org">Tennsco · Jun 2019 – Jan 2025</div>
     <div class="tl-desc">Supported multi-site manufacturing operations and maintained critical infrastructure across nine locations.</div>
   </div>
   <div class="tl-item">
     <div class="tl-role">IT Support &amp; Infrastructure</div>
-    <div class="tl-org">Tennessee Department of Transportation</div>
+    <div class="tl-org">Tennessee Department of Transportation · Jan 2015 – Jun 2019</div>
     <div class="tl-desc">Delivered large-scale technical support and infrastructure deployments across statewide facilities.</div>
   </div>
 </div>
+
+<div class="meta" style="margin-top:20px">Everything on this site — the posts, the guide, all of it — reflects my own views and research, not my employer's.</div>

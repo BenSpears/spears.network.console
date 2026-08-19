@@ -1,0 +1,29 @@
+<div class="tool" data-tool="inputtest">
+  <div class="group-label">keyboard</div>
+  <div class="tool-row" style="justify-content:space-between; align-items:center; margin-bottom:8px">
+    <p class="tool-hint" style="margin:0">Press any key — it stays lit so you can see everything you've hit.</p>
+    <button class="tool-btn ghost" id="kb-reset" type="button">clear</button>
+  </div>
+  <div class="tool-row" id="kb-held" style="flex-wrap:wrap; gap:8px; min-height:16px; margin-bottom:10px"></div>
+  <div class="kbd-wrap"><div class="kbd-diagram" id="kbd"></div></div>
+
+  <div class="group-label" style="margin-top:22px">mouse buttons</div>
+  <p class="tool-hint" style="margin:0 0 10px">Click each button, including right-click and the side buttons — both the context menu and back/forward navigation are suppressed inside the box below.</p>
+  <div class="mt-grid" id="mt-grid">
+    <div class="mt-btn" data-btn="0"><span class="mt-name">Left</span><span class="mt-count" id="mt-count-0">0</span></div>
+    <div class="mt-btn" data-btn="1"><span class="mt-name">Middle</span><span class="mt-count" id="mt-count-1">0</span></div>
+    <div class="mt-btn" data-btn="2"><span class="mt-name">Right</span><span class="mt-count" id="mt-count-2">0</span></div>
+    <div class="mt-btn" data-btn="3"><span class="mt-name">Back</span><span class="mt-count" id="mt-count-3">0</span></div>
+    <div class="mt-btn" data-btn="4"><span class="mt-name">Forward</span><span class="mt-count" id="mt-count-4">0</span></div>
+  </div>
+
+  <div class="group-label" style="margin-top:22px">scroll wheel</div>
+  <p class="tool-hint" style="margin:0 0 10px">Scroll inside the box below.</p>
+  <div class="mt-scrollbox" id="mt-scrollbox">
+    <div class="tool-answer">
+      <span class="ta-big" id="mt-scrollcount">0</span>
+      <span class="ta-sub">scroll events</span>
+    </div>
+    <table class="tool-table"><tbody id="mt-scrollbody"></tbody></table>
+  </div>
+</div>

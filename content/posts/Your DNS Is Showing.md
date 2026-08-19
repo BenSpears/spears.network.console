@@ -5,7 +5,7 @@ title: Your DNS Is Showing
 description: "Even with HTTPS, your DNS lookups reveal every site you visit. What leaks, how encrypted DNS (DoH/DoT) fixes it, the trade-offs, and how to turn it on."
 ---
 
-I've worked in IT for about twelve years, and I was pulling networks apart for
+I've worked in IT for about {{< yearsinit >}} years, and I was pulling networks apart for
 fun long before anyone paid me to. The thing that still surprises people isn't
 some exotic attack — it's how much their own network can see while they assume
 they're browsing privately.

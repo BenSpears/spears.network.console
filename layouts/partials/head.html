@@ -56,7 +56,20 @@
   "author" (dict "@type" "Person" "name" .Site.Params.author "url" .Site.BaseURL)
   "publisher" (dict "@type" "Person" "name" .Site.Params.author)
   }}</script>
-{{ else if eq .Section "about" }}
+{{ else if eq .RelPermalink "/guide/" }}
+<script type="application/ld+json">{{ dict
+  "@context" "https://schema.org"
+  "@type" "Article"
+  "headline" .Title
+  "description" $desc
+  "datePublished" (.Date.Format "2006-01-02")
+  "dateModified" (.Lastmod.Format "2006-01-02")
+  "url" .Permalink
+  "mainEntityOfPage" .Permalink
+  "author" (dict "@type" "Person" "name" .Site.Params.author "url" .Site.BaseURL)
+  "publisher" (dict "@type" "Person" "name" .Site.Params.author)
+  }}</script>
+{{ else if eq .RelPermalink "/about/" }}
 <script type="application/ld+json">{{ dict
   "@context" "https://schema.org"
   "@type" "ProfilePage"
@@ -138,17 +151,24 @@
     {{- $appdocs = $appdocs | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink) -}}
   {{- end -}}
 {{- end -}}
+{{- $tools := slice -}}
+{{- range (where .Site.RegularPages "Section" "tools").ByWeight -}}
+  {{- if and (eq .Kind "page") .Params.tool -}}
+    {{- $tools = $tools | append (dict "slug" (path.Base .RelPermalink) "title" .Title "url" .RelPermalink "tagline" .Params.tagline) -}}
+  {{- end -}}
+{{- end -}}
 {{/* CSP-safe data holder: JSON in an HTML attribute (no inline script needed) */}}
 <div id="sn-data" hidden data-sn="{{ (dict
   "path" .RelPermalink
   "posts" $posts
   "apps" $apps
   "appdocs" $appdocs
+  "tools" $tools
   "logo" .Site.Params.logo
   "profile" (dict
     "focus" site.Home.Params.focus
     "hobbies" site.Home.Params.hobbies
-    "uptime" site.Home.Params.uptime
+    "uptime" (printf "%d+ years in IT" (sub now.Year site.Params.itSinceYear))
   )
   "build" (dict
     "time" (now.Format "2006-01-02 15:04 MST")

@@ -17,7 +17,7 @@ done it the manual way. It works, but it's tedious, every site has its own
 process, and they quietly repopulate your data after a few months, so it's never
 actually finished.
 
-So last November I paid for [EasyOptOuts](https://easyoptouts.com/) instead. It's
+So I pay for [EasyOptOuts](https://easyoptouts.com/) instead. It's
 about $20 a year. You give it your details, it checks a couple hundred
 people-search sites, files the removals for you, and re-runs the whole thing
 every four months so the entries that creep back get taken down again. [Consumer Reports](https://www.consumerreports.org/electronics/personal-information/services-that-delete-data-from-people-search-sites-review-a2705843415/)
@@ -38,3 +38,6 @@ This is one of the highest-return privacy moves I know of for the effort
 involved: twenty dollars and ten minutes, and a lot less noise on your phone.
 Most privacy advice asks you to change how you live. This one just quietly
 deletes you from a market you never agreed to join.
+
+This is one piece of a bigger checklist — the [full version is on the guide
+page](/guide/).

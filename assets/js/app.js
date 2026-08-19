@@ -12,7 +12,7 @@
     if (_dataEl) D = JSON.parse(_dataEl.getAttribute("data-sn"));
   } catch (e) { D = {}; }
 
-  var SITE = { posts: D.posts || [], apps: D.apps || [], appdocs: D.appdocs || [] };
+  var SITE = { posts: D.posts || [], apps: D.apps || [], appdocs: D.appdocs || [], tools: D.tools || [] };
   var CUR = D.path || "/";
   var BUILD = D.build || {};
 
@@ -53,8 +53,10 @@
   var SECTIONS = {
     "": "/", "~": "/", "/": "/", "home": "/",
     "about": "/about/", "about/": "/about/",
+    "guide": "/guide/", "guide/": "/guide/",
     "posts": "/posts/", "posts/": "/posts/", "blog": "/posts/",
     "apps": "/apps/", "apps/": "/apps/",
+    "tools": "/tools/", "tools/": "/tools/",
     "links": "/links/", "links/": "/links/"
   };
   function parentPath(p) {
@@ -75,7 +77,7 @@
     var byNum = parseInt(n, 10);
     if (!isNaN(byNum) && CUR.indexOf("/posts") === 0 && SITE.posts[byNum - 1])
       return SITE.posts[byNum - 1].url;
-    var hit = SITE.posts.concat(SITE.apps, SITE.appdocs).filter(function (i) {
+    var hit = SITE.posts.concat(SITE.apps, SITE.appdocs, SITE.tools).filter(function (i) {
       return i.slug === n || i.slug.indexOf(n) === 0;
     })[0];
     return hit ? hit.url : null;
@@ -364,10 +366,11 @@
       return m.length === 1 ? m[0] + " " : common(m, parts[0]);
     }
     var last = parts[parts.length - 1].toLowerCase();
-    pool = ["about", "posts", "apps", "links", "~", "home"]
+    pool = ["about", "guide", "posts", "apps", "tools", "links", "~", "home"]
       .concat(SITE.posts.map(function (p) { return p.slug; }))
       .concat(SITE.apps.map(function (p) { return p.slug; }))
-      .concat(SITE.appdocs.map(function (p) { return p.slug; }));
+      .concat(SITE.appdocs.map(function (p) { return p.slug; }))
+      .concat(SITE.tools.map(function (p) { return p.slug; }));
     var mm = pool.filter(function (c) { return c.indexOf(last) === 0; });
     if (!mm.length) return val;
     parts[parts.length - 1] = mm.length === 1 ? mm[0] : lcp(mm) || last;
@@ -525,12 +528,15 @@
     var items = [
       { label: "Home", sub: "~", url: "/" },
       { label: "About", sub: "~/about", url: "/about/" },
+      { label: "Guide", sub: "~/guide", url: "/guide/" },
       { label: "Posts", sub: "~/posts", url: "/posts/" },
       { label: "Apps", sub: "~/apps", url: "/apps/" },
+      { label: "Tools", sub: "~/tools", url: "/tools/" },
       { label: "Links", sub: "~/links", url: "/links/" }
     ];
     SITE.posts.forEach(function (p) { items.push({ label: p.title, sub: "post · " + p.date, url: p.url }); });
     SITE.apps.forEach(function (a) { items.push({ label: a.title, sub: "app", url: a.url }); });
+    SITE.tools.forEach(function (t) { items.push({ label: t.title, sub: "tool" + (t.tagline ? " · " + t.tagline : ""), url: t.url }); });
     [["help", "list commands"], ["privacy", "what sites see about you"], ["resume", "professional summary"],
      ["status", "build & systems status"], ["neofetch", "profile card"], ["contact", "reach me"],
      ["theme", "cycle accent"], ["banner", "print logo"], ["reboot", "reload from root"], ["shutdown", "power off · reload to restore"], ["clear", "clear console"]]
@@ -609,6 +615,7 @@
       if (document.documentElement.classList.contains("term-hidden")) {
         document.documentElement.classList.remove("term-hidden");
         try { localStorage.setItem("sn_termhidden", "0"); } catch (e) {}
+        setDockH();
       }
       run(it.cmd);
     }
@@ -625,6 +632,7 @@
       if (docEl.classList.contains("term-hidden")) {
         docEl.classList.remove("term-hidden");
         try { localStorage.setItem("sn_termhidden", "0"); } catch (x) {}
+        setDockH();
       }
       if (!input.value) input.value = "grep ";
       focusInput(); syncCaret();
@@ -633,10 +641,23 @@
 
   // ---- window controls: green = full width, yellow = hide terminal -------
   var docEl = document.documentElement;
+
+  // keep --dock-h in sync with the sticky dock's real height (nav + terminal,
+  // which changes when the terminal is hidden/shown) so anchor jumps land
+  // just below it instead of underneath it. Called explicitly on every toggle
+  // rather than relying solely on ResizeObserver, which can lag a display:none
+  // flip by a frame or two.
+  var dockEl = document.querySelector(".dock");
+  var setDockH = function () { if (dockEl) docEl.style.setProperty("--dock-h", dockEl.offsetHeight + "px"); };
+  setDockH();
+  if (dockEl && window.ResizeObserver) new ResizeObserver(setDockH).observe(dockEl);
+  else window.addEventListener("resize", setDockH);
+
   function toggleState(cls, key) {
     var on = docEl.classList.toggle(cls);
     try { localStorage.setItem(key, on ? "1" : "0"); } catch (e) {}
     syncCaret();
+    setDockH();
   }
   var btnMax = el("btn-max"), btnMin = el("btn-min");
   if (btnMax) btnMax.addEventListener("click", function () { toggleState("full", "sn_full"); });

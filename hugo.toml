@@ -9,6 +9,11 @@ disableKinds = ["taxonomy", "term"]
 [params]
   author = "Benjamin Spears"
   description = "Benjamin Spears — IT Manager. Infrastructure, systems administration, privacy."
+  # single source of truth for "years in IT" everywhere it's displayed —
+  # update this one line, not the number itself, when the year rolls over
+  itSinceYear = 2015
+  # domain registration year (confirmed via whois, 2018-08-22) — footer copyright range starts here
+  copyrightSince = 2018
   # ASCII logo used by the neofetch card and the `banner` terminal command.
   logo = '''
    ___ _ __   ___  __ _ _ __ ___
@@ -21,6 +26,9 @@ disableKinds = ["taxonomy", "term"]
   [[params.navlinks]]
     name = "about/"
     url  = "/about/"
+  [[params.navlinks]]
+    name = "guide/"
+    url  = "/guide/"
   [[params.navlinks]]
     name = "posts/"
     url  = "/posts/"
