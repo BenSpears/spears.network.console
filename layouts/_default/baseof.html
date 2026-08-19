@@ -22,7 +22,7 @@
     {{ block "main" . }}{{ end }}
   </main>
 
-  <div class="footer"><span class="accent">●</span> {{ .Site.Params.author }} · © {{ site.Params.copyrightSince }}{{ if ne site.Params.copyrightSince now.Year }}–{{ now.Year }}{{ end }}{{ with (os.Getenv "COMMIT_REF") }}<span class="ver">build {{ substr . 0 7 }}</span>{{ end }}</div>
+  <div class="footer"><span class="accent">●</span> {{ .Site.Params.author }} · © {{ site.Params.copyrightSince }}{{ if ne site.Params.copyrightSince now.Year }}–{{ now.Year }}{{ end }}{{ with (os.Getenv "COMMIT_REF") }} · <span class="ver">build {{ substr . 0 7 }}</span>{{ end }}</div>
 </div>
 {{ $app := resources.Get "js/app.js" | fingerprint }}
 <script src="{{ $app.RelPermalink }}"></script>

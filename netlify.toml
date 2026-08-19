@@ -47,10 +47,12 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
+# not content-hashed like css/js — revalidate every time so a swapped image
+# shows up immediately instead of being stuck behind a year-long cache
 [[headers]]
   for = "/apps/img/*"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Cache-Control = "public, max-age=0, must-revalidate"
 
 [[headers]]
   for = "/sw.js"

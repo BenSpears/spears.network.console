@@ -32,8 +32,8 @@ body {
   min-height: 100vh;
   background:
     radial-gradient(var(--dot, rgba(255,255,255,.06)) 1px, transparent 1.5px) 0 0 / 22px 22px fixed,
-    radial-gradient(1200px 600px at 78% -10%, rgba(94,242,160,.05), transparent 60%),
-    radial-gradient(900px 500px at 10% 110%, rgba(86,212,221,.045), transparent 55%),
+    radial-gradient(1200px 600px at 78% -10%, var(--spot-1, rgba(94,242,160,.05)), transparent 60%),
+    radial-gradient(900px 500px at 10% 110%, var(--spot-2, rgba(86,212,221,.045)), transparent 55%),
     var(--bg);
   color: var(--fg);
   font-family: var(--mono);
@@ -594,8 +594,8 @@ html.light .mode-toggle::after { content: "\263E"; }  /* ☾ in light → switch
 
 /* ---- light "paper terminal" theme ---- */
 html.light {
-  --bg: #eae7df;
-  --bg-soft: #f0ede6;
+  --bg: #ddd6c5;
+  --bg-soft: #e6e0d1;
   --panel: #f6f3ec;
   --panel-2: #efece4;
   --border: #dcd7ca;
@@ -607,7 +607,9 @@ html.light {
   --accent-2: #0a7ea4;
   --accent-3: #6b4fbb;
   --shadow: 0 24px 60px -26px rgba(60,55,45,.4), 0 2px 8px rgba(0,0,0,.08);
-  --dot: rgba(0,0,0,.08);
+  --dot: rgba(0,0,0,.14);
+  --spot-1: rgba(15,143,91,.08);
+  --spot-2: rgba(10,126,164,.07);
 }
 html.light body::after { opacity: .18; }
 html.light .titlebar { background: linear-gradient(180deg,#f1eee7,#e8e4db); }
