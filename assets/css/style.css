@@ -785,6 +785,13 @@ html.light ::selection { background: rgba(15,143,91,.18); color: #14181d; }
 }
 .viewall:hover { color: var(--accent); }
 
+.footer .ver { color: var(--fg-faint); letter-spacing: .02em; margin-left: auto; }
+
+/* click-to-copy result cells */
+.tool-out td.mono, .tool-out code.mono { cursor: pointer; }
+.tool-out td.mono:hover { color: var(--accent); }
+.tool-out td.mono.copied-flash, .tool-out code.mono.copied-flash { color: var(--accent) !important; }
+
 /* http status codes */
 .http-code { font-weight: 600; white-space: nowrap; }
 .http-code.c1 { color: var(--fg-dim); }

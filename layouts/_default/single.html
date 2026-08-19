@@ -71,6 +71,7 @@
   <div style="margin-top:14px">
     <h1>{{ .Title }}</h1>
     {{ with .Params.tagline }}<div class="apptag">{{ . }}</div>{{ end }}
+    {{ if .Params.sharelink }}<button class="tool-btn ghost tool-sharelink" type="button" style="margin-top:10px">copy shareable link</button>{{ end }}
   </div>
   {{ with .Content }}<div class="prose" style="margin-top:12px">{{ . }}</div>{{ end }}
   {{ partial (printf "tool-%s.html" .Params.tool) . }}

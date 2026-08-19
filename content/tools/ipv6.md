@@ -2,6 +2,7 @@
 title = "IPv6 Expand / Compress"
 weight = 21
 tool = "ipv6"
+sharelink = true
 group = "Networking"
 glyph = "::"
 tagline = "Normalize, expand, and compress IPv6"

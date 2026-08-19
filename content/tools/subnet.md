@@ -2,6 +2,7 @@
 title = "Subnet Calculator"
 weight = 1
 tool = "subnet"
+sharelink = true
 group = "Networking"
 glyph = "/24"
 tagline = "IPv4 subnet / CIDR breakdown"

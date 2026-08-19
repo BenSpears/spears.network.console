@@ -10,6 +10,19 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
     });
   }
+  // shareable state: prefill an input from ?<key>= and keep the URL in sync as you type
+  function deepLink(input, key) {
+    try {
+      var p = new URLSearchParams(location.search);
+      if (p.has(key)) input.value = p.get(key);
+      input.addEventListener("input", function () {
+        var q = new URLSearchParams(location.search);
+        if (input.value) q.set(key, input.value); else q.delete(key);
+        var s = q.toString();
+        history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+      });
+    } catch (e) {}
+  }
 
   /* ---------------------------------------------------------------- subnet */
   function initSubnet() {
@@ -17,7 +30,10 @@
         out = $("sn-out"), body = $("sn-body"), err = $("sn-err"), bits = $("sn-bits");
     if (!input || !go) return;
 
-    function fail(msg) { err.textContent = msg; show(err); hide(out); }
+    function fail(msg, silent) {
+      hide(out);
+      if (silent) hide(err); else { err.textContent = msg; show(err); }
+    }
 
     function parseOctets(s) {
       var parts = s.split(".");
@@ -35,21 +51,21 @@
       return [(n >>> 24) & 255, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join(".");
     }
 
-    function calc() {
+    function calc(silent) {
       hide(err);
       var raw = input.value.trim();
-      if (!raw) return fail("Enter an address, e.g. 192.168.1.10/24");
+      if (!raw) return fail("Enter an address, e.g. 192.168.1.10/24", silent);
       var ipStr = raw, prefix = 32;
       var slash = raw.indexOf("/");
       if (slash !== -1) {
         ipStr = raw.slice(0, slash);
         var p = raw.slice(slash + 1);
-        if (!/^\d{1,2}$/.test(p)) return fail("Prefix must be 0–32.");
+        if (!/^\d{1,2}$/.test(p)) return fail("Prefix must be 0–32.", silent);
         prefix = parseInt(p, 10);
-        if (prefix > 32) return fail("Prefix must be 0–32.");
+        if (prefix > 32) return fail("Prefix must be 0–32.", silent);
       }
       var ip = parseOctets(ipStr);
-      if (ip === null) return fail("That doesn't look like a valid IPv4 address.");
+      if (ip === null) return fail("That doesn't look like a valid IPv4 address.", silent);
 
       var mask = prefix === 0 ? 0 : (0xFFFFFFFF << (32 - prefix)) >>> 0;
       var network = (ip & mask) >>> 0;
@@ -124,9 +140,11 @@
       show(out);
     }
 
-    go.addEventListener("click", calc);
-    input.addEventListener("keydown", function (e) { if (e.key === "Enter") calc(); });
-    calc();
+    go.addEventListener("click", function () { calc(false); });
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") calc(false); });
+    input.addEventListener("input", function () { calc(true); }); // live, no nagging on partial input
+    deepLink(input, "q");
+    calc(false);
   }
 
   /* ------------------------------------------------------------------- dns */
@@ -592,7 +610,8 @@
   function initTimestamp() {
     var now = $("ts-now"), nowsub = $("ts-nowsub"), copy = $("ts-copy"),
         epoch = $("ts-epoch"), unit = $("ts-unit"), out1 = $("ts-out1"), body1 = $("ts-body1"), err1 = $("ts-err1"),
-        date = $("ts-date"), out2 = $("ts-out2"), body2 = $("ts-body2");
+        date = $("ts-date"), out2 = $("ts-out2"), body2 = $("ts-body2"),
+        datestr = $("ts-datestr"), err2 = $("ts-err2");
     if (!now) return;
 
     function rel(ms) {
@@ -642,14 +661,36 @@
       var ms = unit.value === "ms" ? n : n * 1000;
       fill(body1, ms); show(out1);
     }
+    function parseAny(str) {
+      str = str.trim();
+      if (!str) return NaN;
+      // a bare number => Unix epoch (<=11 digits: seconds, otherwise milliseconds)
+      if (/^\d{9,14}$/.test(str)) { var n = Number(str); return str.length <= 11 ? n * 1000 : n; }
+      var norm = str
+        .replace(/(\.\d{3})\d+/, "$1")                       // trim sub-millisecond digits
+        .replace(/\b(\d{1,2})(st|nd|rd|th)\b/gi, "$1")       // 13th -> 13
+        .replace(/\bat\b/gi, " ")                            // "Aug 13, 2026 at 4:51 PM"
+        .replace(/^(\d{4})\/(\d{1,2})\/(\d{1,2})/, "$1-$2-$3"); // YYYY/MM/DD -> ISO
+      var t = Date.parse(norm);
+      if (isNaN(t)) t = Date.parse(norm.replace(" ", "T"));  // "YYYY-MM-DD HH:MM[:SS]"
+      return t;
+    }
     function fromDate() {
       if (!date.value) { hide(out2); return; }
       var ms = new Date(date.value).getTime();
       if (!isFinite(ms)) { hide(out2); return; }
-      fill(body2, ms); show(out2);
+      hide(err2); fill(body2, ms); show(out2);
+    }
+    function fromString() {
+      var v = datestr.value.trim();
+      if (!v) { hide(err2); if (!date.value) hide(out2); return; }
+      var ms = parseAny(v);
+      if (isNaN(ms)) { err2.textContent = "Couldn't recognize that date. Try ISO 8601, e.g. 2026-08-13T16:51:07."; show(err2); hide(out2); return; }
+      hide(err2); fill(body2, ms); show(out2);
     }
     [epoch, unit].forEach(function (e) { e.addEventListener("input", fromEpoch); });
     date.addEventListener("input", fromDate);
+    datestr.addEventListener("input", fromString);
 
     // prefill with the current time as a live example
     epoch.value = Math.floor(Date.now() / 1000); fromEpoch();
@@ -1181,6 +1222,7 @@
     }
     go.addEventListener("click", run);
     inp.addEventListener("keydown", function (e) { if (e.key === "Enter") run(); });
+    deepLink(inp, "q");
     run();
   }
 
@@ -1218,6 +1260,23 @@
       show(out);
     }
     [inp, base].forEach(function (e) { e.addEventListener("input", run); });
+    // shareable state: ?q=<value>&base=<2|8|10|16>
+    (function () {
+      try {
+        var p = new URLSearchParams(location.search);
+        if (p.has("q")) inp.value = p.get("q");
+        if (["2", "8", "10", "16"].indexOf(p.get("base")) > -1) base.value = p.get("base");
+        function sync() {
+          var q = new URLSearchParams(location.search);
+          if (inp.value) q.set("q", inp.value); else q.delete("q");
+          q.set("base", base.value);
+          var s = q.toString();
+          history.replaceState(null, "", location.pathname + (s ? "?" + s : "") + location.hash);
+        }
+        inp.addEventListener("input", sync);
+        base.addEventListener("change", sync);
+      } catch (e) {}
+    })();
     run();
   }
 
@@ -1284,7 +1343,48 @@
     fillFrom(); render();
   }
 
+  // focus the primary input on desktop only (avoid popping the mobile keyboard)
+  function autofocusPrimary() {
+    if (!window.matchMedia || !matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+    var el = document.querySelector(
+      ".tool input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=range]):not([readonly])," +
+      ".tool textarea:not([readonly])");
+    if (!el) return;
+    // defer so we win over the terminal's own focus-on-load, then select the
+    // prefilled example so the first keystroke replaces it
+    setTimeout(function () {
+      var a = document.activeElement;
+      if (a && a.id === "cmd") return; // terminal prompt is in use — leave it focused
+      try { el.focus({ preventScroll: true }); } catch (e) { el.focus(); }
+      try { el.select(); } catch (e) {}
+    }, 60);
+  }
+
+  // click any monospace result value to copy it; copy-shareable-link buttons
+  function initCopy() {
+    document.addEventListener("click", function (e) {
+      var cell = e.target.closest && e.target.closest(".tool-out td.mono, .tool-out code.mono");
+      if (cell) {
+        var txt = (cell.textContent || "").trim();
+        if (txt && txt !== "—" && navigator.clipboard) {
+          navigator.clipboard.writeText(txt);
+          cell.classList.add("copied-flash");
+          setTimeout(function () { cell.classList.remove("copied-flash"); }, 450);
+        }
+        return;
+      }
+      var btn = e.target.closest && e.target.closest(".tool-sharelink");
+      if (btn && navigator.clipboard) {
+        navigator.clipboard.writeText(location.href);
+        var o = btn.textContent; btn.textContent = "link copied";
+        setTimeout(function () { btn.textContent = o; }, 1300);
+      }
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    autofocusPrimary();
+    initCopy();
     initSubnet();
     initCidr();
     initUnits();

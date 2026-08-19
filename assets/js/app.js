@@ -90,9 +90,10 @@
         '<span class="k">available commands</span>\n' +
         "  help              this menu\n" +
         "  ls [dir]          list sections or entries\n" +
-        "  cd &lt;dir&gt;          change section  (about · posts · apps · links · ~)\n" +
+        "  cd &lt;dir&gt;          change section  (about · posts · apps · tools · links · ~)\n" +
         "  cat &lt;post&gt;        open a post by name or number\n" +
         "  open &lt;app&gt;        open an app privacy/support page\n" +
+        "  &lt;tool&gt;            type a tool name to open it  (e.g. subnet)\n" +
         "  grep &lt;term&gt;       search posts &amp; pages  ( / )\n" +
         "  about             who is Benjamin Spears\n" +
         "  whoami            current session identity\n" +
@@ -115,8 +116,13 @@
       if (dir === "" || dir === "~" || dir === "/" || dir === "home") {
         print(
           '<a href="/about/">about/</a>   <a href="/posts/">posts/</a>   ' +
-          '<a href="/apps/">apps/</a>   <a href="/links/">links/</a>'
+          '<a href="/apps/">apps/</a>   <a href="/tools/">tools/</a>   <a href="/links/">links/</a>'
         );
+      } else if (dir === "tools") {
+        print(SITE.tools.map(function (t) {
+          return "  <a href='" + t.url + "'>" + esc(t.slug) + "</a>" +
+            '  <span class="muted">' + esc(t.title) + "</span>";
+        }).join("\n") + "\n  <span class=\"k\">type a tool name</span> (e.g. <b>subnet</b>) to open it");
       } else if (dir === "posts" || dir === "blog") {
         print(SITE.posts.map(function (p, i) {
           return "  " + String(i + 1).padStart(2, "0") + "  " +
@@ -348,7 +354,15 @@
     pushHist(raw);
     if (ALIASES[cmd]) cmd = ALIASES[cmd];
     if (COMMANDS[cmd]) COMMANDS[cmd](parts);
-    else err(cmd + ": command not found — type 'help'");
+    else {
+      // a bare page/tool name navigates — require an EXACT match so "s" doesn't jump anywhere
+      var t = SECTIONS[cmd];
+      if (!t) {
+        var hit = SITE.posts.concat(SITE.apps, SITE.appdocs, SITE.tools).filter(function (i) { return i.slug === cmd; })[0];
+        t = hit ? hit.url : null;
+      }
+      if (t) go(t); else err(cmd + ": command not found — type 'help'");
+    }
     scrollConsole();
   }
 
@@ -387,12 +401,27 @@
   // ---- theme -------------------------------------------------------------
   var THEMES = ["mint", "cyan", "violet", "amber"];
   var THEME_VAL = { mint: "#5ef2a0", cyan: "#56d4dd", violet: "#b98cff", amber: "#ffcf6b" };
+  // darker, readable variants for light mode so theme cycling works in both modes
+  var THEME_VAL_LIGHT = { mint: "#0f8f5b", cyan: "#0a7ea4", violet: "#6b4fbb", amber: "#b7791f" };
   var themeIdx = load("theme", 0);
+  function updateFavicon() {
+    try {
+      var cs = getComputedStyle(document.documentElement);
+      var c = cs.getPropertyValue("--accent").trim() || "#5ef2a0";
+      var bg = cs.getPropertyValue("--bg").trim() || "#0a0e12";
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">' +
+        '<rect width="100" height="100" rx="22" fill="' + bg + '"/>' +
+        '<path d="M28 30 L52 50 L28 70" fill="none" stroke="' + c + '" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>' +
+        '<rect x="56" y="61" width="20" height="10" rx="3" fill="' + c + '"/></svg>';
+      var link = document.querySelector('link[rel="icon"][type="image/svg+xml"]');
+      if (link) link.href = "data:image/svg+xml," + encodeURIComponent(svg);
+    } catch (e) {}
+  }
   function applyTheme() {
     var d = document.documentElement;
-    // in light mode use the light palette's readable accent (don't force a bright one)
-    if (d.classList.contains("light")) { d.style.removeProperty("--accent"); return; }
-    d.style.setProperty("--accent", THEME_VAL[THEMES[themeIdx]]);
+    var table = d.classList.contains("light") ? THEME_VAL_LIGHT : THEME_VAL;
+    d.style.setProperty("--accent", table[THEMES[themeIdx]]);
+    updateFavicon();
   }
   function cycleTheme() { themeIdx = (themeIdx + 1) % THEMES.length; save("theme", themeIdx); applyTheme(); }
   function setMode(m) {

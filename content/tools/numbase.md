@@ -2,6 +2,7 @@
 title = "Number Base Converter"
 weight = 22
 tool = "numbase"
+sharelink = true
 group = "Encoding & Data"
 glyph = "0x"
 tagline = "Convert hex, decimal, binary, octal"
